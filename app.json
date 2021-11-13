@@ -1,32 +1,27 @@
 {
   "expo": {
-    "name": "qrwallet",
+    "name": "QRWallet",
     "slug": "qrwallet",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/iconWallet.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/splashWallet.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#915eba"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/iconWallet.png",
+        "backgroundColor": "#915eba"
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }
