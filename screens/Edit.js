@@ -7,15 +7,12 @@ import styles from "../styles";
 import { colors } from "../colors";
 import QRCode from "react-native-qrcode-svg";
 
-function AddCode({ navigation }) {
+function Edit({ navigation, route }) {
+  const { code } = route.params;
   const { codes, setCodes } = useContext(CodesContext);
 
-  const [name, setName] = useState("");
-  const [link, setLink] = useState("");
-  const [code, setCode] = useState("");
-  const [created, setCreated] = useState(true);
-
-  const RickRoll = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+  const [name, setName] = useState(code.name);
+  const [link, setLink] = useState(code.link);
 
   useEffect(() => {
     try {
@@ -28,27 +25,28 @@ function AddCode({ navigation }) {
 
   const save = () => {
     if (name && link) {
-      setCode(link);
-      let obj = {
-        name: name,
-        link: link,
-        id: new Date().getTime(),
-      };
-      setCodes((oldCodes) => [...oldCodes, obj]);
-      setCreated(false);
+      let updatedCodes = codes.map((item) => {
+        if (code.id === item.id) {
+          return { ...item, name: name, link: link };
+        }
+        return item;
+      });
+      setCodes(updatedCodes);
     } else {
       alert("Validation error...");
     }
   };
 
+  const removeCode = () => {
+    setCodes(codes.filter((item) => item.id !== code.id));
+
+    navigation.navigate("Main");
+  };
+
   return (
     <View style={styles.screenContainer}>
       <View style={stylesLocal.qrHolder}>
-        <QRCode
-          value={code ? code : RickRoll}
-          size={200}
-          color={code ? colors.qrmain : colors.inactive}
-        />
+        <QRCode value={code.link} size={200} color={colors.qrmain} />
       </View>
       <View
         style={{
@@ -62,14 +60,14 @@ function AddCode({ navigation }) {
           placeholder="Название"
           placeholderTextColor={colors.inactive}
           onChangeText={(text) => setName(text)}
-          editable={created}
+          value={name}
         />
         <TextInput
           style={[styles.textInput, { marginTop: 20 }]}
           placeholder="Ссылка внутри кода"
           placeholderTextColor={colors.inactive}
           onChangeText={(text) => setLink(text)}
-          editable={created}
+          value={link}
         />
         <Button
           type="primary"
@@ -77,12 +75,24 @@ function AddCode({ navigation }) {
           topOffset={20}
           onPress={save}
         />
-        <Button
-          topOffset={20}
-          type="secondary"
-          title="Назад"
-          onPress={() => navigation.navigate("Main")}
-        />
+        <View style={stylesLocal.bottomBtns}>
+          <View style={{ flex: 1, marginRight: 10 }}>
+            <Button
+              topOffset={20}
+              type="red"
+              title="Удалить"
+              onPress={() => removeCode()}
+            />
+          </View>
+          <View style={{ flex: 1, marginLeft: 10 }}>
+            <Button
+              topOffset={20}
+              type="secondary"
+              title="Назад"
+              onPress={() => navigation.navigate("Main")}
+            />
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -94,6 +104,11 @@ const stylesLocal = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
+  bottomBtns: {
+    flexDirection: "row",
+    width: "100%",
+  },
 });
 
-export default AddCode;
+export default Edit;

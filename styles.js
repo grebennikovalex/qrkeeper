@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { colors } from "./colors";
 
 const styles = StyleSheet.create({
@@ -24,6 +24,39 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     fontWeight: "bold",
     color: colors.secondary,
+  },
+
+  bottomMenu: {
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 20,
+  },
+
+  QRContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 24,
+  },
+
+  QRCard: {
+    flex: 1,
+    margin: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    width: Dimensions.get("screen").width - 40,
+    borderRadius: 20,
+    elevation: 10,
+    backgroundColor: colors.background,
+  },
+
+  burgerMenuContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    width: "100%",
   },
 });
 

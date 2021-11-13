@@ -2,5 +2,7 @@ export const colors = {
   primary: "#5D5FEF",
   background: "#ffffff",
   secondary: "#4f4f4f",
-  placeholder: "#eeeeee",
+  inactive: "#eeeeee",
+  qrmain: "#000000",
+  red: "#EF5D5D",
 };
