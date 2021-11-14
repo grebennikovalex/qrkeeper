@@ -5,4 +5,5 @@ export const colors = {
   inactive: "#eeeeee",
   qrmain: "#000000",
   red: "#EF5D5D",
+  green: "#2CA87B",
 };

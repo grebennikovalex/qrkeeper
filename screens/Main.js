@@ -1,6 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import React, { useState, useCallback, useContext, useRef } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { CodesContext } from "../context";
+import { useFocusEffect } from "@react-navigation/native";
 import QRCode from "react-native-qrcode-svg";
 import Button from "../components/Button";
 import styles from "../styles";
@@ -12,6 +19,14 @@ function Main({ navigation }) {
 
   const [pageNum, setPageNum] = useState(1);
   const [burgerOpen, setBurgerOpen] = useState(true);
+
+  const codesListRef = useRef(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      codesListRef.current && codesListRef.current.scrollToEnd();
+    }, [])
+  );
 
   const onScrollEnd = (e) => {
     let contentOffset = e.nativeEvent.contentOffset;
@@ -35,6 +50,7 @@ function Main({ navigation }) {
         ) : (
           <View style={styles.QRContainer}>
             <FlatList
+              ref={codesListRef}
               data={codes}
               showsHorizontalScrollIndicator={false}
               horizontal={true}
@@ -43,7 +59,13 @@ function Main({ navigation }) {
               onScroll={(e) => onScrollEnd(e)}
               renderItem={({ item, index }) => (
                 <View style={styles.QRCard}>
-                  <View style={{ flex: 3, justifyContent: "center" }}>
+                  <View
+                    style={{
+                      flex: 3,
+                      justifyContent: "flex-start",
+                      paddingTop: 40,
+                    }}
+                  >
                     <TouchableOpacity
                       onPress={() =>
                         navigation.navigate("Edit", { code: item })
@@ -51,7 +73,7 @@ function Main({ navigation }) {
                     >
                       <QRCode
                         value={item.link}
-                        size={220}
+                        size={Dimensions.get("screen").width - 120}
                         color={colors.qrmain}
                       />
                     </TouchableOpacity>

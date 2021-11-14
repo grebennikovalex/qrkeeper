@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Dimensions } from "react-native";
+import * as Linking from "expo-linking";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../styles";
 import { colors } from "../colors";
@@ -20,16 +21,40 @@ function Info({ navigation }) {
           colors={[colors.primary, "rgba(239, 93, 93, 0.5)"]}
           style={styles.infoGradient}
         >
-          <Image source={require("../assets/qr_wallet_logo.png")} />
+          <Image
+            source={require("../assets/qr_wallet_logo.png")}
+            style={{ width: Dimensions.get("screen").width / 2 }}
+            resizeMode="contain"
+          />
           <View style={{ paddingHorizontal: 20 }}>
             <Text style={styles.infoText}>
               <Text style={{ fontWeight: "bold" }}>QRWallet</Text> — удобное
-              хранение сраных кодов, которые нужно показывать при входе в
-              кафешки и другие заведения.
+              хранение кодов, которые нужно показывать при входе в кафешки и
+              другие заведения.
             </Text>
-            <Text style={styles.infoText}>Версия 0.1</Text>
-            <Text style={styles.infoText}>
-              Разработка и дизайн: @grebennikovalex @streletskiy.b
+            <Text style={styles.infoText}>Версия 0.2.0</Text>
+            <Text style={styles.infoText}>Разработка и дизайн:</Text>
+            <Text
+              onPress={() =>
+                Linking.openURL("https://www.instagram.com/grebennikovalex/")
+              }
+              style={[
+                styles.infoText,
+                { marginTop: 0, textDecorationLine: "underline" },
+              ]}
+            >
+              @grebennikovalex
+            </Text>
+            <Text
+              onPress={() =>
+                Linking.openURL("https://www.instagram.com/streletskiy.b/")
+              }
+              style={[
+                styles.infoText,
+                { marginTop: 0, textDecorationLine: "underline" },
+              ]}
+            >
+              @streletskiy.b
             </Text>
           </View>
         </LinearGradient>

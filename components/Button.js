@@ -7,7 +7,14 @@ import QuestionIcon from "../assets/QuestionIcon";
 import ChevronIcon from "../assets/ChevronIcon";
 import CogIcon from "../assets/CogIcon";
 
-function Button({ onPress, type, title, topOffset = 0, leftOffset = 0 }) {
+function Button({
+  onPress,
+  type,
+  title,
+  topOffset = 0,
+  leftOffset = 0,
+  bold = false,
+}) {
   if (type === "plus")
     return (
       <TouchableOpacity
@@ -59,7 +66,14 @@ function Button({ onPress, type, title, topOffset = 0, leftOffset = 0 }) {
         style={[styles.barPrimary, { marginTop: topOffset }]}
         onPress={onPress}
       >
-        <Text style={[styles.text, { color: colors.background }]}>{title}</Text>
+        <Text
+          style={[
+            styles.text,
+            { color: colors.background, fontWeight: bold ? "bold" : "normal" },
+          ]}
+        >
+          {title}
+        </Text>
       </TouchableOpacity>
     );
   else if (type === "secondary")
@@ -68,7 +82,14 @@ function Button({ onPress, type, title, topOffset = 0, leftOffset = 0 }) {
         style={[styles.barSecondary, { marginTop: topOffset }]}
         onPress={onPress}
       >
-        <Text style={[styles.text, { color: colors.primary }]}>{title}</Text>
+        <Text
+          style={[
+            styles.text,
+            { color: colors.primary, fontWeight: bold ? "bold" : "normal" },
+          ]}
+        >
+          {title}
+        </Text>
       </TouchableOpacity>
     );
   else if (type === "red")
@@ -77,7 +98,30 @@ function Button({ onPress, type, title, topOffset = 0, leftOffset = 0 }) {
         style={[styles.barRed, { marginTop: topOffset }]}
         onPress={onPress}
       >
-        <Text style={[styles.text, { color: colors.red }]}>{title}</Text>
+        <Text
+          style={[
+            styles.text,
+            { color: colors.red, fontWeight: bold ? "bold" : "normal" },
+          ]}
+        >
+          {title}
+        </Text>
+      </TouchableOpacity>
+    );
+  else if (type === "green")
+    return (
+      <TouchableOpacity
+        style={[styles.barGreen, { marginTop: topOffset }]}
+        onPress={onPress}
+      >
+        <Text
+          style={[
+            styles.text,
+            { color: colors.background, fontWeight: bold ? "bold" : "normal" },
+          ]}
+        >
+          {title}
+        </Text>
       </TouchableOpacity>
     );
 }
@@ -127,6 +171,16 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     borderWidth: 1,
     borderColor: colors.red,
+  },
+
+  barGreen: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: 60,
+    borderRadius: 20,
+    backgroundColor: colors.green,
+    elevation: 10,
   },
 });
 

@@ -2,9 +2,9 @@
   "expo": {
     "name": "QRWallet",
     "slug": "qrwallet",
-    "version": "1.0.0",
+    "version": "0.2.0",
     "orientation": "portrait",
-    "icon": "./assets/iconWallet.png",
+    "icon": "./assets/app_icon_img.png",
     "splash": {
       "image": "./assets/splashWallet.png",
       "resizeMode": "cover",
@@ -20,8 +20,10 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/iconWallet.png",
+        "foregroundImage": "./assets/app_icon_img.png",
+        "backgroundImage": "./assets/app_icon_bg.png",
         "backgroundColor": "#915eba"
       },
       "package": "com.grebennikovalex.qrwallet"

@@ -70,6 +70,7 @@ function Edit({ navigation, route }) {
           value={link}
         />
         <Button
+          bold={true}
           type="primary"
           title="Сохранить"
           topOffset={20}
@@ -78,6 +79,7 @@ function Edit({ navigation, route }) {
         <View style={stylesLocal.bottomBtns}>
           <View style={{ flex: 1, marginRight: 10 }}>
             <Button
+              bold={true}
               topOffset={20}
               type="red"
               title="Удалить"
@@ -86,6 +88,7 @@ function Edit({ navigation, route }) {
           </View>
           <View style={{ flex: 1, marginLeft: 10 }}>
             <Button
+              bold={true}
               topOffset={20}
               type="secondary"
               title="Назад"
