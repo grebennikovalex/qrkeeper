@@ -13,10 +13,10 @@ const CodesContextProvider = (props) => {
   const getCodes = async () => {
     try {
       const readCodes = await SecureStore.getItemAsync("qrwallet");
-
-      setCodes(JSON.parse(readCodes));
-
-      console.log("What is in the storage: ", readCodes);
+      let parsed = JSON.parse(readCodes);
+      if (Array.isArray(parsed)) {
+        setCodes(parsed);
+      }
     } catch (e) {
       console.warn(e);
     }

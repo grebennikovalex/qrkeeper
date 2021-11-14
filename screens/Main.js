@@ -7,9 +7,8 @@ import styles from "../styles";
 import { colors } from "../colors";
 import BurgerMenu from "../components/BurgerMenu";
 
-function Main({ navigation, route }) {
-  console.log(route);
-  const { codes, setCodes } = useContext(CodesContext);
+function Main({ navigation }) {
+  const { codes } = useContext(CodesContext);
 
   const [pageNum, setPageNum] = useState(1);
   const [burgerOpen, setBurgerOpen] = useState(true);

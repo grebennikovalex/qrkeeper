@@ -13,7 +13,6 @@ function AddCode({ navigation }) {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
   const [code, setCode] = useState("");
-  const [created, setCreated] = useState(true);
 
   const RickRoll = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
@@ -35,9 +34,8 @@ function AddCode({ navigation }) {
         id: new Date().getTime(),
       };
       setCodes((oldCodes) => [...oldCodes, obj]);
-      setCreated(false);
     } else {
-      alert("Validation error...");
+      alert("Заполните все поля...");
     }
   };
 
@@ -62,14 +60,12 @@ function AddCode({ navigation }) {
           placeholder="Название"
           placeholderTextColor={colors.inactive}
           onChangeText={(text) => setName(text)}
-          editable={created}
         />
         <TextInput
           style={[styles.textInput, { marginTop: 20 }]}
           placeholder="Ссылка внутри кода"
           placeholderTextColor={colors.inactive}
           onChangeText={(text) => setLink(text)}
-          editable={created}
         />
         <Button
           type="primary"

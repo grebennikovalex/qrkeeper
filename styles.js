@@ -58,6 +58,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
   },
+
+  infoGradient: {
+    flex: 1,
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    paddingTop: 34,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  },
+
+  infoText: {
+    color: colors.background,
+    fontSize: 16,
+    marginTop: 10,
+  },
 });
 
 export default styles;

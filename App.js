@@ -19,7 +19,7 @@ export default function App() {
           backBehavior="order"
           screenOptions={{ headerMode: "none" }}
         >
-          <Stack.Screen name="Main" component={Main} options={{}} />
+          <Stack.Screen name="Main" component={Main} />
           <Stack.Screen name="AddCode" component={AddCode} />
           <Stack.Screen name="Edit" component={Edit} />
           <Stack.Screen name="Info" component={Info} />
