@@ -3,10 +3,11 @@ import {
   View,
   TextInput,
   StyleSheet,
-  TouchableOpacity,
   Text,
   Alert,
   Keyboard,
+  Dimensions,
+  TouchableHighlight,
 } from "react-native";
 import { CodesContext } from "../context";
 import * as SecureStore from "expo-secure-store";
@@ -15,13 +16,13 @@ import styles from "../styles";
 import { colors } from "../colors";
 import QRCode from "react-native-qrcode-svg";
 import * as Clipboard from "expo-clipboard";
+import Modal from "react-native-modal";
 import PasteIcon from "../assets/PasteIcon";
 
 function AddCode({ navigation }) {
-  const { codes, setCodes } = useContext(CodesContext);
-
+  const { codes, setCodes, link, setLink, modalOpen, setModalOpen, message } =
+    useContext(CodesContext);
   const [name, setName] = useState("");
-  const [link, setLink] = useState("");
   const [code, setCode] = useState("");
   const [hideBtns, setHideBtns] = useState(false);
 
@@ -54,7 +55,7 @@ function AddCode({ navigation }) {
     if (name && link) {
       setCode(link);
     } else {
-      Alert.alert("QRWallet", "Заполните все поля", [{ text: "OK" }]);
+      Alert.alert("QRWallet", "Введите название", [{ text: "OK" }]);
     }
   };
 
@@ -66,6 +67,10 @@ function AddCode({ navigation }) {
     };
     setCodes((oldCodes) => [...oldCodes, obj]);
     navigation.navigate("Main");
+  };
+
+  const scan = () => {
+    navigation.navigate("Scan");
   };
 
   const fetchCopiedText = async () => {
@@ -85,7 +90,7 @@ function AddCode({ navigation }) {
       <View style={stylesLocal.qrHolder}>
         <QRCode
           value={code ? code : RickRoll}
-          size={200}
+          size={Dimensions.get("screen").width - 120}
           color={code ? colors.qrmain : colors.inactive}
         />
       </View>
@@ -102,7 +107,7 @@ function AddCode({ navigation }) {
           placeholderTextColor={colors.inactive}
           onChangeText={(text) => setName(text)}
         />
-        <Text style={stylesLocal.infoText}>Введите или вставьте ссылку:</Text>
+        {/* <Text style={stylesLocal.infoText}>Введите или вставьте ссылку:</Text>
         <View style={stylesLocal.linkInput}>
           <TextInput
             style={[
@@ -119,7 +124,27 @@ function AddCode({ navigation }) {
           >
             <PasteIcon width={22} height={22} color={colors.primary} />
           </TouchableOpacity>
-        </View>
+        </View> */}
+        {link ? (
+          <Text
+            style={[
+              stylesLocal.linkText,
+              { paddingHorizontal: 20, marginTop: 20, marginBottom: 0 },
+            ]}
+          >
+            {link}
+          </Text>
+        ) : (
+          <Button
+            bold={true}
+            type={"green"}
+            title={"Сканировать код"}
+            topOffset={20}
+            onPress={() => {
+              scan();
+            }}
+          />
+        )}
         {!hideBtns && (
           <>
             <Button
@@ -140,11 +165,39 @@ function AddCode({ navigation }) {
               topOffset={20}
               type="secondary"
               title="Назад"
-              onPress={() => navigation.navigate("Main")}
+              onPress={() => {
+                setLink("");
+                navigation.navigate("Main");
+              }}
             />
           </>
         )}
       </View>
+      <Modal
+        isVisible={modalOpen}
+        backdropColor={"#ccc"}
+        backdropOpacity={0.7}
+        useNativeDriver={true}
+      >
+        <View style={styles.modalMessage}>
+          <Text
+            style={[
+              styles.textBold,
+              { color: colors.green, textAlign: "left" },
+            ]}
+          >
+            {message}
+          </Text>
+          <Text style={stylesLocal.linkText}>{link}</Text>
+        </View>
+        <TouchableHighlight
+          underlayColor={colors.background}
+          style={styles.modalMessage}
+          onPress={() => setModalOpen(false)}
+        >
+          <Text style={[styles.textBold, { color: colors.green }]}>Ок</Text>
+        </TouchableHighlight>
+      </Modal>
     </View>
   );
 }
@@ -153,7 +206,8 @@ const stylesLocal = StyleSheet.create({
   qrHolder: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    paddingTop: 64,
   },
   linkInput: {
     flexDirection: "row",
@@ -173,8 +227,14 @@ const stylesLocal = StyleSheet.create({
 
   infoText: {
     textAlign: "center",
-    color: colors.secondary,
-    marginTop: 10,
+    color: colors.inactive,
+    marginTop: 15,
+  },
+
+  linkText: {
+    color: colors.green,
+    fontSize: 14,
+    marginVertical: 12,
   },
 });
 

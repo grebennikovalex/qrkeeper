@@ -6,25 +6,24 @@
     "orientation": "portrait",
     "icon": "./assets/app_icon_img.png",
     "splash": {
-      "image": "./assets/splashWallet.png",
+      "image": "./assets/qrwallet_splash_lng.png",
       "resizeMode": "cover",
-      "backgroundColor": "#915eba"
+      "backgroundColor": "#5D5FEF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "versionCode": 1,
+      "permissions": ["CAMERA"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/app_icon_img.png",
         "backgroundImage": "./assets/app_icon_bg.png",
-        "backgroundColor": "#915eba"
+        "backgroundColor": "#5D5FEF"
       },
       "package": "com.grebennikovalex.qrwallet"
     },

@@ -26,6 +26,13 @@ const styles = StyleSheet.create({
     color: colors.secondary,
   },
 
+  textBold: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: colors.secondary,
+    textAlign: "center",
+  },
+
   bottomMenu: {
     flexDirection: "row",
     width: "100%",
@@ -74,6 +81,23 @@ const styles = StyleSheet.create({
     color: colors.background,
     fontSize: 16,
     marginTop: 10,
+  },
+
+  modalContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+
+  modalMessage: {
+    width: "100%",
+    elevation: 10,
+    borderRadius: 20,
+    backgroundColor: colors.background,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginVertical: 10,
   },
 });
 

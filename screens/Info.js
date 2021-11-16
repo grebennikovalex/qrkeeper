@@ -23,8 +23,11 @@ function Info({ navigation }) {
         >
           <Image
             source={require("../assets/qr_wallet_logo.png")}
-            style={{ width: Dimensions.get("screen").width / 2 }}
-            resizeMode="contain"
+            style={{
+              height: 200,
+              width: Dimensions.get("screen").width / 2,
+            }}
+            resizeMode="center"
           />
           <View style={{ paddingHorizontal: 20 }}>
             <Text style={styles.infoText}>

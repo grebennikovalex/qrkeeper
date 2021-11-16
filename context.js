@@ -5,6 +5,9 @@ export const CodesContext = createContext();
 
 const CodesContextProvider = (props) => {
   const [codes, setCodes] = useState([]);
+  const [link, setLink] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     getCodes();
@@ -27,6 +30,12 @@ const CodesContextProvider = (props) => {
       value={{
         codes,
         setCodes,
+        link,
+        setLink,
+        modalOpen,
+        setModalOpen,
+        message,
+        setMessage,
       }}
     >
       {props.children}

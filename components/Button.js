@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, Text } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import { colors } from "../colors";
 import BurgerIcon from "../assets/BurgerIcon";
 import PlusIcon from "../assets/PlusIcon";
@@ -124,6 +124,19 @@ function Button({
         </Text>
       </TouchableOpacity>
     );
+  else if (type === "inactive")
+    return (
+      <View style={[styles.inactive, { marginTop: topOffset }]}>
+        <Text
+          style={[
+            styles.text,
+            { color: colors.inactive, fontWeight: bold ? "bold" : "normal" },
+          ]}
+        >
+          {title}
+        </Text>
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -181,6 +194,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: colors.green,
     elevation: 10,
+  },
+
+  inactive: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: 60,
+    borderRadius: 20,
+    backgroundColor: colors.background,
+    borderWidth: 1,
+    borderColor: colors.inactive,
   },
 });
 

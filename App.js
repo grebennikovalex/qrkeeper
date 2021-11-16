@@ -4,11 +4,12 @@ import AppLoading from "expo-app-loading";
 import * as SecureStore from "expo-secure-store";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import CodesContextProvider, { CodesContext } from "./context";
+import CodesContextProvider from "./context";
 import Main from "./screens/Main";
 import AddCode from "./screens/AddCode";
 import Edit from "./screens/Edit";
 import Info from "./screens/Info";
+import Scan from "./screens/Scan";
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ export default function App() {
             <Stack.Screen name="AddCode" component={AddCode} />
             <Stack.Screen name="Edit" component={Edit} />
             <Stack.Screen name="Info" component={Info} />
+            <Stack.Screen name="Scan" component={Scan} />
           </Stack.Navigator>
           <StatusBar style="auto" />
         </NavigationContainer>
@@ -37,15 +39,7 @@ export default function App() {
     return (
       <AppLoading
         startAsync={async () => {
-          try {
-            const readCodes = await SecureStore.getItemAsync("qrwallet");
-            let parsed = JSON.parse(readCodes);
-            if (Array.isArray(parsed)) {
-              setChecked(true);
-            }
-          } catch (e) {
-            console.warn(e);
-          }
+          await SecureStore.getItemAsync("qrwallet");
         }}
         onFinish={() => setChecked(true)}
         onError={console.warn}

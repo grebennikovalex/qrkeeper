@@ -78,8 +78,14 @@ function Main({ navigation }) {
                       />
                     </TouchableOpacity>
                   </View>
-                  <View style={{ flex: 1, justifyContent: "center" }}>
-                    <Text>{item.name}</Text>
+                  <View
+                    style={{
+                      flex: 1,
+                      marginHorizontal: 30,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text style={styles.textBold}>{item.name}</Text>
                   </View>
                 </View>
               )}

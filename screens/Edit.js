@@ -1,11 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  Keyboard,
+  Dimensions,
+} from "react-native";
 import { CodesContext } from "../context";
 import * as SecureStore from "expo-secure-store";
 import Button from "../components/Button";
 import styles from "../styles";
 import { colors } from "../colors";
 import QRCode from "react-native-qrcode-svg";
+import PasteIcon from "../assets/PasteIcon";
+import * as Clipboard from "expo-clipboard";
 
 function Edit({ navigation, route }) {
   const { code } = route.params;
@@ -13,6 +23,8 @@ function Edit({ navigation, route }) {
 
   const [name, setName] = useState(code.name);
   const [link, setLink] = useState(code.link);
+  const [btn, setBtn] = useState(false);
+  const [hideBtns, setHideBtns] = useState(false);
 
   useEffect(() => {
     try {
@@ -22,6 +34,20 @@ function Edit({ navigation, route }) {
       console.warn(e);
     }
   }, [codes]);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setHideBtns(true);
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setHideBtns(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   const save = () => {
     if (name && link) {
@@ -39,14 +65,29 @@ function Edit({ navigation, route }) {
 
   const removeCode = () => {
     setCodes(codes.filter((item) => item.id !== code.id));
-
     navigation.navigate("Main");
+  };
+
+  const fetchCopiedText = async () => {
+    try {
+      const text = await Clipboard.getStringAsync();
+      setLink(text);
+    } catch (e) {
+      console.log(e.message);
+      Alert.alert("QRWallet", "Скопируйте ссылку на сертификат", [
+        { text: "OK" },
+      ]);
+    }
   };
 
   return (
     <View style={styles.screenContainer}>
       <View style={stylesLocal.qrHolder}>
-        <QRCode value={code.link} size={200} color={colors.qrmain} />
+        <QRCode
+          value={code.link}
+          size={Dimensions.get("screen").width - 120}
+          color={colors.qrmain}
+        />
       </View>
       <View
         style={{
@@ -59,43 +100,64 @@ function Edit({ navigation, route }) {
           style={styles.textInput}
           placeholder="Название"
           placeholderTextColor={colors.inactive}
-          onChangeText={(text) => setName(text)}
+          onChangeText={(text) => {
+            setName(text);
+            setBtn(true);
+          }}
           value={name}
         />
-        <TextInput
-          style={[styles.textInput, { marginTop: 20 }]}
-          placeholder="Ссылка внутри кода"
-          placeholderTextColor={colors.inactive}
-          onChangeText={(text) => setLink(text)}
-          value={link}
-        />
-        <Button
-          bold={true}
-          type="primary"
-          title="Сохранить"
-          topOffset={20}
-          onPress={save}
-        />
-        <View style={stylesLocal.bottomBtns}>
-          <View style={{ flex: 1, marginRight: 10 }}>
-            <Button
-              bold={true}
-              topOffset={20}
-              type="red"
-              title="Удалить"
-              onPress={() => removeCode()}
-            />
-          </View>
-          <View style={{ flex: 1, marginLeft: 10 }}>
-            <Button
-              bold={true}
-              topOffset={20}
-              type="secondary"
-              title="Назад"
-              onPress={() => navigation.navigate("Main")}
-            />
-          </View>
+        <View style={stylesLocal.linkInput}>
+          <TextInput
+            style={[
+              styles.textInput,
+              { backgroundColor: "transparent", elevation: 0 },
+            ]}
+            placeholder="Ссылка внутри кода"
+            placeholderTextColor={colors.inactive}
+            onChangeText={(text) => {
+              setLink(text);
+              setBtn(true);
+            }}
+            value={link}
+          />
+          <TouchableOpacity
+            style={stylesLocal.pasteBtn}
+            onPress={() => fetchCopiedText()}
+          >
+            <PasteIcon width={22} height={22} color={colors.primary} />
+          </TouchableOpacity>
         </View>
+        {!hideBtns && (
+          <>
+            <Button
+              bold={true}
+              type={btn ? "green" : "inactive"}
+              title={"Сохранить"}
+              topOffset={20}
+              onPress={save}
+            />
+            <View style={stylesLocal.bottomBtns}>
+              <View style={{ flex: 1, marginRight: 10 }}>
+                <Button
+                  bold={true}
+                  topOffset={20}
+                  type="red"
+                  title="Удалить"
+                  onPress={() => removeCode()}
+                />
+              </View>
+              <View style={{ flex: 1, marginLeft: 10 }}>
+                <Button
+                  bold={true}
+                  topOffset={20}
+                  type="secondary"
+                  title="Назад"
+                  onPress={() => navigation.navigate("Main")}
+                />
+              </View>
+            </View>
+          </>
+        )}
       </View>
     </View>
   );
@@ -105,12 +167,29 @@ const stylesLocal = StyleSheet.create({
   qrHolder: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    paddingTop: 64,
   },
 
   bottomBtns: {
     flexDirection: "row",
     width: "100%",
+  },
+
+  linkInput: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+    backgroundColor: colors.background,
+    elevation: 10,
+    borderRadius: 20,
+  },
+  pasteBtn: {
+    position: "absolute",
+    right: 10,
+    backgroundColor: colors.background,
+    padding: 10,
+    borderRadius: 10,
   },
 });
 
