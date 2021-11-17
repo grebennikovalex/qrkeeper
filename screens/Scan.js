@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { CodesContext } from "../context";
-import { Camera } from "expo-camera";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import styles from "../styles";
 
 const d = Dimensions.get("screen").width * 0.66;
@@ -11,9 +11,11 @@ function Scan({ navigation }) {
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
 
+  let scanner = null;
+
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
@@ -41,15 +43,20 @@ function Scan({ navigation }) {
 
   return (
     <View style={styles.screenContainer}>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Camera
-          type={Camera.Constants.Type.back}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={{
-            height: Dimensions.get("screen").width,
-            width: Dimensions.get("screen").width,
-          }}
+          style={{ flex: 1, height: "100%", width: "100%" }}
         />
+
         <Text
           style={{
             color: "white",

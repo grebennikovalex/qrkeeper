@@ -1,4 +1,5 @@
-import { StatusBar } from "expo-status-bar";
+import "react-native-gesture-handler";
+// import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import AppLoading from "expo-app-loading";
 import * as SecureStore from "expo-secure-store";
@@ -31,7 +32,7 @@ export default function App() {
             <Stack.Screen name="Info" component={Info} />
             <Stack.Screen name="Scan" component={Scan} />
           </Stack.Navigator>
-          <StatusBar style="auto" />
+          {/* <StatusBar style="auto" /> */}
         </NavigationContainer>
       </CodesContextProvider>
     );
