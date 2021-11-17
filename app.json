@@ -2,9 +2,9 @@
   "expo": {
     "name": "QRWallet",
     "slug": "qrwallet",
-    "version": "0.2.0",
+    "version": "0.2.3",
     "orientation": "portrait",
-    "icon": "./assets/app_icon_img.png",
+    "icon": "./assets/app_icon_combined.png",
     "splash": {
       "image": "./assets/qrwallet_splash_lng.png",
       "resizeMode": "cover",
@@ -13,17 +13,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "versionCode": 1,
-      "permissions": [
-        "CAMERA"
-      ],
+      "permissions": ["CAMERA"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/app_icon_img.png",
         "backgroundImage": "./assets/app_icon_bg.png",

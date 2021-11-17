@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, Dimensions } from "react-native";
+import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
 import * as Linking from "expo-linking";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../styles";
@@ -32,33 +32,31 @@ function Info({ navigation }) {
           <View style={{ paddingHorizontal: 20 }}>
             <Text style={styles.infoText}>
               <Text style={{ fontWeight: "bold" }}>QRWallet</Text> — удобное
-              хранение кодов, которые нужно показывать при входе в кафешки и
+              хранение кодов, которые нужно показывать при входе в кафе и в
               другие заведения.
             </Text>
-            <Text style={styles.infoText}>Версия 0.2.0</Text>
+            <Text style={styles.infoText}>Версия 0.2.3</Text>
             <Text style={styles.infoText}>Разработка и дизайн:</Text>
-            <Text
+            <TouchableOpacity
+              style={styles.infoBtn}
               onPress={() =>
                 Linking.openURL("https://www.instagram.com/grebennikovalex/")
               }
-              style={[
-                styles.infoText,
-                { marginTop: 0, textDecorationLine: "underline" },
-              ]}
             >
-              @grebennikovalex
-            </Text>
-            <Text
+              <Text style={[styles.infoText, { marginTop: 0 }]}>
+                @grebennikovalex
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={() =>
                 Linking.openURL("https://www.instagram.com/streletskiy.b/")
               }
-              style={[
-                styles.infoText,
-                { marginTop: 0, textDecorationLine: "underline" },
-              ]}
+              style={styles.infoBtn}
             >
-              @streletskiy.b
-            </Text>
+              <Text style={[styles.infoText, { marginTop: 0 }]}>
+                @streletskiy.b
+              </Text>
+            </TouchableOpacity>
           </View>
         </LinearGradient>
       </View>

@@ -99,6 +99,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginVertical: 10,
   },
+
+  infoBtn: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderColor: colors.background,
+    borderWidth: 1,
+    borderRadius: 14,
+    marginTop: 4,
+  },
 });
 
 export default styles;

@@ -66,6 +66,7 @@ function AddCode({ navigation }) {
       id: new Date().getTime(),
     };
     setCodes((oldCodes) => [...oldCodes, obj]);
+    setLink("");
     navigation.navigate("Main");
   };
 
