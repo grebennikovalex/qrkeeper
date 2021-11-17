@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { CodesContext } from "../context";
-import { BarCodeScanner } from "expo-barcode-scanner";
+import { Camera } from "expo-camera";
 import styles from "../styles";
 
 const d = Dimensions.get("screen").width * 0.66;
@@ -11,11 +11,13 @@ function Scan({ navigation }) {
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
 
-  let scanner = null;
+  const dimensions = useRef(Dimensions.get("window"));
+  const screenWidth = dimensions.current.width;
+  const height = Math.round((screenWidth * 16) / 9);
 
   useEffect(() => {
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
@@ -52,9 +54,11 @@ function Scan({ navigation }) {
           height: "100%",
         }}
       >
-        <BarCodeScanner
+        <Camera
+          ratio="16:9"
+          useCamera2Api={true}
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={{ flex: 1, height: "100%", width: "100%" }}
+          style={{ width: "100%", height: height }}
         />
 
         <Text
@@ -65,7 +69,7 @@ function Scan({ navigation }) {
             top: 100,
           }}
         >
-          Наведите камеру на QR-код
+          {`Наведите камеру на QR-код`}
         </Text>
         <View
           style={{
