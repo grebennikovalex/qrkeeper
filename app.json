@@ -17,6 +17,9 @@
     "ios": {
       "supportsTablet": true
     },
+    "androidStatusBar": {
+      "hidden": true
+    },
     "android": {
       "versionCode": 1,
       "permissions": ["CAMERA"],
