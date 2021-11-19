@@ -67,7 +67,7 @@ function AddCode({ navigation }) {
     };
     setCodes((oldCodes) => [...oldCodes, obj]);
     setLink("");
-    navigation.navigate("Main");
+    navigation.navigate("Main", { moveCodes: true });
   };
 
   const scan = () => {
@@ -168,7 +168,7 @@ function AddCode({ navigation }) {
               title="Назад"
               onPress={() => {
                 setLink("");
-                navigation.navigate("Main");
+                navigation.navigate("Main", { moveCodes: false });
               }}
             />
           </>

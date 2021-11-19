@@ -10,6 +10,7 @@ import AddCode from "./screens/AddCode";
 import Edit from "./screens/Edit";
 import Info from "./screens/Info";
 import Scan from "./screens/Scan";
+import { StatusBar } from "expo-status-bar";
 
 const Stack = createStackNavigator();
 
@@ -25,12 +26,17 @@ export default function App() {
             backBehavior="order"
             screenOptions={{ headerMode: "none" }}
           >
-            <Stack.Screen name="Main" component={Main} />
+            <Stack.Screen
+              name="Main"
+              component={Main}
+              initialParams={{ moveCodes: false }}
+            />
             <Stack.Screen name="AddCode" component={AddCode} />
             <Stack.Screen name="Edit" component={Edit} />
             <Stack.Screen name="Info" component={Info} />
             <Stack.Screen name="Scan" component={Scan} />
           </Stack.Navigator>
+          <StatusBar style="auto" />
         </NavigationContainer>
       </CodesContextProvider>
     );

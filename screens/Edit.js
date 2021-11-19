@@ -65,7 +65,7 @@ function Edit({ navigation, route }) {
 
   const removeCode = () => {
     setCodes(codes.filter((item) => item.id !== code.id));
-    navigation.navigate("Main");
+    navigation.navigate("Main", { moveCodes: true });
   };
 
   const fetchCopiedText = async () => {
@@ -152,7 +152,9 @@ function Edit({ navigation, route }) {
                   topOffset={20}
                   type="secondary"
                   title="Назад"
-                  onPress={() => navigation.navigate("Main")}
+                  onPress={() =>
+                    navigation.navigate("Main", { moveCodes: false })
+                  }
                 />
               </View>
             </View>

@@ -14,8 +14,9 @@ import styles from "../styles";
 import { colors } from "../colors";
 import BurgerMenu from "../components/BurgerMenu";
 
-function Main({ navigation }) {
+function Main({ navigation, route }) {
   const { codes } = useContext(CodesContext);
+  const { moveCodes } = route.params;
 
   const [pageNum, setPageNum] = useState(1);
   const [burgerOpen, setBurgerOpen] = useState(true);
@@ -24,8 +25,10 @@ function Main({ navigation }) {
 
   useFocusEffect(
     useCallback(() => {
-      codesListRef.current && codesListRef.current.scrollToEnd();
-    }, [])
+      if (codesListRef.current && moveCodes) {
+        codesListRef.current.scrollToEnd();
+      }
+    }, [moveCodes])
   );
 
   const onScrollEnd = (e) => {
