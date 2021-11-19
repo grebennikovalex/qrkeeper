@@ -10,6 +10,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { CodesContext } from "../context";
+import { Camera } from "expo-camera";
 import * as SecureStore from "expo-secure-store";
 import Button from "../components/Button";
 import styles from "../styles";
@@ -20,13 +21,32 @@ import Modal from "react-native-modal";
 import PasteIcon from "../assets/PasteIcon";
 
 function AddCode({ navigation }) {
-  const { codes, setCodes, link, setLink, modalOpen, setModalOpen, message } =
-    useContext(CodesContext);
+  const {
+    codes,
+    setCodes,
+    link,
+    setLink,
+    modalOpen,
+    setModalOpen,
+    message,
+    hasPermission,
+    setHasPermission,
+  } = useContext(CodesContext);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [hideBtns, setHideBtns] = useState(false);
+  const [noticeOpen, setNoticeOpen] = useState(false);
 
   const RickRoll = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
+  // const hasPermission = false;
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
 
   useEffect(() => {
     try {
@@ -71,7 +91,11 @@ function AddCode({ navigation }) {
   };
 
   const scan = () => {
-    navigation.navigate("Scan");
+    if (hasPermission) {
+      navigation.navigate("Scan");
+    } else {
+      setNoticeOpen(true);
+    }
   };
 
   const fetchCopiedText = async () => {
@@ -197,6 +221,30 @@ function AddCode({ navigation }) {
           onPress={() => setModalOpen(false)}
         >
           <Text style={[styles.textBold, { color: colors.green }]}>Ок</Text>
+        </TouchableHighlight>
+      </Modal>
+      <Modal
+        isVisible={noticeOpen}
+        backdropColor={"#ccc"}
+        backdropOpacity={0.7}
+        useNativeDriver={true}
+      >
+        <View style={styles.modalMessage}>
+          <Text
+            style={[styles.textBold, { color: colors.red, textAlign: "left" }]}
+          >
+            {"Предоставьте приложению доступ к камере устройства."}
+          </Text>
+          <Text style={{ color: colors.red, fontSize: 14, marginVertical: 12 }}>
+            {"Иначе, ничего отсканировать не получится. 🙄"}
+          </Text>
+        </View>
+        <TouchableHighlight
+          underlayColor={colors.background}
+          style={styles.modalMessage}
+          onPress={() => setNoticeOpen(false)}
+        >
+          <Text style={[styles.textBold, { color: colors.red }]}>Ок</Text>
         </TouchableHighlight>
       </Modal>
     </View>

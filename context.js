@@ -9,6 +9,7 @@ const CodesContextProvider = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [ready, setReady] = useState(false);
+  const [hasPermission, setHasPermission] = useState(false);
 
   useEffect(() => {
     getCodes();
@@ -43,6 +44,8 @@ const CodesContextProvider = (props) => {
         setMessage,
         ready,
         setReady,
+        hasPermission,
+        setHasPermission,
       }}
     >
       {props.children}

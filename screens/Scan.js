@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, Dimensions, TouchableHighlight } from "react-native";
 import { CodesContext } from "../context";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Camera } from "expo-camera";
-import Button from "../components/Button";
 import styles from "../styles";
+import { colors } from "../colors";
 
-const d = Dimensions.get("screen").width * 0.66;
+const d = Dimensions.get("screen").width * 0.8;
 
 function Scan({ navigation }) {
-  const { setLink, setModalOpen, setMessage } = useContext(CodesContext);
-  const [hasPermission, setHasPermission] = useState(false);
+  const { setLink, setModalOpen, setMessage, hasPermission, setHasPermission } =
+    useContext(CodesContext);
+
   const [scanned, setScanned] = useState(false);
+
+  // const hasPermission = false;
 
   const dimensions = Dimensions.get("screen");
   const screenWidth = dimensions.width;
@@ -37,25 +40,6 @@ function Scan({ navigation }) {
     }
   };
 
-  if (hasPermission === false) {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text style={{ textAlign: "center", marginBottom: 20 }}>
-          {"Разрешите приложению доступ к камере в настройках смартфона"}
-        </Text>
-        <Button
-          bold={true}
-          topOffset={20}
-          type="secondary"
-          title="Назад"
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
-      </View>
-    );
-  }
-
   if (hasPermission === null) {
     return <Text>{"Запрос разрешения на использование камеры"}</Text>;
   }
@@ -75,81 +59,105 @@ function Scan({ navigation }) {
           ratio="16:9"
           // useCamera2Api={true}
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={{ width: "100%", height: height }}
+          style={{ width: "100%", height: "100%", position: "absolute" }}
         />
 
-        <Text
-          style={{
-            color: "white",
-            fontSize: 18,
-            position: "absolute",
-            top: 100,
-          }}
-        >
-          {`Наведите камеру на QR-код`}
-        </Text>
         <View
           style={{
-            width: d,
-            height: d,
-            justifyContent: "space-between",
             position: "absolute",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
           }}
         >
           <View
             style={{
-              height: d / 3,
               width: d,
-              flexDirection: "row",
+              height: d,
               justifyContent: "space-between",
             }}
           >
             <View
               style={{
                 height: d / 3,
-                width: d / 3,
-                borderColor: "white",
-                borderLeftWidth: 1,
-                borderTopWidth: 1,
+                width: d,
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
-            ></View>
+            >
+              <View
+                style={{
+                  height: d / 3,
+                  width: d / 3,
+                  borderColor: colors.primary,
+                  borderLeftWidth: 4,
+                  borderTopWidth: 4,
+                  borderTopLeftRadius: 30,
+                }}
+              ></View>
+              <View
+                style={{
+                  height: d / 3,
+                  width: d / 3,
+                  borderColor: colors.primary,
+                  borderRightWidth: 4,
+                  borderTopWidth: 4,
+                  borderTopRightRadius: 30,
+                }}
+              ></View>
+            </View>
             <View
               style={{
                 height: d / 3,
-                width: d / 3,
-                borderColor: "white",
-                borderRightWidth: 1,
-                borderTopWidth: 1,
+                width: d,
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
-            ></View>
+            >
+              <View
+                style={{
+                  height: d / 3,
+                  width: d / 3,
+                  borderColor: colors.primary,
+                  borderLeftWidth: 4,
+                  borderBottomWidth: 4,
+                  borderBottomLeftRadius: 30,
+                }}
+              ></View>
+              <View
+                style={{
+                  height: d / 3,
+                  width: d / 3,
+                  borderColor: colors.primary,
+                  borderRightWidth: 4,
+                  borderBottomWidth: 4,
+                  borderBottomRightRadius: 30,
+                }}
+              ></View>
+            </View>
           </View>
           <View
-            style={{
-              height: d / 3,
-              width: d,
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
+            underlayColor={colors.background}
+            style={[styles.modalMessage, { width: "80%", marginTop: 100 }]}
           >
-            <View
-              style={{
-                height: d / 3,
-                width: d / 3,
-                borderColor: "white",
-                borderLeftWidth: 1,
-                borderBottomWidth: 1,
-              }}
-            ></View>
-            <View
-              style={{
-                height: d / 3,
-                width: d / 3,
-                borderColor: "white",
-                borderRightWidth: 1,
-                borderBottomWidth: 1,
-              }}
-            ></View>
+            <Text
+              style={[
+                styles.text400,
+                { color: colors.primary, fontSize: 18, textAlign: "center" },
+              ]}
+            >
+              {"Поместите QR-код в выделенную область 👆"}
+            </Text>
           </View>
+          <TouchableHighlight
+            underlayColor={colors.background}
+            style={[styles.modalMessage, { width: "80%" }]}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={[styles.textBold, { color: colors.primary }]}>
+              Назад
+            </Text>
+          </TouchableHighlight>
         </View>
       </View>
     </View>
