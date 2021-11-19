@@ -8,6 +8,7 @@ const CodesContextProvider = (props) => {
   const [link, setLink] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     getCodes();
@@ -19,9 +20,13 @@ const CodesContextProvider = (props) => {
       let parsed = JSON.parse(readCodes);
       if (Array.isArray(parsed)) {
         setCodes(parsed);
+        setReady(true);
       }
     } catch (e) {
       console.warn(e);
+      setReady(true);
+    } finally {
+      setReady(true);
     }
   };
 
@@ -36,6 +41,8 @@ const CodesContextProvider = (props) => {
         setModalOpen,
         message,
         setMessage,
+        ready,
+        setReady,
       }}
     >
       {props.children}

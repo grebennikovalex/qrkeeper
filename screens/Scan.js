@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { CodesContext } from "../context";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import { Camera } from "expo-camera";
+import Button from "../components/Button";
 import styles from "../styles";
 
 const d = Dimensions.get("screen").width * 0.66;
@@ -11,8 +13,8 @@ function Scan({ navigation }) {
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
 
-  const dimensions = useRef(Dimensions.get("window"));
-  const screenWidth = dimensions.current.width;
+  const dimensions = Dimensions.get("screen");
+  const screenWidth = dimensions.width;
   const height = Math.round((screenWidth * 16) / 9);
 
   useEffect(() => {
@@ -36,7 +38,22 @@ function Scan({ navigation }) {
   };
 
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text style={{ textAlign: "center", marginBottom: 20 }}>
+          {"Разрешите приложению доступ к камере в настройках смартфона"}
+        </Text>
+        <Button
+          bold={true}
+          topOffset={20}
+          type="secondary"
+          title="Назад"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+      </View>
+    );
   }
 
   if (hasPermission === null) {
@@ -56,7 +73,7 @@ function Scan({ navigation }) {
       >
         <Camera
           ratio="16:9"
-          useCamera2Api={true}
+          // useCamera2Api={true}
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={{ width: "100%", height: height }}
         />

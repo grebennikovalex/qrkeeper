@@ -15,7 +15,7 @@ import { colors } from "../colors";
 import BurgerMenu from "../components/BurgerMenu";
 
 function Main({ navigation, route }) {
-  const { codes } = useContext(CodesContext);
+  const { codes, ready } = useContext(CodesContext);
   const { moveCodes } = route.params;
 
   const [pageNum, setPageNum] = useState(1);
@@ -42,7 +42,7 @@ function Main({ navigation, route }) {
   return (
     <View style={styles.screenContainer}>
       <View style={{ flex: 1, justifyContent: "center", width: "100%" }}>
-        {!codes.length ? (
+        {ready && !codes.length ? (
           <View style={{ marginHorizontal: 40 }}>
             <Text style={styles.text400}>
               Ой, похоже, что вы еще не добавили ни одного QR-кода 🤔
@@ -50,7 +50,8 @@ function Main({ navigation, route }) {
             <Text> </Text>
             <Text style={styles.text400}>Нажмите на плюсик, чтобы начать</Text>
           </View>
-        ) : (
+        ) : null}
+        {ready && codes.length ? (
           <View style={styles.QRContainer}>
             <FlatList
               ref={codesListRef}
@@ -94,7 +95,7 @@ function Main({ navigation, route }) {
               )}
             />
           </View>
-        )}
+        ) : null}
       </View>
       <View style={styles.bottomMenu}>
         <Button
