@@ -244,7 +244,7 @@ function AddCode({ navigation }) {
           style={styles.modalMessage}
           onPress={() => setNoticeOpen(false)}
         >
-          <Text style={[styles.textBold, { color: colors.red }]}>Ок</Text>
+          <Text style={[styles.textBold, { color: colors.red }]}>Ну ладно</Text>
         </TouchableHighlight>
       </Modal>
     </View>
