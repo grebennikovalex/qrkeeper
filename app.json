@@ -18,7 +18,7 @@
       "supportsTablet": true
     },
     "androidStatusBar": {
-      "hidden": true
+      "hidden": false
     },
     "android": {
       "versionCode": 1,
