@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Dimensions, TouchableHighlight } from "react-native";
 import { CodesContext } from "../context";
+import { StatusBar } from "expo-status-bar";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Camera } from "expo-camera";
 import styles from "../styles";
@@ -160,6 +161,7 @@ function Scan({ navigation }) {
           </TouchableHighlight>
         </View>
       </View>
+      <StatusBar style="auto" />
     </View>
   );
 }
