@@ -162,7 +162,7 @@ function Edit({ navigation, route }) {
           </>
         )}
       </View>
-      <StatusBar style="auto" />
+      {/* <StatusBar style="auto" /> */}
     </View>
   );
 }
@@ -172,7 +172,7 @@ const stylesLocal = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: 64,
+    paddingTop: 30,
   },
 
   bottomBtns: {

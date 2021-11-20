@@ -2,8 +2,9 @@
   "expo": {
     "name": "QRWallet",
     "slug": "qrwallet",
-    "version": "0.2.3",
+    "version": "0.3.0",
     "orientation": "portrait",
+    "backgroundColor": "#ffffff",
     "icon": "./assets/app_icon_combined.png",
     "splash": {
       "image": "./assets/qrwallet_splash_lng.png",
