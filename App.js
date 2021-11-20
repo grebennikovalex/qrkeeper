@@ -11,6 +11,7 @@ import AddCode from "./screens/AddCode";
 import Edit from "./screens/Edit";
 import Info from "./screens/Info";
 import Scan from "./screens/Scan";
+import { colors } from "./colors";
 
 const Stack = createStackNavigator();
 
@@ -71,5 +72,5 @@ function Init({ onLayoutRootView }) {
   useEffect(() => {
     if (ready) onLayoutRootView();
   }, [ready]);
-  return <View></View>;
+  return <View style={{ backgroundColor: colors.primary }}></View>;
 }

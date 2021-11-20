@@ -18,6 +18,9 @@
     "ios": {
       "supportsTablet": true
     },
+    "androidStatusBar": {
+      "backgroundColor": "#ffffff"
+    },
     "android": {
       "versionCode": 1,
       "permissions": ["CAMERA"],

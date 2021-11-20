@@ -248,7 +248,7 @@ function AddCode({ navigation }) {
           <Text style={[styles.textBold, { color: colors.red }]}>Ну ладно</Text>
         </TouchableHighlight>
       </Modal>
-      {/* <StatusBar style="auto" /> */}
+      <StatusBar style="auto" />
     </View>
   );
 }
@@ -258,7 +258,7 @@ const stylesLocal = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: 30,
+    paddingTop: 64,
   },
   linkInput: {
     flexDirection: "row",
