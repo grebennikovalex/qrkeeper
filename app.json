@@ -8,7 +8,7 @@
     "icon": "./assets/app_icon_combined.png",
     "splash": {
       "image": "./assets/qrwallet_splash_lng.png",
-      "resizeMode": "cover",
+      "resizeMode": "contain",
       "backgroundColor": "#5D5FEF"
     },
     "updates": {
