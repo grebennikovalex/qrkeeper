@@ -173,7 +173,7 @@ const stylesLocal = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: 30,
+    paddingTop: 64,
   },
 
   bottomBtns: {

@@ -4,7 +4,7 @@
     "slug": "qrwallet",
     "version": "0.3.0",
     "orientation": "portrait",
-    "backgroundColor": "#5D5FEF",
+
     "icon": "./assets/app_icon_combined.png",
     "splash": {
       "image": "./assets/qrwallet_splash_lng.png",

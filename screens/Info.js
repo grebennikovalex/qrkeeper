@@ -13,7 +13,7 @@ function Info({ navigation }) {
       <View
         style={[
           styles.QRCard,
-          { marginTop: 20, backgroundColor: colors.primary },
+          { marginTop: 44, backgroundColor: colors.primary },
         ]}
       >
         <LinearGradient
@@ -64,7 +64,7 @@ function Info({ navigation }) {
       <View style={styles.bottomMenu}>
         <Button type="chevron" onPress={() => navigation.goBack()} />
       </View>
-      {/* <StatusBar style="auto" /> */}
+      <StatusBar style="auto" />
     </View>
   );
 }
