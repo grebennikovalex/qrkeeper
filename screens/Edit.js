@@ -59,6 +59,7 @@ function Edit({ navigation, route }) {
         return item;
       });
       setCodes(updatedCodes);
+      navigation.navigate("Main", { moveCodes: false });
     } else {
       alert("Validation error...");
     }
@@ -162,7 +163,7 @@ function Edit({ navigation, route }) {
           </>
         )}
       </View>
-      {/* <StatusBar style="auto" /> */}
+      <StatusBar style="auto" />
     </View>
   );
 }

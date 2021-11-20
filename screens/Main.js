@@ -116,7 +116,7 @@ function Main({ navigation, route }) {
         )}
         <Button type="plus" onPress={() => navigation.navigate("AddCode")} />
       </View>
-      {/* <StatusBar style="auto" /> */}
+      {ready && <StatusBar style="auto" />}
     </View>
   );
 }

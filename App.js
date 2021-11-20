@@ -11,7 +11,6 @@ import AddCode from "./screens/AddCode";
 import Edit from "./screens/Edit";
 import Info from "./screens/Info";
 import Scan from "./screens/Scan";
-import { colors } from "./colors";
 
 const Stack = createStackNavigator();
 
@@ -61,7 +60,7 @@ export default function App() {
           <Stack.Screen name="Info" component={Info} />
           <Stack.Screen name="Scan" component={Scan} />
         </Stack.Navigator>
-        {/* <StatusBar style="auto" /> */}
+        <StatusBar style="auto" />
       </NavigationContainer>
     </CodesContextProvider>
   );
@@ -72,5 +71,5 @@ function Init({ onLayoutRootView }) {
   useEffect(() => {
     if (ready) onLayoutRootView();
   }, [ready]);
-  return <View style={{ backgroundColor: colors.primary }}></View>;
+  return <View></View>;
 }
