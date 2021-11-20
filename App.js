@@ -60,7 +60,7 @@ export default function App() {
           <Stack.Screen name="Info" component={Info} />
           <Stack.Screen name="Scan" component={Scan} />
         </Stack.Navigator>
-        {/* <StatusBar style="auto" /> */}
+        <StatusBar style="auto" />
       </NavigationContainer>
     </CodesContextProvider>
   );

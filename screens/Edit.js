@@ -9,6 +9,7 @@ import {
   Dimensions,
 } from "react-native";
 import { CodesContext } from "../context";
+import { StatusBar } from "expo-status-bar";
 import * as SecureStore from "expo-secure-store";
 import Button from "../components/Button";
 import styles from "../styles";
@@ -161,6 +162,7 @@ function Edit({ navigation, route }) {
           </>
         )}
       </View>
+      <StatusBar style="auto" />
     </View>
   );
 }

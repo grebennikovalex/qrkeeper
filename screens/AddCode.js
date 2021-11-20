@@ -10,6 +10,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { CodesContext } from "../context";
+import { StatusBar } from "expo-status-bar";
 import { Camera } from "expo-camera";
 import * as SecureStore from "expo-secure-store";
 import Button from "../components/Button";
@@ -247,6 +248,7 @@ function AddCode({ navigation }) {
           <Text style={[styles.textBold, { color: colors.red }]}>Ну ладно</Text>
         </TouchableHighlight>
       </Modal>
+      <StatusBar style="auto" />
     </View>
   );
 }

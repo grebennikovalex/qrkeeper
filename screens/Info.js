@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import * as Linking from "expo-linking";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../styles";
@@ -63,6 +64,7 @@ function Info({ navigation }) {
       <View style={styles.bottomMenu}>
         <Button type="chevron" onPress={() => navigation.goBack()} />
       </View>
+      <StatusBar style="auto" />
     </View>
   );
 }

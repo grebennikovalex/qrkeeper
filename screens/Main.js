@@ -7,6 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import { CodesContext } from "../context";
+import { StatusBar } from "expo-status-bar";
 import { useFocusEffect } from "@react-navigation/native";
 import QRCode from "react-native-qrcode-svg";
 import Button from "../components/Button";
@@ -115,6 +116,7 @@ function Main({ navigation, route }) {
         )}
         <Button type="plus" onPress={() => navigation.navigate("AddCode")} />
       </View>
+      <StatusBar style="auto" />
     </View>
   );
 }
