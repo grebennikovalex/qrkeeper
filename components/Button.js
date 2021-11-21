@@ -69,7 +69,10 @@ function Button({
         <Text
           style={[
             styles.text,
-            { color: colors.background, fontWeight: bold ? "bold" : "normal" },
+            {
+              color: colors.background,
+              fontFamily: bold ? "black" : "regular",
+            },
           ]}
         >
           {title}
@@ -85,7 +88,7 @@ function Button({
         <Text
           style={[
             styles.text,
-            { color: colors.primary, fontWeight: bold ? "bold" : "normal" },
+            { color: colors.primary, fontFamily: bold ? "black" : "regular" },
           ]}
         >
           {title}
@@ -101,7 +104,7 @@ function Button({
         <Text
           style={[
             styles.text,
-            { color: colors.red, fontWeight: bold ? "bold" : "normal" },
+            { color: colors.red, fontFamily: bold ? "black" : "regular" },
           ]}
         >
           {title}
@@ -117,7 +120,10 @@ function Button({
         <Text
           style={[
             styles.text,
-            { color: colors.background, fontWeight: bold ? "bold" : "normal" },
+            {
+              color: colors.background,
+              fontFamily: bold ? "black" : "regular",
+            },
           ]}
         >
           {title}
@@ -130,7 +136,7 @@ function Button({
         <Text
           style={[
             styles.text,
-            { color: colors.inactive, fontWeight: bold ? "bold" : "normal" },
+            { color: colors.inactive, fontFamily: bold ? "black" : "regular" },
           ]}
         >
           {title}
@@ -142,7 +148,7 @@ function Button({
 const styles = StyleSheet.create({
   text: {
     fontSize: 24,
-    fontWeight: "900",
+    fontFamily: "black",
   },
   round: {
     alignItems: "center",

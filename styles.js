@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text400: {
-    fontWeight: "400",
+    fontFamily: "regular",
     fontSize: 24,
     color: colors.secondary,
   },
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 
   textBold: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: "black",
     color: colors.secondary,
     textAlign: "center",
   },

@@ -32,11 +32,13 @@ function Info({ navigation }) {
           />
           <View style={{ paddingHorizontal: 20 }}>
             <Text style={styles.infoText}>
-              <Text style={{ fontWeight: "bold" }}>QRWallet</Text> — удобное
-              хранение кодов, которые нужно показывать при входе в кафе и в
-              другие заведения.
+              <Text style={{ fontFamily: "black", color: colors.background }}>
+                QR Keeper
+              </Text>{" "}
+              — удобное хранение кодов, которые нужно показывать при входе в
+              кафе и в другие заведения.
             </Text>
-            <Text style={styles.infoText}>Версия 0.3.1</Text>
+            <Text style={styles.infoText}>Версия 0.1.0</Text>
             <Text style={styles.infoText}>Разработка и дизайн:</Text>
             <TouchableOpacity
               style={styles.infoBtn}
