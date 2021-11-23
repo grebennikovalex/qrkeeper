@@ -36,7 +36,6 @@ export default function App() {
         await Font.loadAsync({
           regular: require("./assets/Roboto-Regular.ttf"),
           black: require("./assets/Roboto-Black.ttf"),
-          light: require("./assets/Roboto-Light.ttf"),
         });
       } catch (e) {
         console.warn(e);

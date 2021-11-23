@@ -18,6 +18,8 @@ import styles from "../styles";
 import { colors } from "../colors";
 import QRCode from "react-native-qrcode-svg";
 import * as Clipboard from "expo-clipboard";
+import * as ImagePicker from "expo-image-picker";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import Modal from "react-native-modal";
 import PasteIcon from "../assets/PasteIcon";
 
@@ -30,6 +32,7 @@ function AddCode({ navigation }) {
     modalOpen,
     setModalOpen,
     message,
+    setMessage,
     hasPermission,
     setHasPermission,
   } = useContext(CodesContext);
@@ -41,13 +44,6 @@ function AddCode({ navigation }) {
   const RickRoll = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
   // const hasPermission = false;
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
 
   useEffect(() => {
     try {
@@ -111,6 +107,28 @@ function AddCode({ navigation }) {
     }
   };
 
+  const pick = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      try {
+        const read = await BarCodeScanner.scanFromURLAsync(result.uri);
+        setLink(read[0].data);
+        setModalOpen(true);
+        setMessage(`Код успешно прочитан 👍  Добавлена ссылка: `);
+      } catch {
+        setModalOpen(true);
+        setMessage(
+          `Не удалось распознать QR-код на фото 😥  Попробуйте еще раз`
+        );
+      }
+    }
+  };
+
   return (
     <View style={styles.screenContainer}>
       <View style={stylesLocal.qrHolder}>
@@ -161,31 +179,42 @@ function AddCode({ navigation }) {
             {link}
           </Text>
         ) : (
-          <Button
-            bold={true}
-            type={"green"}
-            title={"Сканировать код"}
-            topOffset={20}
-            onPress={() => {
-              scan();
-            }}
-          />
+          <View>
+            <Button
+              bold={true}
+              type="secondary"
+              title={"Сканировать код"}
+              topOffset={20}
+              onPress={() => {
+                scan();
+              }}
+            />
+            <Button
+              bold={true}
+              type="secondary"
+              title={"Сканировать скриншот"}
+              topOffset={20}
+              onPress={() => pick()}
+            />
+          </View>
         )}
         {!hideBtns && (
           <>
-            <Button
-              bold={true}
-              type={!code ? "primary" : "green"}
-              title={!code ? "Сгенерировать код" : "Сохранить"}
-              topOffset={20}
-              onPress={() => {
-                if (code) {
-                  save();
-                } else {
-                  generate();
-                }
-              }}
-            />
+            {link ? (
+              <Button
+                bold={true}
+                type={!code ? "primary" : "green"}
+                title={!code ? "Сгенерировать код" : "Сохранить"}
+                topOffset={20}
+                onPress={() => {
+                  if (code) {
+                    save();
+                  } else {
+                    generate();
+                  }
+                }}
+              />
+            ) : null}
             <Button
               bold={true}
               topOffset={20}
@@ -237,7 +266,7 @@ function AddCode({ navigation }) {
             {"Предоставьте приложению доступ к камере устройства."}
           </Text>
           <Text style={{ color: colors.red, fontSize: 14, marginVertical: 12 }}>
-            {"Иначе, ничего отсканировать не получится. 🙄"}
+            {"Иначе ничего отсканировать не получится. 🙄"}
           </Text>
         </View>
         <TouchableHighlight

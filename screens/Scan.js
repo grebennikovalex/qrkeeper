@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Dimensions, TouchableHighlight } from "react-native";
 import { CodesContext } from "../context";
 import { StatusBar } from "expo-status-bar";
-import { BarCodeScanner } from "expo-barcode-scanner";
 import { Camera } from "expo-camera";
 import styles from "../styles";
 import { colors } from "../colors";
@@ -12,14 +11,7 @@ const d = Dimensions.get("screen").width * 0.8;
 function Scan({ navigation }) {
   const { setLink, setModalOpen, setMessage, hasPermission, setHasPermission } =
     useContext(CodesContext);
-
   const [scanned, setScanned] = useState(false);
-
-  // const hasPermission = false;
-
-  const dimensions = Dimensions.get("screen");
-  const screenWidth = dimensions.width;
-  const height = Math.round((screenWidth * 16) / 9);
 
   useEffect(() => {
     (async () => {
@@ -36,6 +28,7 @@ function Scan({ navigation }) {
       setMessage(`Код успешно отсканирован 👍  Добавлена ссылка: `);
       navigation.navigate("AddCode");
     } catch {
+      setModalOpen(true);
       setMessage(`Не удалось распознать QR-код на фото 😥  Попробуйте еще раз`);
       navigation.navigate("AddCode");
     }
@@ -58,7 +51,6 @@ function Scan({ navigation }) {
       >
         <Camera
           ratio="16:9"
-          // useCamera2Api={true}
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={{ width: "100%", height: "100%", position: "absolute" }}
         />

@@ -42,6 +42,7 @@ function Main({ navigation, route }) {
 
   return (
     <View style={styles.screenContainer}>
+      {ready && <StatusBar style="auto" />}
       <View style={{ flex: 1, justifyContent: "center", width: "100%" }}>
         {ready && !codes.length ? (
           <View style={{ marginHorizontal: 40 }}>
@@ -116,7 +117,6 @@ function Main({ navigation, route }) {
         )}
         <Button type="plus" onPress={() => navigation.navigate("AddCode")} />
       </View>
-      {ready && <StatusBar style="auto" />}
     </View>
   );
 }
