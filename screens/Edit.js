@@ -3,29 +3,31 @@ import {
   View,
   TextInput,
   StyleSheet,
+  Text,
   TouchableOpacity,
-  Alert,
   Keyboard,
   Dimensions,
+  TouchableHighlight,
 } from "react-native";
 import { CodesContext } from "../context";
 import { StatusBar } from "expo-status-bar";
 import * as SecureStore from "expo-secure-store";
+import Modal from "react-native-modal";
 import Button from "../components/Button";
 import styles from "../styles";
 import { colors } from "../colors";
 import QRCode from "react-native-qrcode-svg";
-import PasteIcon from "../assets/PasteIcon";
-import * as Clipboard from "expo-clipboard";
 
 function Edit({ navigation, route }) {
   const { code } = route.params;
-  const { codes, setCodes } = useContext(CodesContext);
+  const { codes, setCodes, modalOpen, setModalOpen, message, setMessage } =
+    useContext(CodesContext);
 
   const [name, setName] = useState(code.name);
   const [link, setLink] = useState(code.link);
   const [btn, setBtn] = useState(false);
   const [hideBtns, setHideBtns] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     try {
@@ -60,26 +62,18 @@ function Edit({ navigation, route }) {
       });
       setCodes(updatedCodes);
       navigation.navigate("Main", { moveCodes: false });
-    } else {
-      alert("Validation error...");
+    } else if (!name) {
+      setMessage("Вы не придумали название для этого QR кода. 🙄");
+      setModalOpen(true);
+    } else if (!link) {
+      setMessage("Информация в QR коде не должна быть пустой. 🙄");
+      setModalOpen(true);
     }
   };
 
   const removeCode = () => {
     setCodes(codes.filter((item) => item.id !== code.id));
     navigation.navigate("Main", { moveCodes: true });
-  };
-
-  const fetchCopiedText = async () => {
-    try {
-      const text = await Clipboard.getStringAsync();
-      setLink(text);
-    } catch (e) {
-      console.log(e.message);
-      Alert.alert("QRWallet", "Скопируйте ссылку на сертификат", [
-        { text: "OK" },
-      ]);
-    }
   };
 
   return (
@@ -98,6 +92,14 @@ function Edit({ navigation, route }) {
           width: "100%",
         }}
       >
+        <Text
+          style={[
+            styles.text400,
+            { fontSize: 16, textAlign: "center", marginBottom: 20 },
+          ]}
+        >
+          Редактирование кода
+        </Text>
         <TextInput
           style={styles.textInput}
           placeholder="Название"
@@ -108,27 +110,48 @@ function Edit({ navigation, route }) {
           }}
           value={name}
         />
-        <View style={stylesLocal.linkInput}>
-          <TextInput
-            style={[
-              styles.textInput,
-              { backgroundColor: "transparent", elevation: 0 },
-            ]}
-            placeholder="Ссылка внутри кода"
-            placeholderTextColor={colors.inactive}
-            onChangeText={(text) => {
-              setLink(text);
-              setBtn(true);
-            }}
-            value={link}
-          />
+        {!edit ? (
           <TouchableOpacity
-            style={stylesLocal.pasteBtn}
-            onPress={() => fetchCopiedText()}
+            onPress={() => {
+              setHideBtns(true);
+              setEdit(true);
+            }}
           >
-            <PasteIcon width={22} height={22} color={colors.primary} />
+            <Text
+              style={[
+                stylesLocal.linkText,
+                {
+                  paddingHorizontal: 20,
+                  marginTop: 20,
+                  marginBottom: 0,
+                  color: colors.green,
+                },
+              ]}
+            >
+              {link}
+            </Text>
           </TouchableOpacity>
-        </View>
+        ) : (
+          <View style={{ padding: 20, paddingBottom: 0 }}>
+            <TextInput
+              autoFocus={true}
+              multiline
+              style={{
+                backgroundColor: "transparent",
+                elevation: 0,
+                fontSize: 14,
+                color: colors.secondary,
+              }}
+              placeholder="Ссылка внутри кода"
+              placeholderTextColor={colors.inactive}
+              onChangeText={(text) => {
+                setLink(text);
+                setBtn(true);
+              }}
+              value={link}
+            />
+          </View>
+        )}
         {!hideBtns && (
           <>
             <Button
@@ -164,6 +187,27 @@ function Edit({ navigation, route }) {
         )}
       </View>
       <StatusBar style="auto" />
+      <Modal
+        isVisible={modalOpen}
+        backdropColor={"#ccc"}
+        backdropOpacity={0.7}
+        useNativeDriver={true}
+      >
+        <View style={styles.modalMessage}>
+          <Text
+            style={[styles.textBold, { color: colors.red, textAlign: "left" }]}
+          >
+            {message}
+          </Text>
+        </View>
+        <TouchableHighlight
+          underlayColor={colors.background}
+          style={styles.modalMessage}
+          onPress={() => setModalOpen(false)}
+        >
+          <Text style={[styles.textBold, { color: colors.red }]}>Ну ладно</Text>
+        </TouchableHighlight>
+      </Modal>
     </View>
   );
 }

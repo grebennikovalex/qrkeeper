@@ -1,68 +1,160 @@
-import React from "react";
-import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
+import React, { useState, useRef } from "react";
+import {
+  View,
+  Text,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import * as Linking from "expo-linking";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../styles";
 import { colors } from "../colors";
+import { texts } from "../texts";
 import Button from "../components/Button";
 
 function Info({ navigation }) {
+  const infoRef = useRef();
+  const [pageNum, setPageNum] = useState(1);
+
+  const onScrollEnd = (e) => {
+    let contentOffset = e.nativeEvent.contentOffset;
+    let viewSize = e.nativeEvent.layoutMeasurement;
+    let num =
+      Math.floor((contentOffset.x + viewSize.width / 2) / viewSize.width) + 1;
+    setPageNum(num);
+  };
+
+  const Balls = () => {
+    let balls = [];
+
+    for (let i = 1; i <= texts.length + 1; i++) {
+      let ball = pageNum === i ? 8 : 4;
+      balls.push(ball);
+    }
+    return (
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          alignSelf: "center",
+          position: "absolute",
+          bottom: 20,
+        }}
+      >
+        {balls.map((ball, i) => {
+          return (
+            <View
+              key={i}
+              style={{
+                backgroundColor: colors.background,
+                borderWidth: 0,
+                borderColor: colors.background,
+                width: ball,
+                height: ball,
+                borderRadius: ball / 2,
+                marginHorizontal: 3,
+              }}
+            ></View>
+          );
+        })}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.screenContainer}>
-      <View
-        style={[
-          styles.QRCard,
-          { marginTop: 44, backgroundColor: colors.primary },
-        ]}
-      >
-        <LinearGradient
-          start={{ x: 1, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          colors={[colors.primary, "rgba(239, 93, 93, 0.5)"]}
-          style={styles.infoGradient}
-        >
-          <Image
-            source={require("../assets/qr_wallet_logo.png")}
-            style={{
-              height: 200,
-              width: Dimensions.get("screen").width / 2,
-            }}
-            resizeMode="center"
-          />
-          <View style={{ paddingHorizontal: 20 }}>
-            <Text style={styles.infoText}>
-              <Text style={{ fontFamily: "black", color: colors.background }}>
-                QR Keeper
-              </Text>{" "}
-              — удобное хранение кодов, которые нужно показывать при входе в
-              кафе и в другие заведения.
-            </Text>
-            <Text style={styles.infoText}>Версия 0.1.0</Text>
-            <Text style={styles.infoText}>Разработка и дизайн:</Text>
-            <TouchableOpacity
-              style={styles.infoBtn}
-              onPress={() =>
-                Linking.openURL("https://www.instagram.com/grebennikovalex/")
-              }
+      <FlatList
+        ref={infoRef}
+        data={texts}
+        showsHorizontalScrollIndicator={false}
+        horizontal={true}
+        pagingEnabled={true}
+        keyExtractor={(item) => item.id}
+        onScroll={(e) => onScrollEnd(e)}
+        ListHeaderComponent={
+          <View
+            style={[
+              styles.QRCard,
+              { marginTop: 44, backgroundColor: colors.primary },
+            ]}
+          >
+            <LinearGradient
+              start={{ x: 1, y: 0 }}
+              end={{ x: 0, y: 1 }}
+              colors={[colors.primary, "rgba(239, 93, 93, 0.5)"]}
+              style={styles.infoGradient}
             >
-              <Text style={[styles.infoText, { marginTop: 0 }]}>
-                @grebennikovalex
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                Linking.openURL("https://www.instagram.com/streletskiy.b/")
-              }
-              style={styles.infoBtn}
-            >
-              <Text style={[styles.infoText, { marginTop: 0 }]}>
-                @streletskiy.b
-              </Text>
-            </TouchableOpacity>
+              <Image
+                source={require("../assets/qr_wallet_logo.png")}
+                style={{
+                  height: 200,
+                  width: Dimensions.get("screen").width / 2,
+                }}
+                resizeMode="center"
+              />
+              <View
+                style={{
+                  alignSelf: "flex-start",
+                  paddingHorizontal: 20,
+                  alignItems: "flex-start",
+                }}
+              >
+                <Text style={styles.infoText}>Версия 1.0.1</Text>
+                <Text style={[styles.infoText, { marginBottom: 20 }]}>
+                  Разработка и дизайн:
+                </Text>
+                <TouchableOpacity
+                  style={[styles.infoBtn, { marginVertical: 10 }]}
+                  onPress={() =>
+                    Linking.openURL(
+                      "https://www.instagram.com/grebennikovalex/"
+                    )
+                  }
+                >
+                  <Text style={[styles.infoText, { marginTop: 0 }]}>
+                    @grebennikovalex
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    Linking.openURL("https://www.instagram.com/streletskiy.b/")
+                  }
+                  style={[styles.infoBtn, { marginVertical: 20 }]}
+                >
+                  <Text style={[styles.infoText, { marginTop: 0 }]}>
+                    @streletskiy.b
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <Balls />
+            </LinearGradient>
           </View>
-        </LinearGradient>
-      </View>
+        }
+        renderItem={({ item, index }) => (
+          <View
+            style={[
+              styles.QRCard,
+              { marginTop: 44, backgroundColor: colors.primary },
+            ]}
+          >
+            <LinearGradient
+              start={{ x: 1, y: 0 }}
+              end={{ x: 0, y: 1 }}
+              colors={[colors.primary, "rgba(239, 93, 93, 0.5)"]}
+              style={styles.infoGradient}
+            >
+              <View style={{ paddingHorizontal: 20 }}>
+                <Text style={styles.infoText}>{item.text}</Text>
+              </View>
+              <Balls />
+            </LinearGradient>
+          </View>
+        )}
+      />
+
       <View style={styles.bottomMenu}>
         <Button type="chevron" onPress={() => navigation.goBack()} />
       </View>

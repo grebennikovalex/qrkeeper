@@ -4,24 +4,23 @@ import {
   TextInput,
   StyleSheet,
   Text,
-  Alert,
   Keyboard,
   Dimensions,
   TouchableHighlight,
 } from "react-native";
 import { CodesContext } from "../context";
 import { StatusBar } from "expo-status-bar";
-import { Camera } from "expo-camera";
 import * as SecureStore from "expo-secure-store";
 import Button from "../components/Button";
 import styles from "../styles";
 import { colors } from "../colors";
 import QRCode from "react-native-qrcode-svg";
-import * as Clipboard from "expo-clipboard";
-import * as ImagePicker from "expo-image-picker";
+import * as DocumentPicker from "expo-document-picker";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import Modal from "react-native-modal";
-import PasteIcon from "../assets/PasteIcon";
+import PhotoIcon from "../assets/PhotoIcon";
+import DocIcon from "../assets/DocIcon";
+import LinkIcon from "../assets/LinkIcon";
 
 function AddCode({ navigation }) {
   const {
@@ -33,17 +32,15 @@ function AddCode({ navigation }) {
     setModalOpen,
     message,
     setMessage,
-    hasPermission,
-    setHasPermission,
   } = useContext(CodesContext);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [hideBtns, setHideBtns] = useState(false);
   const [noticeOpen, setNoticeOpen] = useState(false);
+  const [manualInput, setManualInput] = useState(false);
+  const [manualValue, setManualValue] = useState("");
 
   const RickRoll = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-
-  // const hasPermission = false;
 
   useEffect(() => {
     try {
@@ -60,6 +57,7 @@ function AddCode({ navigation }) {
     });
     const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
       setHideBtns(false);
+      setManualInput(false);
     });
 
     return () => {
@@ -72,7 +70,8 @@ function AddCode({ navigation }) {
     if (name && link) {
       setCode(link);
     } else {
-      Alert.alert("QRWallet", "Введите название", [{ text: "OK" }]);
+      setMessage("Вы не придумали название для этого QR кода. 🙄");
+      setNoticeOpen(true);
     }
   };
 
@@ -87,43 +86,41 @@ function AddCode({ navigation }) {
     navigation.navigate("Main", { moveCodes: true });
   };
 
-  const scan = () => {
-    if (hasPermission) {
-      navigation.navigate("Scan");
-    } else {
-      setNoticeOpen(true);
-    }
-  };
-
-  const fetchCopiedText = async () => {
-    try {
-      const text = await Clipboard.getStringAsync();
-      setLink(text);
-    } catch (e) {
-      console.log(e.message);
-      Alert.alert("QRWallet", "Скопируйте ссылку на сертификат", [
-        { text: "OK" },
-      ]);
-    }
-  };
-
   const pick = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-    if (!result.cancelled) {
+    const result = await DocumentPicker.getDocumentAsync();
+
+    if (result.type !== "cancel") {
       try {
         const read = await BarCodeScanner.scanFromURLAsync(result.uri);
-        setLink(read[0].data);
-        setModalOpen(true);
-        setMessage(`Код успешно прочитан 👍  Добавлена ссылка: `);
+        if (read.length === 1) {
+          setLink(read[0].data);
+          setModalOpen(true);
+          setMessage(`Код успешно
+обработан 👍
+Добавлена ссылка: `);
+        } else if (read.length > 1) {
+          setModalOpen(true);
+          read.map((code, i) => {
+            let obj = {
+              name: `№${i + 1}`,
+              link: code,
+              id: new Date().getTime(),
+            };
+            setCodes((oldCodes) => [...oldCodes, obj]);
+          });
+          setMessage(`Найдено несколько кодов 👍 `);
+        } else {
+          setNoticeOpen(true);
+          setMessage(
+            `Не удалось распознать QR-код на фото 😥
+Попробуйте еще раз`
+          );
+        }
       } catch {
-        setModalOpen(true);
+        setNoticeOpen(true);
         setMessage(
-          `Не удалось распознать QR-код на фото 😥  Попробуйте еще раз`
+          `Не удалось распознать QR-код на фото 😥
+Попробуйте еще раз`
         );
       }
     }
@@ -145,30 +142,26 @@ function AddCode({ navigation }) {
           width: "100%",
         }}
       >
-        <TextInput
-          style={styles.textInput}
-          placeholder="Название"
-          placeholderTextColor={colors.inactive}
-          onChangeText={(text) => setName(text)}
-        />
-        {/* <Text style={stylesLocal.infoText}>Введите или вставьте ссылку:</Text>
-        <View style={stylesLocal.linkInput}>
-          <TextInput
-            style={[
-              styles.textInput,
-              { backgroundColor: "transparent", elevation: 0 },
-            ]}
-            placeholder="Ссылка внутри кода"
-            placeholderTextColor={colors.inactive}
-            onChangeText={(text) => setLink(text)}
-          />
-          <TouchableOpacity
-            style={stylesLocal.pasteBtn}
-            onPress={() => fetchCopiedText()}
-          >
-            <PasteIcon width={22} height={22} color={colors.primary} />
-          </TouchableOpacity>
-        </View> */}
+        {link ? (
+          <View>
+            <Text
+              style={[
+                styles.text400,
+                { fontSize: 16, textAlign: "center", marginBottom: 20 },
+              ]}
+            >
+              Придумайте название
+            </Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Название"
+              placeholderTextColor={colors.inactive}
+              onChangeText={(text) => setName(text)}
+              onFocus={() => setHideBtns(true)}
+            />
+          </View>
+        ) : null}
+
         {link ? (
           <Text
             style={[
@@ -180,22 +173,64 @@ function AddCode({ navigation }) {
           </Text>
         ) : (
           <View>
-            <Button
-              bold={true}
-              type="secondary"
-              title={"Сканировать код"}
-              topOffset={20}
-              onPress={() => {
-                scan();
-              }}
-            />
-            <Button
-              bold={true}
-              type="secondary"
-              title={"Сканировать скриншот"}
-              topOffset={20}
-              onPress={() => pick()}
-            />
+            {!hideBtns && (
+              <>
+                <Button
+                  type="white"
+                  title={"Сканировать код"}
+                  topOffset={20}
+                  onPress={() => {
+                    navigation.navigate("Scan");
+                  }}
+                  icon={
+                    <PhotoIcon fill={colors.primary} width={24} height={24} />
+                  }
+                />
+                <Button
+                  type="white"
+                  title={"Скриншот / PDF"}
+                  topOffset={20}
+                  onPress={() => pick()}
+                  icon={
+                    <DocIcon fill={colors.primary} width={24} height={24} />
+                  }
+                />
+              </>
+            )}
+            {!manualInput ? (
+              <Button
+                type="white"
+                title={"Ввести вручную"}
+                topOffset={20}
+                onPress={() => {
+                  setHideBtns(true);
+                  setManualInput(true);
+                }}
+                icon={<LinkIcon fill={colors.primary} width={24} height={24} />}
+              />
+            ) : (
+              <View>
+                <Text
+                  style={[
+                    styles.text400,
+                    { fontSize: 16, textAlign: "center" },
+                  ]}
+                >
+                  Вставьте или введите ссылку
+                </Text>
+                <TextInput
+                  autoFocus={true}
+                  style={[styles.textInput, { marginTop: 20 }]}
+                  placeholder="https://..."
+                  placeholderTextColor={colors.inactive}
+                  onChangeText={(text) => setManualValue(text)}
+                  onEndEditing={() => {
+                    setManualInput(false);
+                    setLink(manualValue);
+                  }}
+                />
+              </View>
+            )}
           </View>
         )}
         {!hideBtns && (
@@ -263,10 +298,7 @@ function AddCode({ navigation }) {
           <Text
             style={[styles.textBold, { color: colors.red, textAlign: "left" }]}
           >
-            {"Предоставьте приложению доступ к камере устройства."}
-          </Text>
-          <Text style={{ color: colors.red, fontSize: 14, marginVertical: 12 }}>
-            {"Иначе ничего отсканировать не получится. 🙄"}
+            {message}
           </Text>
         </View>
         <TouchableHighlight

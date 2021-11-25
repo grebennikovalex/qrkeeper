@@ -1,13 +1,5 @@
 {
   "expo": {
-    "plugins": [
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "Приложению требуется доступ к изображениям на смартфоне"
-        }
-      ]
-    ],
     "name": "QR Keeper",
     "slug": "qrkeeper",
     "version": "0.1.0",
@@ -21,24 +13,19 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 1,
-      "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE"
-      ],
+      "versionCode": 2,
+      "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/app_icon_img.png",
         "backgroundImage": "./assets/app_icon_bg.png",
         "backgroundColor": "#5D5FEF"
       },
-      "package": "com.grebennikovalex.qrkeeper"
+      "package": "ru.qrkeeper"
     },
     "description": ""
   }

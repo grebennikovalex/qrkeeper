@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
   },
 
   infoBtn: {
+    width: "100%",
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderColor: colors.background,

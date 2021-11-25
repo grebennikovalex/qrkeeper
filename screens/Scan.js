@@ -9,9 +9,9 @@ import { colors } from "../colors";
 const d = Dimensions.get("screen").width * 0.8;
 
 function Scan({ navigation }) {
-  const { setLink, setModalOpen, setMessage, hasPermission, setHasPermission } =
-    useContext(CodesContext);
+  const { setLink, setModalOpen, setMessage } = useContext(CodesContext);
   const [scanned, setScanned] = useState(false);
+  const [hasPermission, setHasPermission] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -34,128 +34,157 @@ function Scan({ navigation }) {
     }
   };
 
-  if (hasPermission === null) {
-    return <Text>{"Запрос разрешения на использование камеры"}</Text>;
-  }
-
-  return (
-    <View style={styles.screenContainer}>
+  if (hasPermission === false) {
+    return (
       <View
         style={{
           flex: 1,
-          justifyContent: "center",
+          backgroundColor: "rgba(0,0,0,0.3)",
+          padding: 20,
           alignItems: "center",
-          width: "100%",
-          height: "100%",
+          justifyContent: "center",
         }}
       >
-        <Camera
-          ratio="16:9"
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={{ width: "100%", height: "100%", position: "absolute" }}
-        />
-
-        <View
-          style={{
-            position: "absolute",
-            flexDirection: "column",
-            alignItems: "center",
-            width: "100%",
+        <View style={styles.modalMessage}>
+          <Text
+            style={[styles.textBold, { color: colors.red, textAlign: "left" }]}
+          >
+            {
+              "Предоставьте приложению доступ к камере устройства. Иначе ничего отсканировать не получится. 🙄"
+            }
+          </Text>
+        </View>
+        <TouchableHighlight
+          underlayColor={colors.background}
+          style={styles.modalMessage}
+          onPress={() => {
+            navigation.goBack();
           }}
         >
+          <Text style={[styles.textBold, { color: colors.red }]}>Ок</Text>
+        </TouchableHighlight>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.screenContainer}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Camera
+            ratio="16:9"
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            style={{ width: "100%", height: "100%", position: "absolute" }}
+          />
+
           <View
             style={{
-              width: d,
-              height: d,
-              justifyContent: "space-between",
+              position: "absolute",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "100%",
             }}
           >
             <View
               style={{
-                height: d / 3,
                 width: d,
-                flexDirection: "row",
+                height: d,
                 justifyContent: "space-between",
               }}
             >
               <View
                 style={{
                   height: d / 3,
-                  width: d / 3,
-                  borderColor: colors.primary,
-                  borderLeftWidth: 4,
-                  borderTopWidth: 4,
-                  borderTopLeftRadius: 30,
+                  width: d,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
                 }}
-              ></View>
+              >
+                <View
+                  style={{
+                    height: d / 3,
+                    width: d / 3,
+                    borderColor: colors.primary,
+                    borderLeftWidth: 4,
+                    borderTopWidth: 4,
+                    borderTopLeftRadius: 30,
+                  }}
+                ></View>
+                <View
+                  style={{
+                    height: d / 3,
+                    width: d / 3,
+                    borderColor: colors.primary,
+                    borderRightWidth: 4,
+                    borderTopWidth: 4,
+                    borderTopRightRadius: 30,
+                  }}
+                ></View>
+              </View>
               <View
                 style={{
                   height: d / 3,
-                  width: d / 3,
-                  borderColor: colors.primary,
-                  borderRightWidth: 4,
-                  borderTopWidth: 4,
-                  borderTopRightRadius: 30,
+                  width: d,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
                 }}
-              ></View>
+              >
+                <View
+                  style={{
+                    height: d / 3,
+                    width: d / 3,
+                    borderColor: colors.primary,
+                    borderLeftWidth: 4,
+                    borderBottomWidth: 4,
+                    borderBottomLeftRadius: 30,
+                  }}
+                ></View>
+                <View
+                  style={{
+                    height: d / 3,
+                    width: d / 3,
+                    borderColor: colors.primary,
+                    borderRightWidth: 4,
+                    borderBottomWidth: 4,
+                    borderBottomRightRadius: 30,
+                  }}
+                ></View>
+              </View>
             </View>
             <View
-              style={{
-                height: d / 3,
-                width: d,
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
+              underlayColor={colors.background}
+              style={[styles.modalMessage, { width: "80%", marginTop: 100 }]}
             >
-              <View
-                style={{
-                  height: d / 3,
-                  width: d / 3,
-                  borderColor: colors.primary,
-                  borderLeftWidth: 4,
-                  borderBottomWidth: 4,
-                  borderBottomLeftRadius: 30,
-                }}
-              ></View>
-              <View
-                style={{
-                  height: d / 3,
-                  width: d / 3,
-                  borderColor: colors.primary,
-                  borderRightWidth: 4,
-                  borderBottomWidth: 4,
-                  borderBottomRightRadius: 30,
-                }}
-              ></View>
+              <Text
+                style={[
+                  styles.text400,
+                  { color: colors.primary, fontSize: 18, textAlign: "center" },
+                ]}
+              >
+                {"Поместите QR-код в выделенную область 👆"}
+              </Text>
             </View>
-          </View>
-          <View
-            underlayColor={colors.background}
-            style={[styles.modalMessage, { width: "80%", marginTop: 100 }]}
-          >
-            <Text
-              style={[
-                styles.text400,
-                { color: colors.primary, fontSize: 18, textAlign: "center" },
-              ]}
+            <TouchableHighlight
+              underlayColor={colors.background}
+              style={[styles.modalMessage, { width: "80%" }]}
+              onPress={() => navigation.goBack()}
             >
-              {"Поместите QR-код в выделенную область 👆"}
-            </Text>
+              <Text style={[styles.textBold, { color: colors.primary }]}>
+                Назад
+              </Text>
+            </TouchableHighlight>
           </View>
-          <TouchableHighlight
-            underlayColor={colors.background}
-            style={[styles.modalMessage, { width: "80%" }]}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={[styles.textBold, { color: colors.primary }]}>
-              Назад
-            </Text>
-          </TouchableHighlight>
         </View>
+        <StatusBar style="auto" />
       </View>
-      <StatusBar style="auto" />
-    </View>
-  );
+    );
+  }
 }
 
 export default Scan;

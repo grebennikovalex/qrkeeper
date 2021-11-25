@@ -14,6 +14,7 @@ function Button({
   topOffset = 0,
   leftOffset = 0,
   bold = false,
+  icon,
 }) {
   if (type === "plus")
     return (
@@ -143,6 +144,23 @@ function Button({
         </Text>
       </View>
     );
+  else if (type === "white")
+    return (
+      <TouchableOpacity
+        style={[styles.white, { marginTop: topOffset }]}
+        onPress={onPress}
+      >
+        <Text
+          style={[
+            styles.text,
+            { color: colors.secondary, fontFamily: "regular" },
+          ]}
+        >
+          {title}
+        </Text>
+        {icon}
+      </TouchableOpacity>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -211,6 +229,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     borderWidth: 1,
     borderColor: colors.inactive,
+  },
+
+  white: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    width: "100%",
+    height: 60,
+    borderRadius: 20,
+    backgroundColor: colors.background,
+    elevation: 10,
   },
 });
 
