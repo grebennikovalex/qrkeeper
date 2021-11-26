@@ -45,7 +45,7 @@ function AddCode({ navigation }) {
   useEffect(() => {
     try {
       let write = JSON.stringify(codes);
-      SecureStore.setItemAsync("qrwallet", write);
+      SecureStore.setItemAsync("qrkeeper", write);
     } catch (e) {
       console.warn(e);
     }
@@ -66,24 +66,26 @@ function AddCode({ navigation }) {
     };
   }, []);
 
-  const generate = () => {
-    if (name && link) {
+  useEffect(() => {
+    if (link) {
       setCode(link);
+    }
+  }, [link]);
+
+  const save = () => {
+    if (name) {
+      let obj = {
+        name: name,
+        link: link,
+        id: new Date().getTime(),
+      };
+      setCodes((oldCodes) => [...oldCodes, obj]);
+      setLink("");
+      navigation.navigate("Main", { moveCodes: true });
     } else {
       setMessage("Вы не придумали название для этого QR кода. 🙄");
       setNoticeOpen(true);
     }
-  };
-
-  const save = () => {
-    let obj = {
-      name: name,
-      link: link,
-      id: new Date().getTime(),
-    };
-    setCodes((oldCodes) => [...oldCodes, obj]);
-    setLink("");
-    navigation.navigate("Main", { moveCodes: true });
   };
 
   const pick = async () => {
@@ -144,17 +146,9 @@ function AddCode({ navigation }) {
       >
         {link ? (
           <View>
-            <Text
-              style={[
-                styles.text400,
-                { fontSize: 16, textAlign: "center", marginBottom: 20 },
-              ]}
-            >
-              Придумайте название
-            </Text>
             <TextInput
               style={styles.textInput}
-              placeholder="Название"
+              placeholder="Придумайте название"
               placeholderTextColor={colors.inactive}
               onChangeText={(text) => setName(text)}
               onFocus={() => setHideBtns(true)}
@@ -238,15 +232,11 @@ function AddCode({ navigation }) {
             {link ? (
               <Button
                 bold={true}
-                type={!code ? "primary" : "green"}
-                title={!code ? "Сгенерировать код" : "Сохранить"}
+                type={"green"}
+                title={"Сохранить"}
                 topOffset={20}
                 onPress={() => {
-                  if (code) {
-                    save();
-                  } else {
-                    generate();
-                  }
+                  save();
                 }}
               />
             ) : null}

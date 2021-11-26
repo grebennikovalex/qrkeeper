@@ -1,14 +1,23 @@
-import React, { useState, useCallback, useContext, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+  useRef,
+} from "react";
 import {
   View,
   Text,
   FlatList,
   TouchableOpacity,
+  TouchableHighlight,
   Dimensions,
 } from "react-native";
 import { CodesContext } from "../context";
 import { StatusBar } from "expo-status-bar";
+import * as SecureStore from "expo-secure-store";
 import { useFocusEffect } from "@react-navigation/native";
+import Modal from "react-native-modal";
 import QRCode from "react-native-qrcode-svg";
 import Button from "../components/Button";
 import styles from "../styles";
@@ -21,6 +30,7 @@ function Main({ navigation, route }) {
 
   const [pageNum, setPageNum] = useState(1);
   const [burgerOpen, setBurgerOpen] = useState(true);
+  const [start, setStart] = useState(false);
 
   const codesListRef = useRef(null);
 
@@ -31,6 +41,25 @@ function Main({ navigation, route }) {
       }
     }, [moveCodes])
   );
+
+  useEffect(() => {
+    if (codes.length === 1) {
+      checkFreshness();
+    }
+  }, [codes]);
+
+  const checkFreshness = async () => {
+    try {
+      const fresh = await SecureStore.getItemAsync("qrkeeperStart");
+      let parsed = JSON.parse(fresh);
+      if (!parsed) {
+        setStart(true);
+        SecureStore.setItemAsync("qrkeeperStart", "true");
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  };
 
   const onScrollEnd = (e) => {
     let contentOffset = e.nativeEvent.contentOffset;
@@ -117,6 +146,48 @@ function Main({ navigation, route }) {
         )}
         <Button type="plus" onPress={() => navigation.navigate("AddCode")} />
       </View>
+      <Modal
+        isVisible={start}
+        backdropColor={"#4F4F4F"}
+        backdropOpacity={0.75}
+        useNativeDriver={true}
+        style={{
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginTop: 36,
+        }}
+      >
+        <View
+          style={{
+            width: Dimensions.get("screen").width - 80,
+            height: Dimensions.get("screen").width - 80,
+            borderWidth: 4,
+            borderStyle: "dashed",
+            borderRadius: 20,
+            borderColor: colors.background,
+          }}
+        ></View>
+        <View style={{ padding: 20 }}>
+          <Text
+            style={[
+              styles.textBold,
+              { color: colors.background, textAlign: "left" },
+            ]}
+          >
+            {`Ура, вы добавили вашу первую карточку! 🎉
+
+Если захотите что-то изменить — нажмите на QR-код 👆`}
+          </Text>
+        </View>
+
+        <TouchableHighlight
+          underlayColor={colors.background}
+          style={styles.modalMessage}
+          onPress={() => setStart(false)}
+        >
+          <Text style={[styles.textBold, { color: colors.green }]}>Ок</Text>
+        </TouchableHighlight>
+      </Modal>
     </View>
   );
 }

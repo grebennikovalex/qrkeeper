@@ -12,12 +12,12 @@ const CodesContextProvider = (props) => {
   const [hasPermission, setHasPermission] = useState(false);
 
   useEffect(() => {
-    getCodes();
+    startUp();
   }, []);
 
-  const getCodes = async () => {
+  const startUp = async () => {
     try {
-      const readCodes = await SecureStore.getItemAsync("qrwallet");
+      const readCodes = await SecureStore.getItemAsync("qrkeeper");
       let parsed = JSON.parse(readCodes);
       if (Array.isArray(parsed)) {
         setCodes(parsed);

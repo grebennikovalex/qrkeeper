@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   infoText: {
     color: colors.background,
     fontSize: 16,
-    marginTop: 10,
   },
 
   modalContainer: {

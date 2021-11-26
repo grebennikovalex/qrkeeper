@@ -66,29 +66,40 @@ function Info({ navigation }) {
 
   return (
     <View style={styles.screenContainer}>
-      <FlatList
-        ref={infoRef}
-        data={texts}
-        showsHorizontalScrollIndicator={false}
-        horizontal={true}
-        pagingEnabled={true}
-        keyExtractor={(item) => item.id}
-        onScroll={(e) => onScrollEnd(e)}
-        ListHeaderComponent={
-          <View
-            style={[
-              styles.QRCard,
-              { marginTop: 44, backgroundColor: colors.primary },
-            ]}
-          >
-            <LinearGradient
-              start={{ x: 1, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              colors={[colors.primary, "rgba(239, 93, 93, 0.5)"]}
-              style={styles.infoGradient}
+      <LinearGradient
+        start={{ x: 1, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        colors={[colors.primary, "rgba(239, 93, 93, 0.5)"]}
+        style={[
+          styles.QRCard,
+          {
+            marginTop: 44,
+            backgroundColor: colors.primary,
+            borderRadius: 20,
+            padding: 20,
+          },
+        ]}
+      >
+        <FlatList
+          ref={infoRef}
+          data={texts}
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          pagingEnabled={true}
+          keyExtractor={(item) => item.id}
+          onScroll={(e) => onScrollEnd(e)}
+          ListFooterComponent={
+            <View
+              style={{
+                flex: 1,
+                width: Dimensions.get("screen").width - 80,
+                alignItems: "center",
+                justifyContent: "space-between",
+                paddingVertical: 20,
+              }}
             >
               <Image
-                source={require("../assets/qr_wallet_logo.png")}
+                source={require("../assets/qr_keeper_logo.png")}
                 style={{
                   height: 200,
                   width: Dimensions.get("screen").width / 2,
@@ -103,7 +114,15 @@ function Info({ navigation }) {
                 }}
               >
                 <Text style={styles.infoText}>Версия 1.0.1</Text>
-                <Text style={[styles.infoText, { marginBottom: 20 }]}>
+                <Text
+                  style={[styles.infoText, { textDecorationLine: "underline" }]}
+                  onPress={() => {
+                    Linking.openURL("http://qrkeeper.ru/");
+                  }}
+                >
+                  http://qrkeeper.ru/
+                </Text>
+                <Text style={[styles.infoText, { marginVertical: 10 }]}>
                   Разработка и дизайн:
                 </Text>
                 <TouchableOpacity
@@ -129,31 +148,22 @@ function Info({ navigation }) {
                   </Text>
                 </TouchableOpacity>
               </View>
-              <Balls />
-            </LinearGradient>
-          </View>
-        }
-        renderItem={({ item, index }) => (
-          <View
-            style={[
-              styles.QRCard,
-              { marginTop: 44, backgroundColor: colors.primary },
-            ]}
-          >
-            <LinearGradient
-              start={{ x: 1, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              colors={[colors.primary, "rgba(239, 93, 93, 0.5)"]}
-              style={styles.infoGradient}
+            </View>
+          }
+          renderItem={({ item, index }) => (
+            <View
+              style={{
+                flex: 1,
+                padding: 10,
+                width: Dimensions.get("screen").width - 80,
+              }}
             >
-              <View style={{ paddingHorizontal: 20 }}>
-                <Text style={styles.infoText}>{item.text}</Text>
-              </View>
-              <Balls />
-            </LinearGradient>
-          </View>
-        )}
-      />
+              <Text style={styles.infoText}>{item.text}</Text>
+            </View>
+          )}
+        />
+        <Balls />
+      </LinearGradient>
 
       <View style={styles.bottomMenu}>
         <Button type="chevron" onPress={() => navigation.goBack()} />

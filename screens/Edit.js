@@ -32,7 +32,10 @@ function Edit({ navigation, route }) {
   useEffect(() => {
     try {
       let write = JSON.stringify(codes);
-      SecureStore.setItemAsync("qrwallet", write);
+      SecureStore.setItemAsync("qrkeeper", write);
+      if (codes.length === 0) {
+        SecureStore.setItemAsync("qrkeeperStart", "false");
+      }
     } catch (e) {
       console.warn(e);
     }
@@ -92,14 +95,6 @@ function Edit({ navigation, route }) {
           width: "100%",
         }}
       >
-        <Text
-          style={[
-            styles.text400,
-            { fontSize: 16, textAlign: "center", marginBottom: 20 },
-          ]}
-        >
-          Редактирование кода
-        </Text>
         <TextInput
           style={styles.textInput}
           placeholder="Название"
