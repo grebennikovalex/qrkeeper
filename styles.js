@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     fontSize: 24,
     paddingHorizontal: 24,
-    fontWeight: "bold",
     color: colors.secondary,
   },
 
@@ -107,6 +106,31 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 14,
     marginTop: 4,
+  },
+
+  arrowBody: {
+    flex: 1,
+    borderRightWidth: 2,
+    borderTopWidth: 2,
+    borderTopRightRadius: 20,
+    width: "40%",
+    left: "59%",
+    top: -14,
+    height: "100%",
+
+    borderColor: colors.inactive,
+  },
+
+  arrow: {
+    width: 30,
+    height: 30,
+    position: "absolute",
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
+    bottom: 4,
+    right: -16,
+    borderColor: colors.inactive,
+    transform: [{ rotate: "45deg" }],
   },
 });
 

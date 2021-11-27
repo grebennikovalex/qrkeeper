@@ -14,6 +14,7 @@ import * as SecureStore from "expo-secure-store";
 import Button from "../components/Button";
 import styles from "../styles";
 import { colors } from "../colors";
+import { btnTitles, modalMessages, mainTexts } from "../texts";
 import QRCode from "react-native-qrcode-svg";
 import * as DocumentPicker from "expo-document-picker";
 import { BarCodeScanner } from "expo-barcode-scanner";
@@ -32,6 +33,7 @@ function AddCode({ navigation }) {
     setModalOpen,
     message,
     setMessage,
+    lang,
   } = useContext(CodesContext);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
@@ -83,7 +85,7 @@ function AddCode({ navigation }) {
       setLink("");
       navigation.navigate("Main", { moveCodes: true });
     } else {
-      setMessage("Вы не придумали название для этого QR кода. 🙄");
+      setMessage(modalMessages[lang].noNameMessage);
       setNoticeOpen(true);
     }
   };
@@ -97,9 +99,7 @@ function AddCode({ navigation }) {
         if (read.length === 1) {
           setLink(read[0].data);
           setModalOpen(true);
-          setMessage(`Код успешно
-обработан 👍
-Добавлена ссылка: `);
+          setMessage(modalMessages[lang].successScreenShot);
         } else if (read.length > 1) {
           setModalOpen(true);
           read.map((code, i) => {
@@ -110,20 +110,14 @@ function AddCode({ navigation }) {
             };
             setCodes((oldCodes) => [...oldCodes, obj]);
           });
-          setMessage(`Найдено несколько кодов 👍 `);
+          setMessage(modalMessages[lang].severalCodes);
         } else {
           setNoticeOpen(true);
-          setMessage(
-            `Не удалось распознать QR-код на фото 😥
-Попробуйте еще раз`
-          );
+          setMessage(modalMessages[lang].faliureScreenShot);
         }
       } catch {
         setNoticeOpen(true);
-        setMessage(
-          `Не удалось распознать QR-код на фото 😥
-Попробуйте еще раз`
-        );
+        setMessage(modalMessages[lang].faliureScreenShot);
       }
     }
   };
@@ -148,7 +142,7 @@ function AddCode({ navigation }) {
           <View>
             <TextInput
               style={styles.textInput}
-              placeholder="Придумайте название"
+              placeholder={mainTexts[lang].namePlaceHolder}
               placeholderTextColor={colors.inactive}
               onChangeText={(text) => setName(text)}
               onFocus={() => setHideBtns(true)}
@@ -171,7 +165,7 @@ function AddCode({ navigation }) {
               <>
                 <Button
                   type="white"
-                  title={"Сканировать код"}
+                  title={btnTitles[lang].scan}
                   topOffset={20}
                   onPress={() => {
                     navigation.navigate("Scan");
@@ -182,7 +176,7 @@ function AddCode({ navigation }) {
                 />
                 <Button
                   type="white"
-                  title={"Скриншот / PDF"}
+                  title={btnTitles[lang].screenShot}
                   topOffset={20}
                   onPress={() => pick()}
                   icon={
@@ -194,7 +188,7 @@ function AddCode({ navigation }) {
             {!manualInput ? (
               <Button
                 type="white"
-                title={"Ввести вручную"}
+                title={btnTitles[lang].manualEnter}
                 topOffset={20}
                 onPress={() => {
                   setHideBtns(true);
@@ -210,7 +204,7 @@ function AddCode({ navigation }) {
                     { fontSize: 16, textAlign: "center" },
                   ]}
                 >
-                  Вставьте или введите ссылку
+                  {mainTexts[lang].enterLink}
                 </Text>
                 <TextInput
                   autoFocus={true}
@@ -232,8 +226,8 @@ function AddCode({ navigation }) {
             {link ? (
               <Button
                 bold={true}
-                type={"green"}
-                title={"Сохранить"}
+                type={name ? "green" : "inactive"}
+                title={btnTitles[lang].save}
                 topOffset={20}
                 onPress={() => {
                   save();
@@ -244,7 +238,7 @@ function AddCode({ navigation }) {
               bold={true}
               topOffset={20}
               type="secondary"
-              title="Назад"
+              title={btnTitles[lang].goBack}
               onPress={() => {
                 setLink("");
                 navigation.navigate("Main", { moveCodes: false });
@@ -275,7 +269,9 @@ function AddCode({ navigation }) {
           style={styles.modalMessage}
           onPress={() => setModalOpen(false)}
         >
-          <Text style={[styles.textBold, { color: colors.green }]}>Ок</Text>
+          <Text style={[styles.textBold, { color: colors.green }]}>
+            {btnTitles[lang].ok}
+          </Text>
         </TouchableHighlight>
       </Modal>
       <Modal
@@ -296,7 +292,9 @@ function AddCode({ navigation }) {
           style={styles.modalMessage}
           onPress={() => setNoticeOpen(false)}
         >
-          <Text style={[styles.textBold, { color: colors.red }]}>Ну ладно</Text>
+          <Text style={[styles.textBold, { color: colors.red }]}>
+            {btnTitles[lang].okay}
+          </Text>
         </TouchableHighlight>
       </Modal>
       <StatusBar style="auto" />

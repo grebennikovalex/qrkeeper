@@ -16,12 +16,20 @@ import Modal from "react-native-modal";
 import Button from "../components/Button";
 import styles from "../styles";
 import { colors } from "../colors";
+import { btnTitles, modalMessages, mainTexts } from "../texts";
 import QRCode from "react-native-qrcode-svg";
 
 function Edit({ navigation, route }) {
   const { code } = route.params;
-  const { codes, setCodes, modalOpen, setModalOpen, message, setMessage } =
-    useContext(CodesContext);
+  const {
+    codes,
+    setCodes,
+    modalOpen,
+    setModalOpen,
+    message,
+    setMessage,
+    lang,
+  } = useContext(CodesContext);
 
   const [name, setName] = useState(code.name);
   const [link, setLink] = useState(code.link);
@@ -66,10 +74,10 @@ function Edit({ navigation, route }) {
       setCodes(updatedCodes);
       navigation.navigate("Main", { moveCodes: false });
     } else if (!name) {
-      setMessage("Вы не придумали название для этого QR кода. 🙄");
+      setMessage(modalMessages[lang].noNameMessage);
       setModalOpen(true);
     } else if (!link) {
-      setMessage("Информация в QR коде не должна быть пустой. 🙄");
+      setMessage(modalMessages[lang].emptyLinkMessage);
       setModalOpen(true);
     }
   };
@@ -97,7 +105,7 @@ function Edit({ navigation, route }) {
       >
         <TextInput
           style={styles.textInput}
-          placeholder="Название"
+          placeholder={mainTexts[lang].namePlaceHolder}
           placeholderTextColor={colors.inactive}
           onChangeText={(text) => {
             setName(text);
@@ -137,7 +145,7 @@ function Edit({ navigation, route }) {
                 fontSize: 14,
                 color: colors.secondary,
               }}
-              placeholder="Ссылка внутри кода"
+              placeholder={mainTexts[lang].linkPlaceHolder}
               placeholderTextColor={colors.inactive}
               onChangeText={(text) => {
                 setLink(text);
@@ -152,7 +160,7 @@ function Edit({ navigation, route }) {
             <Button
               bold={true}
               type={btn ? "green" : "inactive"}
-              title={"Сохранить"}
+              title={btnTitles[lang].save}
               topOffset={20}
               onPress={save}
             />
@@ -162,7 +170,7 @@ function Edit({ navigation, route }) {
                   bold={true}
                   topOffset={20}
                   type="red"
-                  title="Удалить"
+                  title={btnTitles[lang].delete}
                   onPress={() => removeCode()}
                 />
               </View>
@@ -171,7 +179,7 @@ function Edit({ navigation, route }) {
                   bold={true}
                   topOffset={20}
                   type="secondary"
-                  title="Назад"
+                  title={btnTitles[lang].goBack}
                   onPress={() =>
                     navigation.navigate("Main", { moveCodes: false })
                   }
@@ -200,7 +208,9 @@ function Edit({ navigation, route }) {
           style={styles.modalMessage}
           onPress={() => setModalOpen(false)}
         >
-          <Text style={[styles.textBold, { color: colors.red }]}>Ну ладно</Text>
+          <Text style={[styles.textBold, { color: colors.red }]}>
+            {btnTitles[lang].okay}
+          </Text>
         </TouchableHighlight>
       </Modal>
     </View>

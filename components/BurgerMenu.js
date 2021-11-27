@@ -6,7 +6,7 @@ import Button from "./Button";
 function BurgerMenu({ navigation }) {
   return (
     <View style={styles.burgerMenuContainer}>
-      <Button type="cog" />
+      <Button type="cog" onPress={() => navigation.navigate("Settings")} />
       <Button
         type="question"
         leftOffset={20}

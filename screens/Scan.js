@@ -6,11 +6,12 @@ import { Camera } from "expo-camera";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../styles";
 import { colors } from "../colors";
+import { btnTitles, modalMessages } from "../texts";
 
 const d = Dimensions.get("screen").width * 0.8;
 
 function Scan({ navigation }) {
-  const { setLink, setModalOpen, setMessage } = useContext(CodesContext);
+  const { setLink, setModalOpen, setMessage, lang } = useContext(CodesContext);
   const [scanned, setScanned] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
 
@@ -26,17 +27,17 @@ function Scan({ navigation }) {
       setScanned(true);
       setLink(data);
       setModalOpen(true);
-      setMessage(`Код успешно отсканирован 👍  Добавлена ссылка: `);
+      setMessage(modalMessages[lang].successScan);
       navigation.navigate("AddCode");
     } catch {
       setModalOpen(true);
-      setMessage(`Не удалось распознать QR-код на фото 😥  Попробуйте еще раз`);
+      setMessage(modalMessages[lang].faliureScreenShot);
       navigation.navigate("AddCode");
     }
   };
 
   if (hasPermission === null) {
-    return <Text>{"Запрос разрешения на использование камеры"}</Text>;
+    return <Text>{modalMessages[lang].permissionProcess}</Text>;
   }
 
   if (hasPermission === false) {
@@ -58,9 +59,7 @@ function Scan({ navigation }) {
                 { color: colors.red, textAlign: "left" },
               ]}
             >
-              {
-                "Предоставьте приложению доступ к камере устройства. Иначе ничего отсканировать не получится. 🙄"
-              }
+              {modalMessages[lang].cameraPermission}
             </Text>
           </View>
           <TouchableHighlight
@@ -70,7 +69,9 @@ function Scan({ navigation }) {
               navigation.goBack();
             }}
           >
-            <Text style={[styles.textBold, { color: colors.red }]}>Ок</Text>
+            <Text style={[styles.textBold, { color: colors.red }]}>
+              {btnTitles[lang].ok}
+            </Text>
           </TouchableHighlight>
         </View>
       </LinearGradient>
@@ -178,7 +179,7 @@ function Scan({ navigation }) {
                 { color: colors.primary, fontSize: 18, textAlign: "center" },
               ]}
             >
-              {"Поместите QR-код в выделенную область 👆"}
+              {modalMessages[lang].scanMessage}
             </Text>
           </View>
           <TouchableHighlight
@@ -187,7 +188,7 @@ function Scan({ navigation }) {
             onPress={() => navigation.goBack()}
           >
             <Text style={[styles.textBold, { color: colors.primary }]}>
-              Назад
+              {btnTitles[lang].goBack}
             </Text>
           </TouchableHighlight>
         </View>

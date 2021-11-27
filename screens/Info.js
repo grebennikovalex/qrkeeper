@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import {
   View,
   Text,
@@ -8,14 +8,16 @@ import {
   FlatList,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { CodesContext } from "../context";
 import * as Linking from "expo-linking";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../styles";
 import { colors } from "../colors";
-import { texts } from "../texts";
+import { texts, infoCardTexts } from "../texts";
 import Button from "../components/Button";
 
 function Info({ navigation }) {
+  const { lang } = useContext(CodesContext);
   const infoRef = useRef();
   const [pageNum, setPageNum] = useState(1);
 
@@ -82,7 +84,7 @@ function Info({ navigation }) {
       >
         <FlatList
           ref={infoRef}
-          data={texts}
+          data={texts[lang]}
           showsHorizontalScrollIndicator={false}
           horizontal={true}
           pagingEnabled={true}
@@ -113,17 +115,19 @@ function Info({ navigation }) {
                   alignItems: "flex-start",
                 }}
               >
-                <Text style={styles.infoText}>Версия 1.0.1</Text>
+                <Text
+                  style={styles.infoText}
+                >{`${infoCardTexts[lang].ver} 0.1.0`}</Text>
                 <Text
                   style={[styles.infoText, { textDecorationLine: "underline" }]}
                   onPress={() => {
-                    Linking.openURL("http://qrkeeper.ru/");
+                    Linking.openURL(infoCardTexts[lang].link);
                   }}
                 >
-                  http://qrkeeper.ru/
+                  {infoCardTexts[lang].link}
                 </Text>
                 <Text style={[styles.infoText, { marginVertical: 10 }]}>
-                  Разработка и дизайн:
+                  {infoCardTexts[lang].dev}
                 </Text>
                 <TouchableOpacity
                   style={[styles.infoBtn, { marginVertical: 10 }]}

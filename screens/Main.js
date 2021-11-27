@@ -22,10 +22,11 @@ import QRCode from "react-native-qrcode-svg";
 import Button from "../components/Button";
 import styles from "../styles";
 import { colors } from "../colors";
+import { mainTexts, btnTitles, modalMessages } from "../texts";
 import BurgerMenu from "../components/BurgerMenu";
 
 function Main({ navigation, route }) {
-  const { codes, ready } = useContext(CodesContext);
+  const { codes, ready, lang } = useContext(CodesContext);
   const { moveCodes } = route.params;
 
   const [pageNum, setPageNum] = useState(1);
@@ -74,12 +75,20 @@ function Main({ navigation, route }) {
       {ready && <StatusBar style="auto" />}
       <View style={{ flex: 1, justifyContent: "center", width: "100%" }}>
         {ready && !codes.length ? (
-          <View style={{ marginHorizontal: 40 }}>
-            <Text style={styles.text400}>
-              Ой, похоже, что вы еще не добавили ни одного QR-кода 🤔
-            </Text>
-            <Text> </Text>
-            <Text style={styles.text400}>Нажмите на плюсик, чтобы начать</Text>
+          <View style={{ flex: 1, marginHorizontal: 40 }}>
+            <View style={{ flex: 1 }}></View>
+            <View>
+              <Text style={styles.text400}>
+                {mainTexts[lang].emptyScreenFirstLine}
+              </Text>
+              <Text> </Text>
+              <Text style={styles.text400}>
+                {mainTexts[lang].emptyScreenSecondLine}
+              </Text>
+            </View>
+            <View style={styles.arrowBody}>
+              <View style={styles.arrow}></View>
+            </View>
           </View>
         ) : null}
         {ready && codes.length ? (
@@ -137,7 +146,7 @@ function Main({ navigation, route }) {
           <View>
             {codes.length ? (
               <Text>
-                {pageNum} из {codes.length}
+                {pageNum} {mainTexts[lang].of} {codes.length}
               </Text>
             ) : null}
           </View>
@@ -152,6 +161,7 @@ function Main({ navigation, route }) {
         backdropOpacity={0.75}
         useNativeDriver={true}
         style={{
+          flex: 1,
           alignItems: "center",
           justifyContent: "space-between",
           marginTop: 36,
@@ -174,9 +184,7 @@ function Main({ navigation, route }) {
               { color: colors.background, textAlign: "left" },
             ]}
           >
-            {`Ура, вы добавили вашу первую карточку! 🎉
-
-Если захотите что-то изменить — нажмите на QR-код 👆`}
+            {modalMessages[lang].initialMessage}
           </Text>
         </View>
 
@@ -185,7 +193,9 @@ function Main({ navigation, route }) {
           style={styles.modalMessage}
           onPress={() => setStart(false)}
         >
-          <Text style={[styles.textBold, { color: colors.green }]}>Ок</Text>
+          <Text style={[styles.textBold, { color: colors.green }]}>
+            {btnTitles[lang].ok}
+          </Text>
         </TouchableHighlight>
       </Modal>
     </View>

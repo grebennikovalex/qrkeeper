@@ -13,6 +13,7 @@ import AddCode from "./screens/AddCode";
 import Edit from "./screens/Edit";
 import Info from "./screens/Info";
 import Scan from "./screens/Scan";
+import Settings from "./screens/Settings";
 
 const Stack = createStackNavigator();
 
@@ -75,6 +76,7 @@ export default function App() {
           <Stack.Screen name="Edit" component={Edit} />
           <Stack.Screen name="Info" component={Info} />
           <Stack.Screen name="Scan" component={Scan} />
+          <Stack.Screen name="Settings" component={Settings} />
         </Stack.Navigator>
         {/* <StatusBar style="auto" /> */}
       </NavigationContainer>

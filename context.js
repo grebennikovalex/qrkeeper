@@ -10,6 +10,7 @@ const CodesContextProvider = (props) => {
   const [message, setMessage] = useState("");
   const [ready, setReady] = useState(false);
   const [hasPermission, setHasPermission] = useState(false);
+  const [lang, setLang] = useState(0);
 
   useEffect(() => {
     startUp();
@@ -18,10 +19,19 @@ const CodesContextProvider = (props) => {
   const startUp = async () => {
     try {
       const readCodes = await SecureStore.getItemAsync("qrkeeper");
-      let parsed = JSON.parse(readCodes);
-      if (Array.isArray(parsed)) {
-        setCodes(parsed);
+      const readLang = await SecureStore.getItemAsync("qrkeeperLang");
+      let parsedCodes = JSON.parse(readCodes);
+      let parsedLang = JSON.parse(readLang);
+      if (Array.isArray(parsedCodes)) {
+        setCodes(parsedCodes);
         setReady(true);
+      }
+      if (!parsedLang) {
+        setLang(0);
+        SecureStore.setItemAsync("qrkeeperLang", String(0));
+      } else if (parsedLang) {
+        setLang(parsedLang);
+        SecureStore.setItemAsync("qrkeeperLang", String(parsedLang));
       }
     } catch (e) {
       console.warn(e);
@@ -46,6 +56,8 @@ const CodesContextProvider = (props) => {
         setReady,
         hasPermission,
         setHasPermission,
+        lang,
+        setLang,
       }}
     >
       {props.children}
