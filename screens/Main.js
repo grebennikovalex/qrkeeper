@@ -165,6 +165,7 @@ function Main({ navigation, route }) {
           alignItems: "center",
           justifyContent: "space-between",
           paddingTop: 20,
+          height: Dimensions.get("screen").height,
         }}
       >
         <View
