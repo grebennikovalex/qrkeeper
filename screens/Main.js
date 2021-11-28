@@ -22,7 +22,7 @@ import QRCode from "react-native-qrcode-svg";
 import Button from "../components/Button";
 import styles from "../styles";
 import { colors } from "../colors";
-import { mainTexts, btnTitles, modalMessages } from "../texts";
+import { texts } from "../texts";
 import BurgerMenu from "../components/BurgerMenu";
 
 function Main({ navigation, route }) {
@@ -79,11 +79,11 @@ function Main({ navigation, route }) {
             <View style={{ flex: 1 }}></View>
             <View>
               <Text style={styles.text400}>
-                {mainTexts[lang].emptyScreenFirstLine}
+                {texts[lang].emptyScreenFirstLine}
               </Text>
               <Text> </Text>
               <Text style={styles.text400}>
-                {mainTexts[lang].emptyScreenSecondLine}
+                {texts[lang].emptyScreenSecondLine}
               </Text>
             </View>
             <View style={styles.arrowBody}>
@@ -146,7 +146,7 @@ function Main({ navigation, route }) {
           <View>
             {codes.length ? (
               <Text>
-                {pageNum} {mainTexts[lang].of} {codes.length}
+                {pageNum} {texts[lang].of} {codes.length}
               </Text>
             ) : null}
           </View>
@@ -164,7 +164,7 @@ function Main({ navigation, route }) {
           flex: 1,
           alignItems: "center",
           justifyContent: "space-between",
-          marginTop: 36,
+          paddingTop: 20,
         }}
       >
         <View
@@ -177,6 +177,7 @@ function Main({ navigation, route }) {
             borderColor: colors.background,
           }}
         ></View>
+
         <View style={{ padding: 20 }}>
           <Text
             style={[
@@ -184,17 +185,17 @@ function Main({ navigation, route }) {
               { color: colors.background, textAlign: "left" },
             ]}
           >
-            {modalMessages[lang].initialMessage}
+            {texts[lang].initialMessage}
           </Text>
         </View>
 
         <TouchableHighlight
           underlayColor={colors.background}
-          style={styles.modalMessage}
+          style={[styles.modalMessage, { marginBottom: 0 }]}
           onPress={() => setStart(false)}
         >
           <Text style={[styles.textBold, { color: colors.green }]}>
-            {btnTitles[lang].ok}
+            {texts[lang].ok}
           </Text>
         </TouchableHighlight>
       </Modal>

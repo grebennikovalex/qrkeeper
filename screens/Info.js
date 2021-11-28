@@ -13,7 +13,7 @@ import * as Linking from "expo-linking";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../styles";
 import { colors } from "../colors";
-import { texts, infoCardTexts } from "../texts";
+import { texts } from "../texts";
 import Button from "../components/Button";
 
 function Info({ navigation }) {
@@ -84,7 +84,7 @@ function Info({ navigation }) {
       >
         <FlatList
           ref={infoRef}
-          data={texts[lang]}
+          data={texts[lang].infoTexts}
           showsHorizontalScrollIndicator={false}
           horizontal={true}
           pagingEnabled={true}
@@ -117,17 +117,17 @@ function Info({ navigation }) {
               >
                 <Text
                   style={styles.infoText}
-                >{`${infoCardTexts[lang].ver} 0.1.0`}</Text>
+                >{`${texts[lang].ver} 0.1.0`}</Text>
                 <Text
                   style={[styles.infoText, { textDecorationLine: "underline" }]}
                   onPress={() => {
-                    Linking.openURL(infoCardTexts[lang].link);
+                    Linking.openURL(texts[lang].link);
                   }}
                 >
-                  {infoCardTexts[lang].link}
+                  {texts[lang].link}
                 </Text>
                 <Text style={[styles.infoText, { marginVertical: 10 }]}>
-                  {infoCardTexts[lang].dev}
+                  {texts[lang].dev}
                 </Text>
                 <TouchableOpacity
                   style={[styles.infoBtn, { marginVertical: 10 }]}

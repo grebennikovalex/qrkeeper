@@ -16,7 +16,7 @@ import Modal from "react-native-modal";
 import Button from "../components/Button";
 import styles from "../styles";
 import { colors } from "../colors";
-import { btnTitles, modalMessages, mainTexts } from "../texts";
+import { texts } from "../texts";
 import QRCode from "react-native-qrcode-svg";
 
 function Edit({ navigation, route }) {
@@ -74,10 +74,10 @@ function Edit({ navigation, route }) {
       setCodes(updatedCodes);
       navigation.navigate("Main", { moveCodes: false });
     } else if (!name) {
-      setMessage(modalMessages[lang].noNameMessage);
+      setMessage(texts[lang].noNameMessage);
       setModalOpen(true);
     } else if (!link) {
-      setMessage(modalMessages[lang].emptyLinkMessage);
+      setMessage(texts[lang].emptyLinkMessage);
       setModalOpen(true);
     }
   };
@@ -105,7 +105,7 @@ function Edit({ navigation, route }) {
       >
         <TextInput
           style={styles.textInput}
-          placeholder={mainTexts[lang].namePlaceHolder}
+          placeholder={texts[lang].namePlaceHolder}
           placeholderTextColor={colors.inactive}
           onChangeText={(text) => {
             setName(text);
@@ -145,7 +145,7 @@ function Edit({ navigation, route }) {
                 fontSize: 14,
                 color: colors.secondary,
               }}
-              placeholder={mainTexts[lang].linkPlaceHolder}
+              placeholder={texts[lang].linkPlaceHolder}
               placeholderTextColor={colors.inactive}
               onChangeText={(text) => {
                 setLink(text);
@@ -160,7 +160,7 @@ function Edit({ navigation, route }) {
             <Button
               bold={true}
               type={btn ? "green" : "inactive"}
-              title={btnTitles[lang].save}
+              title={texts[lang].save}
               topOffset={20}
               onPress={save}
             />
@@ -170,7 +170,7 @@ function Edit({ navigation, route }) {
                   bold={true}
                   topOffset={20}
                   type="red"
-                  title={btnTitles[lang].delete}
+                  title={texts[lang].delete}
                   onPress={() => removeCode()}
                 />
               </View>
@@ -179,7 +179,7 @@ function Edit({ navigation, route }) {
                   bold={true}
                   topOffset={20}
                   type="secondary"
-                  title={btnTitles[lang].goBack}
+                  title={texts[lang].goBack}
                   onPress={() =>
                     navigation.navigate("Main", { moveCodes: false })
                   }
@@ -209,7 +209,7 @@ function Edit({ navigation, route }) {
           onPress={() => setModalOpen(false)}
         >
           <Text style={[styles.textBold, { color: colors.red }]}>
-            {btnTitles[lang].okay}
+            {texts[lang].okay}
           </Text>
         </TouchableHighlight>
       </Modal>

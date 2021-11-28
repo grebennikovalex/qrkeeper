@@ -6,7 +6,7 @@ import { Camera } from "expo-camera";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../styles";
 import { colors } from "../colors";
-import { btnTitles, modalMessages } from "../texts";
+import { texts } from "../texts";
 
 const d = Dimensions.get("screen").width * 0.8;
 
@@ -27,17 +27,17 @@ function Scan({ navigation }) {
       setScanned(true);
       setLink(data);
       setModalOpen(true);
-      setMessage(modalMessages[lang].successScan);
+      setMessage(texts[lang].successScan);
       navigation.navigate("AddCode");
     } catch {
       setModalOpen(true);
-      setMessage(modalMessages[lang].faliureScreenShot);
+      setMessage(texts[lang].faliureScreenShot);
       navigation.navigate("AddCode");
     }
   };
 
   if (hasPermission === null) {
-    return <Text>{modalMessages[lang].permissionProcess}</Text>;
+    return <Text>{texts[lang].permissionProcess}</Text>;
   }
 
   if (hasPermission === false) {
@@ -59,7 +59,7 @@ function Scan({ navigation }) {
                 { color: colors.red, textAlign: "left" },
               ]}
             >
-              {modalMessages[lang].cameraPermission}
+              {texts[lang].cameraPermission}
             </Text>
           </View>
           <TouchableHighlight
@@ -70,7 +70,7 @@ function Scan({ navigation }) {
             }}
           >
             <Text style={[styles.textBold, { color: colors.red }]}>
-              {btnTitles[lang].ok}
+              {texts[lang].ok}
             </Text>
           </TouchableHighlight>
         </View>
@@ -179,7 +179,7 @@ function Scan({ navigation }) {
                 { color: colors.primary, fontSize: 18, textAlign: "center" },
               ]}
             >
-              {modalMessages[lang].scanMessage}
+              {texts[lang].scanMessage}
             </Text>
           </View>
           <TouchableHighlight
@@ -188,7 +188,7 @@ function Scan({ navigation }) {
             onPress={() => navigation.goBack()}
           >
             <Text style={[styles.textBold, { color: colors.primary }]}>
-              {btnTitles[lang].goBack}
+              {texts[lang].goBack}
             </Text>
           </TouchableHighlight>
         </View>

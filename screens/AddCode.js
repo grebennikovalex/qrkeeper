@@ -14,7 +14,7 @@ import * as SecureStore from "expo-secure-store";
 import Button from "../components/Button";
 import styles from "../styles";
 import { colors } from "../colors";
-import { btnTitles, modalMessages, mainTexts } from "../texts";
+import { texts } from "../texts";
 import QRCode from "react-native-qrcode-svg";
 import * as DocumentPicker from "expo-document-picker";
 import { BarCodeScanner } from "expo-barcode-scanner";
@@ -59,7 +59,6 @@ function AddCode({ navigation }) {
     });
     const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
       setHideBtns(false);
-      setManualInput(false);
     });
 
     return () => {
@@ -85,7 +84,7 @@ function AddCode({ navigation }) {
       setLink("");
       navigation.navigate("Main", { moveCodes: true });
     } else {
-      setMessage(modalMessages[lang].noNameMessage);
+      setMessage(texts[lang].noNameMessage);
       setNoticeOpen(true);
     }
   };
@@ -99,7 +98,7 @@ function AddCode({ navigation }) {
         if (read.length === 1) {
           setLink(read[0].data);
           setModalOpen(true);
-          setMessage(modalMessages[lang].successScreenShot);
+          setMessage(texts[lang].successScreenShot);
         } else if (read.length > 1) {
           setModalOpen(true);
           read.map((code, i) => {
@@ -110,14 +109,14 @@ function AddCode({ navigation }) {
             };
             setCodes((oldCodes) => [...oldCodes, obj]);
           });
-          setMessage(modalMessages[lang].severalCodes);
+          setMessage(texts[lang].severalCodes);
         } else {
           setNoticeOpen(true);
-          setMessage(modalMessages[lang].faliureScreenShot);
+          setMessage(texts[lang].faliureScreenShot);
         }
       } catch {
         setNoticeOpen(true);
-        setMessage(modalMessages[lang].faliureScreenShot);
+        setMessage(texts[lang].faliureScreenShot);
       }
     }
   };
@@ -142,7 +141,7 @@ function AddCode({ navigation }) {
           <View>
             <TextInput
               style={styles.textInput}
-              placeholder={mainTexts[lang].namePlaceHolder}
+              placeholder={texts[lang].namePlaceHolder}
               placeholderTextColor={colors.inactive}
               onChangeText={(text) => setName(text)}
               onFocus={() => setHideBtns(true)}
@@ -165,7 +164,7 @@ function AddCode({ navigation }) {
               <>
                 <Button
                   type="white"
-                  title={btnTitles[lang].scan}
+                  title={texts[lang].scan}
                   topOffset={20}
                   onPress={() => {
                     navigation.navigate("Scan");
@@ -176,7 +175,7 @@ function AddCode({ navigation }) {
                 />
                 <Button
                   type="white"
-                  title={btnTitles[lang].screenShot}
+                  title={texts[lang].screenShot}
                   topOffset={20}
                   onPress={() => pick()}
                   icon={
@@ -185,40 +184,16 @@ function AddCode({ navigation }) {
                 />
               </>
             )}
-            {!manualInput ? (
-              <Button
-                type="white"
-                title={btnTitles[lang].manualEnter}
-                topOffset={20}
-                onPress={() => {
-                  setHideBtns(true);
-                  setManualInput(true);
-                }}
-                icon={<LinkIcon fill={colors.primary} width={24} height={24} />}
-              />
-            ) : (
-              <View>
-                <Text
-                  style={[
-                    styles.text400,
-                    { fontSize: 16, textAlign: "center" },
-                  ]}
-                >
-                  {mainTexts[lang].enterLink}
-                </Text>
-                <TextInput
-                  autoFocus={true}
-                  style={[styles.textInput, { marginTop: 20 }]}
-                  placeholder="https://..."
-                  placeholderTextColor={colors.inactive}
-                  onChangeText={(text) => setManualValue(text)}
-                  onEndEditing={() => {
-                    setManualInput(false);
-                    setLink(manualValue);
-                  }}
-                />
-              </View>
-            )}
+
+            <Button
+              type="white"
+              title={texts[lang].manualEnter}
+              topOffset={20}
+              onPress={() => {
+                setManualInput(true);
+              }}
+              icon={<LinkIcon fill={colors.primary} width={24} height={24} />}
+            />
           </View>
         )}
         {!hideBtns && (
@@ -227,7 +202,7 @@ function AddCode({ navigation }) {
               <Button
                 bold={true}
                 type={name ? "green" : "inactive"}
-                title={btnTitles[lang].save}
+                title={texts[lang].save}
                 topOffset={20}
                 onPress={() => {
                   save();
@@ -238,7 +213,7 @@ function AddCode({ navigation }) {
               bold={true}
               topOffset={20}
               type="secondary"
-              title={btnTitles[lang].goBack}
+              title={texts[lang].goBack}
               onPress={() => {
                 setLink("");
                 navigation.navigate("Main", { moveCodes: false });
@@ -270,7 +245,7 @@ function AddCode({ navigation }) {
           onPress={() => setModalOpen(false)}
         >
           <Text style={[styles.textBold, { color: colors.green }]}>
-            {btnTitles[lang].ok}
+            {texts[lang].ok}
           </Text>
         </TouchableHighlight>
       </Modal>
@@ -293,9 +268,61 @@ function AddCode({ navigation }) {
           onPress={() => setNoticeOpen(false)}
         >
           <Text style={[styles.textBold, { color: colors.red }]}>
-            {btnTitles[lang].okay}
+            {texts[lang].okay}
           </Text>
         </TouchableHighlight>
+      </Modal>
+      <Modal
+        isVisible={manualInput}
+        backdropColor={"#ccc"}
+        backdropOpacity={0.7}
+        useNativeDriver={true}
+      >
+        <View style={styles.modalMessage}>
+          <Text style={[styles.text400, { color: colors.secondary }]}>
+            {texts[lang].enterLink}
+          </Text>
+          <TextInput
+            autoFocus={true}
+            multiline
+            style={{ color: colors.green }}
+            placeholder="https://..."
+            placeholderTextColor={colors.inactive}
+            onChangeText={(text) => setManualValue(text)}
+          />
+        </View>
+        <View style={{ flexDirection: "row", width: "100%" }}>
+          <TouchableHighlight
+            underlayColor={colors.background}
+            style={[
+              styles.modalMessage,
+              { flex: 1, width: "auto", marginRight: 10 },
+            ]}
+            onPress={() => {
+              setLink("");
+              setManualInput(false);
+            }}
+          >
+            <Text style={[styles.textBold, { color: colors.secondary }]}>
+              {texts[lang].goBack}
+            </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor={colors.background}
+            style={[
+              styles.modalMessage,
+              { flex: 1, width: "auto", marginLeft: 10 },
+            ]}
+            onPress={() => {
+              setLink(manualValue);
+              setManualInput(false);
+            }}
+          >
+            <Text style={[styles.textBold, { color: colors.green }]}>
+              {texts[lang].ok}
+            </Text>
+          </TouchableHighlight>
+        </View>
       </Modal>
       <StatusBar style="auto" />
     </View>

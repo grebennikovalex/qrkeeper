@@ -10,7 +10,7 @@ const CodesContextProvider = (props) => {
   const [message, setMessage] = useState("");
   const [ready, setReady] = useState(false);
   const [hasPermission, setHasPermission] = useState(false);
-  const [lang, setLang] = useState(0);
+  const [lang, setLang] = useState(1);
 
   useEffect(() => {
     startUp();
@@ -21,17 +21,16 @@ const CodesContextProvider = (props) => {
       const readCodes = await SecureStore.getItemAsync("qrkeeper");
       const readLang = await SecureStore.getItemAsync("qrkeeperLang");
       let parsedCodes = JSON.parse(readCodes);
-      let parsedLang = JSON.parse(readLang);
       if (Array.isArray(parsedCodes)) {
         setCodes(parsedCodes);
         setReady(true);
       }
-      if (!parsedLang) {
-        setLang(0);
-        SecureStore.setItemAsync("qrkeeperLang", String(0));
-      } else if (parsedLang) {
-        setLang(parsedLang);
-        SecureStore.setItemAsync("qrkeeperLang", String(parsedLang));
+      if (!readLang) {
+        setLang(1);
+        SecureStore.setItemAsync("qrkeeperLang", "1");
+      } else if (readLang) {
+        setLang(Number(readLang));
+        SecureStore.setItemAsync("qrkeeperLang", readLang);
       }
     } catch (e) {
       console.warn(e);
