@@ -32,7 +32,7 @@ function Info({ navigation }) {
   const Balls = () => {
     let balls = [];
 
-    for (let i = 1; i <= texts.length + 1; i++) {
+    for (let i = 1; i <= texts.length; i++) {
       let ball = pageNum === i ? 8 : 4;
       balls.push(ball);
     }
