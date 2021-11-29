@@ -29,7 +29,7 @@ function Settings({ navigation }) {
                   key={language.id}
                   type="primary"
                   bold
-                  topOffset={i === languages.length - 1 ? 20 : 0}
+                  topOffset={i === 0 ? 0 : 20}
                   title={language.langName}
                   onPress={() => selectionHandler(language.id)}
                 />

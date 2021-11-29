@@ -13,18 +13,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "versionCode": 2,
-      "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE"
-      ],
+      "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/app_icon_img.png",
         "backgroundImage": "./assets/app_icon_bg.png",
