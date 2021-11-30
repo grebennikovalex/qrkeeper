@@ -27,7 +27,7 @@ export const ua = {
   link: "http://qrkeeper.ru/ua",
   dev: "Розробка та дізайн:",
   save: "Зберегти",
-  delete: "Вилучити",
+  delete: "Видалити",
   goBack: "Назад",
   scan: "Сканувати код",
   screenShot: "Скріншот / PDF",
