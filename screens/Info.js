@@ -21,10 +21,6 @@ function Info({ navigation }) {
   const infoRef = useRef();
   const [pageNum, setPageNum] = useState(1);
 
-  useEffect(() => {
-    console.log(texts);
-  }, []);
-
   const onScrollEnd = (e) => {
     let contentOffset = e.nativeEvent.contentOffset;
     let viewSize = e.nativeEvent.layoutMeasurement;

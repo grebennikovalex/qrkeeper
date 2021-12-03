@@ -83,7 +83,10 @@ function Button({
   else if (type === "secondary")
     return (
       <TouchableOpacity
-        style={[styles.barSecondary, { marginTop: topOffset }]}
+        style={[
+          styles.barSecondary,
+          { marginTop: topOffset, backgroundColor: colors.foreground },
+        ]}
         onPress={onPress}
       >
         <Text
