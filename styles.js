@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("screen").width - 40,
     borderRadius: 20,
     elevation: 10,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
   },
 
   burgerMenuContainer: {

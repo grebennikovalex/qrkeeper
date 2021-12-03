@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -21,6 +21,10 @@ function Info({ navigation }) {
   const infoRef = useRef();
   const [pageNum, setPageNum] = useState(1);
 
+  useEffect(() => {
+    console.log(texts);
+  }, []);
+
   const onScrollEnd = (e) => {
     let contentOffset = e.nativeEvent.contentOffset;
     let viewSize = e.nativeEvent.layoutMeasurement;
@@ -32,7 +36,7 @@ function Info({ navigation }) {
   const Balls = () => {
     let balls = [];
 
-    for (let i = 1; i <= texts.length; i++) {
+    for (let i = 1; i <= texts[lang].infoTexts.length + 1; i++) {
       let ball = pageNum === i ? 8 : 4;
       balls.push(ball);
     }

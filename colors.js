@@ -1,6 +1,7 @@
 export const colors = {
   primary: "#5D5FEF",
-  background: "#ffffff",
+  background: "#eeeeee",
+  foreground: "#ffffff",
   secondary: "#4f4f4f",
   inactive: "#eeeeee",
   qrmain: "#000000",
