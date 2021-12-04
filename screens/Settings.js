@@ -71,7 +71,7 @@ const localStyles = StyleSheet.create({
     padding: 40,
     marginHorizontal: 20,
     marginHorizontal: 20,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
     borderRadius: 20,
     elevation: 10,
   },

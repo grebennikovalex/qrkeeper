@@ -83,7 +83,10 @@ function Button({
   else if (type === "secondary")
     return (
       <TouchableOpacity
-        style={[styles.barSecondary, { marginTop: topOffset }]}
+        style={[
+          styles.barSecondary,
+          { marginTop: topOffset, backgroundColor: colors.foreground },
+        ]}
         onPress={onPress}
       >
         <Text
@@ -174,7 +177,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
     elevation: 10,
   },
 
@@ -205,7 +208,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
     borderWidth: 1,
     borderColor: colors.red,
   },
@@ -226,7 +229,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
     borderWidth: 1,
     borderColor: colors.inactive,
   },
@@ -239,7 +242,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
     elevation: 10,
   },
 });

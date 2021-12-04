@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     height: 60,
     elevation: 10,
     borderRadius: 20,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
     fontSize: 24,
     paddingHorizontal: 24,
     color: colors.secondary,
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("screen").width - 40,
     borderRadius: 20,
     elevation: 10,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
   },
 
   burgerMenuContainer: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     width: "100%",
     elevation: 10,
     borderRadius: 20,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
     paddingHorizontal: 20,
     paddingVertical: 10,
     marginVertical: 10,
@@ -117,8 +117,7 @@ const styles = StyleSheet.create({
     left: "59%",
     top: -14,
     height: "100%",
-
-    borderColor: colors.inactive,
+    borderColor: colors.secondary,
   },
 
   arrow: {
@@ -129,7 +128,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     bottom: 4,
     right: -16,
-    borderColor: colors.inactive,
+    borderColor: colors.secondary,
     transform: [{ rotate: "45deg" }],
   },
 });

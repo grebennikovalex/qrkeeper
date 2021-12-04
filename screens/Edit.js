@@ -88,7 +88,9 @@ function Edit({ navigation, route }) {
   };
 
   return (
-    <View style={styles.screenContainer}>
+    <View
+      style={[styles.screenContainer, { backgroundColor: colors.foreground }]}
+    >
       <View style={stylesLocal.qrHolder}>
         <QRCode
           value={code.link}
@@ -234,14 +236,14 @@ const stylesLocal = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 10,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
     elevation: 10,
     borderRadius: 20,
   },
   pasteBtn: {
     position: "absolute",
     right: 10,
-    backgroundColor: colors.background,
+    backgroundColor: colors.foreground,
     padding: 10,
     borderRadius: 10,
   },

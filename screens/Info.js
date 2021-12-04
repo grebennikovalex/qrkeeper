@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -32,7 +32,7 @@ function Info({ navigation }) {
   const Balls = () => {
     let balls = [];
 
-    for (let i = 1; i <= texts.length; i++) {
+    for (let i = 1; i <= texts[lang].infoTexts.length + 1; i++) {
       let ball = pageNum === i ? 8 : 4;
       balls.push(ball);
     }

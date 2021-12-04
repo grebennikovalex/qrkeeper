@@ -122,7 +122,9 @@ function AddCode({ navigation }) {
   };
 
   return (
-    <View style={styles.screenContainer}>
+    <View
+      style={[styles.screenContainer, { backgroundColor: colors.foreground }]}
+    >
       <View style={stylesLocal.qrHolder}>
         <QRCode
           value={code ? code : RickRoll}
