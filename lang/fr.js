@@ -34,7 +34,7 @@ Développement et design:`,
   scan: "Scanner le code",
   screenShot: "Capture d'écran / PDF",
   manualEnter: "Entrer manuellement",
-  okay: "Ok",
+  okay: "D'accord",
   ok: "Ok",
   of: "De",
   emptyScreenFirstLine:
