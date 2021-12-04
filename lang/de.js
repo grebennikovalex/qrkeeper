@@ -25,7 +25,9 @@ Um zwischen Ihren Code-Kärtchen zu navigieren, wischen Sie nach links und recht
   ],
   ver: "Version",
   link: "http://qrkeeper.ru/de",
-  dev: "App-Entwicklung und Design:",
+  dev: `Übersetzung 🇩🇪: Anna Sennikovskaya.
+
+App-Entwicklung und Design:`,
   save: "Speichern",
   delete: "Löschen",
   goBack: "Zurück",
