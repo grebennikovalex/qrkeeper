@@ -2,7 +2,6 @@ import "react-native-gesture-handler";
 import React, { useState, useEffect, useContext, useCallback } from "react";
 import { View, Text } from "react-native";
 import * as Font from "expo-font";
-import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -78,7 +77,6 @@ export default function App() {
           <Stack.Screen name="Scan" component={Scan} />
           <Stack.Screen name="Settings" component={Settings} />
         </Stack.Navigator>
-        {/* <StatusBar style="auto" /> */}
       </NavigationContainer>
     </CodesContextProvider>
   );

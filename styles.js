@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   text400: {
     fontFamily: "regular",
     fontSize: 24,

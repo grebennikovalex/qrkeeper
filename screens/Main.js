@@ -26,7 +26,7 @@ import { texts } from "../texts";
 import BurgerMenu from "../components/BurgerMenu";
 
 function Main({ navigation, route }) {
-  const { codes, ready, lang } = useContext(CodesContext);
+  const { codes, ready, lang, theme } = useContext(CodesContext);
   const { moveCodes } = route.params;
 
   const [pageNum, setPageNum] = useState(1);

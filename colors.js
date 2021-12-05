@@ -1,4 +1,5 @@
 export const colors = {
+  //light
   primary: "#5D5FEF",
   background: "#eeeeee",
   foreground: "#ffffff",
@@ -7,4 +8,9 @@ export const colors = {
   qrmain: "#000000",
   red: "#EF5D5D",
   green: "#2CA87B",
+  //dark
+  darkBackground: "#4F4F4F",
+  darkForeground: "#595959",
+  darkPrimary: "#7896FF",
+  darckQrmain: "#ffffff",
 };

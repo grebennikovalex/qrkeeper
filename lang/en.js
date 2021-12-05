@@ -61,4 +61,6 @@ Please, try again`,
   permissionProcess: "Asking for the access to the device's camera",
   language: "Language",
   selectLanguage: "Select language",
+  darkMode: "Dark mode",
+  lightMode: "Light mode",
 };

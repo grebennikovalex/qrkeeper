@@ -11,6 +11,7 @@ const CodesContextProvider = (props) => {
   const [ready, setReady] = useState(false);
   const [hasPermission, setHasPermission] = useState(false);
   const [lang, setLang] = useState(1);
+  const [theme, setTheme] = useState(false);
 
   useEffect(() => {
     startUp();
@@ -57,6 +58,8 @@ const CodesContextProvider = (props) => {
         setHasPermission,
         lang,
         setLang,
+        theme,
+        setTheme,
       }}
     >
       {props.children}

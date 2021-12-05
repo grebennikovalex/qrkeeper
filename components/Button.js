@@ -15,11 +15,18 @@ function Button({
   leftOffset = 0,
   bold = false,
   icon,
+  theme = true,
 }) {
   if (type === "plus")
     return (
       <TouchableOpacity
-        style={[styles.round, { marginLeft: leftOffset }]}
+        style={[
+          styles.round,
+          {
+            marginLeft: leftOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <PlusIcon color={colors.primary} width={24} height={24} />
@@ -28,7 +35,13 @@ function Button({
   else if (type === "burger")
     return (
       <TouchableOpacity
-        style={[styles.round, { marginLeft: leftOffset }]}
+        style={[
+          styles.round,
+          {
+            marginLeft: leftOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <BurgerIcon color={colors.primary} width={24} height={24} />
@@ -37,7 +50,13 @@ function Button({
   else if (type === "question")
     return (
       <TouchableOpacity
-        style={[styles.round, { marginLeft: leftOffset }]}
+        style={[
+          styles.round,
+          {
+            marginLeft: leftOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <QuestionIcon color={colors.primary} width={15} height={24} />
@@ -46,7 +65,13 @@ function Button({
   else if (type === "cog")
     return (
       <TouchableOpacity
-        style={[styles.round, { marginLeft: leftOffset }]}
+        style={[
+          styles.round,
+          {
+            marginLeft: leftOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <CogIcon color={colors.primary} width={24} height={25} />
@@ -55,7 +80,13 @@ function Button({
   else if (type === "chevron")
     return (
       <TouchableOpacity
-        style={[styles.round, { marginLeft: leftOffset }]}
+        style={[
+          styles.round,
+          {
+            marginLeft: leftOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <ChevronIcon color={colors.primary} width={20} height={24} />
@@ -64,14 +95,20 @@ function Button({
   else if (type === "primary")
     return (
       <TouchableOpacity
-        style={[styles.barPrimary, { marginTop: topOffset }]}
+        style={[
+          styles.barPrimary,
+          {
+            marginTop: topOffset,
+            backgroundColor: theme ? colors.primary : colors.darkPrimary,
+          },
+        ]}
         onPress={onPress}
       >
         <Text
           style={[
             styles.text,
             {
-              color: colors.background,
+              color: theme ? colors.background : colors.d,
               fontFamily: bold ? "black" : "regular",
             },
           ]}
@@ -85,14 +122,20 @@ function Button({
       <TouchableOpacity
         style={[
           styles.barSecondary,
-          { marginTop: topOffset, backgroundColor: colors.foreground },
+          {
+            marginTop: topOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
         ]}
         onPress={onPress}
       >
         <Text
           style={[
             styles.text,
-            { color: colors.primary, fontFamily: bold ? "black" : "regular" },
+            {
+              color: theme ? colors.primary : colors.darkPrimary,
+              fontFamily: bold ? "black" : "regular",
+            },
           ]}
         >
           {title}
@@ -177,7 +220,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: colors.foreground,
+
     elevation: 10,
   },
 
@@ -187,7 +230,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.primary,
+
     elevation: 10,
   },
 
