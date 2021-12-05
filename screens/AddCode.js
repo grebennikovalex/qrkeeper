@@ -34,6 +34,7 @@ function AddCode({ navigation }) {
     message,
     setMessage,
     lang,
+    theme,
   } = useContext(CodesContext);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
@@ -123,13 +124,17 @@ function AddCode({ navigation }) {
 
   return (
     <View
-      style={[styles.screenContainer, { backgroundColor: colors.foreground }]}
+      style={[
+        styles.screenContainer,
+        { backgroundColor: theme ? colors.background : colors.darkBackground },
+      ]}
     >
       <View style={stylesLocal.qrHolder}>
         <QRCode
           value={code ? code : RickRoll}
           size={Dimensions.get("screen").width - 120}
           color={code ? colors.qrmain : colors.inactive}
+          backgroundColor={"rgba(0,0,0,0)"}
         />
       </View>
       <View
@@ -212,6 +217,7 @@ function AddCode({ navigation }) {
               />
             ) : null}
             <Button
+              theme={theme}
               bold={true}
               topOffset={20}
               type="secondary"

@@ -61,6 +61,6 @@ export const ru = {
   permissionProcess: "Запрос разрешения на использование камеры",
   language: "Язык",
   selectLanguage: "Выберите язык",
-  darkMode: "Темный режим",
-  lightMode: "Светлый режим",
+  darkMode: "Темный",
+  lightMode: "Светлый",
 };

@@ -1,7 +1,7 @@
 export const colors = {
   //light
   primary: "#5D5FEF",
-  background: "#eeeeee",
+  background: "#FAFAFA",
   foreground: "#ffffff",
   secondary: "#4f4f4f",
   inactive: "#eeeeee",
@@ -12,5 +12,7 @@ export const colors = {
   darkBackground: "#4F4F4F",
   darkForeground: "#595959",
   darkPrimary: "#7896FF",
-  darckQrmain: "#ffffff",
+  darkSecondary: "#ffffff",
+  darkQrmain: "#ffffff",
+  darkInactive: "#595959",
 };

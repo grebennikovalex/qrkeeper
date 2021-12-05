@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, Switch } from "react-native";
 import { CodesContext } from "../context";
+import { StatusBar } from "expo-status-bar";
 import * as SecureStore from "expo-secure-store";
 import Button from "../components/Button";
 import styles from "../styles";
@@ -101,10 +102,10 @@ function Settings({ navigation }) {
             <Text
               style={{
                 textAlign: "center",
-                fontFamily: "black",
+                fontFamily: theme ? "black" : "regular",
                 fontSize: 18,
                 marginTop: 20,
-                color: theme ? colors.secondary : colors.darckQrmain,
+                color: theme ? colors.secondary : colors.darkQrmain,
               }}
             >
               {texts[lang].selectLanguage}
@@ -119,6 +120,7 @@ function Settings({ navigation }) {
           onPress={() => navigation.goBack()}
         />
       </View>
+      <StatusBar style={theme ? "dark" : "light"} />
     </View>
   );
 }

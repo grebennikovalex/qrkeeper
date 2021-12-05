@@ -220,7 +220,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-
     elevation: 10,
   },
 
@@ -230,7 +229,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-
     elevation: 10,
   },
 
