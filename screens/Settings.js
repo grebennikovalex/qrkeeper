@@ -45,7 +45,7 @@ function Settings({ navigation }) {
               return (
                 <Button
                   key={language.id}
-                  type="primary"
+                  type="language"
                   bold
                   topOffset={i === 0 ? 0 : 20}
                   title={language.langName}
@@ -94,22 +94,11 @@ function Settings({ navigation }) {
             </View>
             <Button
               theme={theme}
-              type="secondary"
+              type="settings"
               topOffset={20}
               title={`${texts[lang].language}: ${languages[lang].langName}`}
               onPress={() => setSelect(true)}
             />
-            <Text
-              style={{
-                textAlign: "center",
-                fontFamily: theme ? "black" : "regular",
-                fontSize: 18,
-                marginTop: 20,
-                color: theme ? colors.secondary : colors.darkQrmain,
-              }}
-            >
-              {texts[lang].selectLanguage}
-            </Text>
           </View>
         )}
       </View>
@@ -142,12 +131,12 @@ const localStyles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     height: 60,
-    borderRadius: 20,
+    borderRadius: 10,
     borderWidth: 1,
   },
 
   switchText: {
-    fontSize: 24,
+    fontSize: 18,
     paddingHorizontal: 20,
   },
 });

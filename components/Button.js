@@ -92,6 +92,31 @@ function Button({
         <ChevronIcon color={colors.primary} width={20} height={24} />
       </TouchableOpacity>
     );
+  else if (type === "language")
+    return (
+      <TouchableOpacity
+        style={[
+          styles.barLanguage,
+          {
+            marginTop: topOffset,
+            backgroundColor: theme ? colors.primary : colors.darkPrimary,
+          },
+        ]}
+        onPress={onPress}
+      >
+        <Text
+          style={[
+            styles.textSettings,
+            {
+              color: theme ? colors.background : colors.d,
+              fontFamily: bold ? "black" : "regular",
+            },
+          ]}
+        >
+          {title}
+        </Text>
+      </TouchableOpacity>
+    );
   else if (type === "primary")
     return (
       <TouchableOpacity
@@ -132,6 +157,31 @@ function Button({
         <Text
           style={[
             styles.text,
+            {
+              color: theme ? colors.primary : colors.darkPrimary,
+              fontFamily: bold ? "black" : "regular",
+            },
+          ]}
+        >
+          {title}
+        </Text>
+      </TouchableOpacity>
+    );
+    else if (type === "settings")
+    return (
+      <TouchableOpacity
+        style={[
+          styles.barSettings,
+          {
+            marginTop: topOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
+        onPress={onPress}
+      >
+        <Text
+          style={[
+            styles.textSettings,
             {
               color: theme ? colors.primary : colors.darkPrimary,
               fontFamily: bold ? "black" : "regular",
@@ -214,12 +264,25 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "black",
   },
+  textSettings: {
+    fontSize: 18,
+    fontFamily: "black",
+  },
   round: {
     alignItems: "center",
     justifyContent: "center",
     width: 50,
     height: 50,
     borderRadius: 25,
+    elevation: 10,
+  },
+
+  barLanguage: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: 60,
+    borderRadius: 10,
     elevation: 10,
   },
 
@@ -242,6 +305,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.primary,
   },
+
+  barSettings: {
+    alignItems: "flex-start",
+    justifyContent: "center",
+    width: "100%",
+    height: 60,
+    borderRadius: 10,
+    backgroundColor: colors.background,
+    borderWidth: 1,
+    borderColor: colors.primary,
+    paddingHorizontal: 20
+  },
+ 
 
   barRed: {
     alignItems: "center",
