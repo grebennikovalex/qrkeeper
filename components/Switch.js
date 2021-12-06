@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { TouchableOpacity, StyleSheet, View } from "react-native";
 import { colors } from "../colors";
 
 function Switch({ value, onChangeValue }) {
-  const [changeState, setChangeState] = useState(value);
   return (
     <TouchableOpacity
       style={[
         styles.switchContainer,
         { borderColor: !value ? colors.darkPrimary : colors.primary },
       ]}
-      onPress={() => {
-        setChangeState((bool) => !bool);
-        onChangeValue(changeState);
-      }}
+      onPress={() => onChangeValue(!value)}
     >
       <View
         style={[
@@ -40,17 +36,12 @@ const styles = StyleSheet.create({
     padding: 2.5,
     marginRight: 20,
   },
-  switchContainerActive: {
-    justifyContent: "flex-end",
-  },
+
   switchCircle: {
     width: 20,
     height: 20,
     borderWidth: 1,
     borderRadius: 10,
-  },
-  switchCircleActive: {
-    borderWidth: 0,
   },
 });
 
