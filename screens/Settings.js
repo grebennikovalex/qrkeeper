@@ -4,6 +4,7 @@ import { CodesContext } from "../context";
 import { StatusBar } from "expo-status-bar";
 import * as SecureStore from "expo-secure-store";
 import Button from "../components/Button";
+import SwitchTheme from "../components/SwtichTheme";
 import styles from "../styles";
 import { colors } from "../colors";
 import { texts } from "../texts";
@@ -84,13 +85,9 @@ function Settings({ navigation }) {
               >
                 {theme ? texts[lang].lightMode : texts[lang].darkMode}
               </Text>
-              <Switch
-                style={{ marginRight: 10 }}
-                thumbColor={theme ? colors.foreground : colors.darkPrimary}
-                trackColor={theme ? colors.primary : colors.darkForeground}
-                value={theme}
-                onValueChange={() => setTheme((bool) => !bool)}
-              />
+              <SwitchTheme
+                value={theme ? true : false}
+                onPress={() => setTheme((bool) => !bool)}/>
             </View>
             <Button
               theme={theme}
