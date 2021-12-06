@@ -15,7 +15,6 @@ function Switch({ value, onChangeValue }) {
         style={[
           styles.switchCircle,
           {
-            borderColor: !value ? colors.darkPrimary : colors.primary,
             left: value ? 0 : 23,
             backgroundColor: value ? colors.primary : colors.darkPrimary,
           },
@@ -40,7 +39,6 @@ const styles = StyleSheet.create({
   switchCircle: {
     width: 20,
     height: 20,
-    borderWidth: 1,
     borderRadius: 10,
   },
 });
