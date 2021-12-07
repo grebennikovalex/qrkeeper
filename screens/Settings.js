@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
-import { View, Text, StyleSheet, Switch } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { CodesContext } from "../context";
 import { StatusBar } from "expo-status-bar";
 import * as SecureStore from "expo-secure-store";
 import Button from "../components/Button";
-import SwitchTheme from "../components/SwtichTheme";
+import Switch from "../components/Switch";
 import styles from "../styles";
 import { colors } from "../colors";
 import { texts } from "../texts";
@@ -85,9 +85,7 @@ function Settings({ navigation }) {
               >
                 {theme ? texts[lang].lightMode : texts[lang].darkMode}
               </Text>
-              <SwitchTheme
-                value={theme ? true : false}
-                onPress={() => setTheme((bool) => !bool)}/>
+              <Switch value={theme} onChangeValue={(p) => setTheme(p)} />
             </View>
             <Button
               theme={theme}
