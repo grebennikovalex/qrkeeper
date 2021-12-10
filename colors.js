@@ -14,5 +14,5 @@ export const colors = {
   darkPrimary: "#7896FF",
   darkSecondary: "#ffffff",
   darkQrmain: "#ffffff",
-  darkInactive: "#595959",
+  darkInactive: "#676767",
 };

@@ -13,6 +13,7 @@ import Edit from "./screens/Edit";
 import Info from "./screens/Info";
 import Scan from "./screens/Scan";
 import Settings from "./screens/Settings";
+import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 const Stack = createStackNavigator();
 
@@ -64,7 +65,9 @@ export default function App() {
         <Stack.Navigator
           initialRouteName="Main"
           backBehavior="order"
-          screenOptions={{ headerMode: "none" }}
+          screenOptions={{ 
+            headerMode: "none",
+           }}
         >
           <Stack.Screen
             name="Main"

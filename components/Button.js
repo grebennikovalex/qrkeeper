@@ -149,7 +149,7 @@ function Button({
           styles.barSecondary,
           {
             marginTop: topOffset,
-            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+            borderColor: theme ? colors.primary : colors.darkPrimary,
           },
         ]}
         onPress={onPress}
@@ -173,8 +173,9 @@ function Button({
         style={[
           styles.barSettings,
           {
+            borderColor: theme ? colors.primary : colors.darkPrimary,
+            backgroundColor: "transparent",
             marginTop: topOffset,
-            backgroundColor: theme ? colors.foreground : colors.darkForeground,
           },
         ]}
         onPress={onPress}
@@ -229,11 +230,15 @@ function Button({
     );
   else if (type === "inactive")
     return (
-      <View style={[styles.inactive, { marginTop: topOffset }]}>
+      <View style={[styles.inactive, { 
+        borderColor: theme ? colors.inactive : colors.darkInactive,
+        marginTop: topOffset
+         }]}>
         <Text
           style={[
             styles.text,
-            { color: colors.inactive, fontFamily: bold ? "black" : "regular" },
+            { color: theme ? colors.inactive : colors.darkInactive,
+              fontFamily: bold ? "black" : "regular" },
           ]}
         >
           {title}
@@ -243,13 +248,17 @@ function Button({
   else if (type === "white")
     return (
       <TouchableOpacity
-        style={[styles.white, { marginTop: topOffset }]}
+          style={[styles.white, { 
+          marginTop: topOffset,
+          backgroundColor: theme ? colors.foreground : colors.darkForeground,
+         }]}
         onPress={onPress}
       >
         <Text
           style={[
             styles.text,
-            { color: colors.secondary, fontFamily: "regular" },
+            { color: theme ? colors.secondary : colors.darkSecondary, 
+              fontFamily: "regular" },
           ]}
         >
           {title}
@@ -301,9 +310,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.background,
     borderWidth: 1,
-    borderColor: colors.primary,
   },
 
   barSettings: {
@@ -325,7 +332,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.foreground,
     borderWidth: 1,
     borderColor: colors.red,
   },
@@ -346,9 +352,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.foreground,
     borderWidth: 1,
-    borderColor: colors.inactive,
   },
 
   white: {
@@ -359,7 +363,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.foreground,
     elevation: 10,
   },
 });

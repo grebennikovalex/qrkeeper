@@ -38,7 +38,7 @@ function Settings({ navigation }) {
               {
                 backgroundColor: theme
                   ? colors.foreground
-                  : colors.darkBackground,
+                  : colors.darkForeground,
               },
             ]}
           >
@@ -62,7 +62,7 @@ function Settings({ navigation }) {
               {
                 backgroundColor: theme
                   ? colors.foreground
-                  : colors.darkBackground,
+                  : colors.darkForeground,
               },
             ]}
           >
@@ -70,9 +70,6 @@ function Settings({ navigation }) {
               style={[
                 localStyles.switchContainer,
                 {
-                  backgroundColor: theme
-                    ? colors.foreground
-                    : colors.darkForeground,
                   borderColor: theme ? colors.primary : colors.darkPrimary,
                 },
               ]}
