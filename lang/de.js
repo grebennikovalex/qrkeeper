@@ -60,6 +60,5 @@ Versuchen Sie es nochmal `,
   permissionProcess: "Anfrage zum Kamerazugriff",
   language: "Sprache",
   selectLanguage: "Wählen Sie die Sprache aus",
-  darkMode: "Темный режим",
-  lightMode: "Светлый режим",
+  darkMode: "Dunkelmodus",
 };

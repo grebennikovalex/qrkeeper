@@ -14,10 +14,14 @@ function Settings({ navigation }) {
   const { lang, setLang, theme, setTheme } = useContext(CodesContext);
   const [select, setSelect] = useState(false);
 
-  const selectionHandler = (id) => {
+  const selectionLang = (id) => {
     SecureStore.setItemAsync("qrkeeperLang", String(id));
     setLang(id);
     setSelect(false);
+  };
+
+  const selectionTheme = (bool) => {
+    SecureStore.setItemAsync("qrkeeperTheme", bool ? "light" : "dark");
   };
 
   return (
@@ -50,7 +54,7 @@ function Settings({ navigation }) {
                   bold
                   topOffset={i === 0 ? 0 : 20}
                   title={language.langName}
-                  onPress={() => selectionHandler(language.id)}
+                  onPress={() => selectionLang(language.id)}
                 />
               );
             })}
@@ -80,9 +84,15 @@ function Settings({ navigation }) {
                   { color: theme ? colors.primary : colors.darkPrimary },
                 ]}
               >
-                {theme ? texts[lang].lightMode : texts[lang].darkMode}
+                {texts[lang].darkMode}
               </Text>
-              <Switch value={theme} onChangeValue={(p) => setTheme(p)} />
+              <Switch
+                value={theme}
+                onChangeValue={(p) => {
+                  setTheme(p);
+                  selectionTheme(p);
+                }}
+              />
             </View>
             <Button
               theme={theme}

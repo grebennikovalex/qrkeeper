@@ -62,5 +62,4 @@ export const ru = {
   language: "Язык",
   selectLanguage: "Выберите язык",
   darkMode: "Темный режим",
-  lightMode: "Светлый",
 };

@@ -62,6 +62,5 @@ Réessayer`,
   permissionProcess: "Demande d'access à la caméra",
   language: "Langue",
   selectLanguage: "Choisissez une langue",
-  darkMode: "Темный режим",
-  lightMode: "Светлый режим",
+  darkMode: "Mode sombre",
 };

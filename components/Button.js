@@ -74,7 +74,12 @@ function Button({
         ]}
         onPress={onPress}
       >
-        <CogIcon color={colors.primary} width={24} height={25} />
+        <CogIcon
+          color={colors.primary}
+          width={24}
+          height={25}
+          style={{ top: 1 }}
+        />
       </TouchableOpacity>
     );
   else if (type === "chevron")
@@ -167,7 +172,7 @@ function Button({
         </Text>
       </TouchableOpacity>
     );
-    else if (type === "settings")
+  else if (type === "settings")
     return (
       <TouchableOpacity
         style={[
@@ -230,15 +235,22 @@ function Button({
     );
   else if (type === "inactive")
     return (
-      <View style={[styles.inactive, { 
-        borderColor: theme ? colors.inactive : colors.darkInactive,
-        marginTop: topOffset
-         }]}>
+      <View
+        style={[
+          styles.inactive,
+          {
+            borderColor: theme ? colors.inactive : colors.darkInactive,
+            marginTop: topOffset,
+          },
+        ]}
+      >
         <Text
           style={[
             styles.text,
-            { color: theme ? colors.inactive : colors.darkInactive,
-              fontFamily: bold ? "black" : "regular" },
+            {
+              color: theme ? colors.inactive : colors.darkInactive,
+              fontFamily: bold ? "black" : "regular",
+            },
           ]}
         >
           {title}
@@ -248,17 +260,22 @@ function Button({
   else if (type === "white")
     return (
       <TouchableOpacity
-          style={[styles.white, { 
-          marginTop: topOffset,
-          backgroundColor: theme ? colors.foreground : colors.darkForeground,
-         }]}
+        style={[
+          styles.white,
+          {
+            marginTop: topOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <Text
           style={[
             styles.text,
-            { color: theme ? colors.secondary : colors.darkSecondary, 
-              fontFamily: "regular" },
+            {
+              color: theme ? colors.secondary : colors.darkSecondary,
+              fontFamily: "regular",
+            },
           ]}
         >
           {title}
@@ -322,9 +339,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     borderWidth: 1,
     borderColor: colors.primary,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
- 
 
   barRed: {
     alignItems: "center",

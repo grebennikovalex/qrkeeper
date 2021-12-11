@@ -62,5 +62,4 @@ Please, try again`,
   language: "Language",
   selectLanguage: "Select language",
   darkMode: "Dark mode",
-  lightMode: "Light mode",
 };

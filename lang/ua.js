@@ -60,6 +60,5 @@ export const ua = {
   permissionProcess: "Запит дозволу на використання камери",
   language: "Мова",
   selectLanguage: "Виберіть мову",
-  darkMode: "Темный режим",
-  lightMode: "Светлый режим",
+  darkMode: "Темний режим",
 };
