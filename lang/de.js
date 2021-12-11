@@ -55,10 +55,12 @@ Der hinzugefügte Code: `,
   faliureScreenShot: `Der Code konnte nicht erkannt werden 😥
 Versuchen Sie es nochmal `,
   severalCodes: "Es wurden mehrere Codes gefunden 👍",
-  emptyLinkMessage: "Informationsfelder in dem QR Code dürfen nicht leer sein. 🙄",
+  emptyLinkMessage:
+    "Informationsfelder in dem QR Code dürfen nicht leer sein. 🙄",
   cameraPermission:
     "Geben Sie der App Zugriff auf die Kamera Ihres Geräts. Sonst kann nichts gescannt werden. 🙄",
   permissionProcess: "Anfrage zum Kamerazugriff",
   language: "Sprache",
   selectLanguage: "Wählen Sie die Sprache aus",
+  darkMode: "Dunkelmodus",
 };

@@ -15,11 +15,18 @@ function Button({
   leftOffset = 0,
   bold = false,
   icon,
+  theme = true,
 }) {
   if (type === "plus")
     return (
       <TouchableOpacity
-        style={[styles.round, { marginLeft: leftOffset }]}
+        style={[
+          styles.round,
+          {
+            marginLeft: leftOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <PlusIcon color={colors.primary} width={24} height={24} />
@@ -28,7 +35,13 @@ function Button({
   else if (type === "burger")
     return (
       <TouchableOpacity
-        style={[styles.round, { marginLeft: leftOffset }]}
+        style={[
+          styles.round,
+          {
+            marginLeft: leftOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <BurgerIcon color={colors.primary} width={24} height={24} />
@@ -37,7 +50,13 @@ function Button({
   else if (type === "question")
     return (
       <TouchableOpacity
-        style={[styles.round, { marginLeft: leftOffset }]}
+        style={[
+          styles.round,
+          {
+            marginLeft: leftOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <QuestionIcon color={colors.primary} width={15} height={24} />
@@ -46,32 +65,80 @@ function Button({
   else if (type === "cog")
     return (
       <TouchableOpacity
-        style={[styles.round, { marginLeft: leftOffset }]}
+        style={[
+          styles.round,
+          {
+            marginLeft: leftOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
-        <CogIcon color={colors.primary} width={24} height={25} />
+        <CogIcon
+          color={colors.primary}
+          width={24}
+          height={25}
+          style={{ top: 1 }}
+        />
       </TouchableOpacity>
     );
   else if (type === "chevron")
     return (
       <TouchableOpacity
-        style={[styles.round, { marginLeft: leftOffset }]}
+        style={[
+          styles.round,
+          {
+            marginLeft: leftOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <ChevronIcon color={colors.primary} width={20} height={24} />
       </TouchableOpacity>
     );
+  else if (type === "language")
+    return (
+      <TouchableOpacity
+        style={[
+          styles.barLanguage,
+          {
+            marginTop: topOffset,
+            backgroundColor: theme ? colors.primary : colors.darkPrimary,
+          },
+        ]}
+        onPress={onPress}
+      >
+        <Text
+          style={[
+            styles.textSettings,
+            {
+              color: theme ? colors.background : colors.d,
+              fontFamily: bold ? "black" : "regular",
+            },
+          ]}
+        >
+          {title}
+        </Text>
+      </TouchableOpacity>
+    );
   else if (type === "primary")
     return (
       <TouchableOpacity
-        style={[styles.barPrimary, { marginTop: topOffset }]}
+        style={[
+          styles.barPrimary,
+          {
+            marginTop: topOffset,
+            backgroundColor: theme ? colors.primary : colors.darkPrimary,
+          },
+        ]}
         onPress={onPress}
       >
         <Text
           style={[
             styles.text,
             {
-              color: colors.background,
+              color: theme ? colors.background : colors.d,
               fontFamily: bold ? "black" : "regular",
             },
           ]}
@@ -85,14 +152,46 @@ function Button({
       <TouchableOpacity
         style={[
           styles.barSecondary,
-          { marginTop: topOffset, backgroundColor: colors.foreground },
+          {
+            marginTop: topOffset,
+            borderColor: theme ? colors.primary : colors.darkPrimary,
+          },
         ]}
         onPress={onPress}
       >
         <Text
           style={[
             styles.text,
-            { color: colors.primary, fontFamily: bold ? "black" : "regular" },
+            {
+              color: theme ? colors.primary : colors.darkPrimary,
+              fontFamily: bold ? "black" : "regular",
+            },
+          ]}
+        >
+          {title}
+        </Text>
+      </TouchableOpacity>
+    );
+  else if (type === "settings")
+    return (
+      <TouchableOpacity
+        style={[
+          styles.barSettings,
+          {
+            borderColor: theme ? colors.primary : colors.darkPrimary,
+            backgroundColor: "transparent",
+            marginTop: topOffset,
+          },
+        ]}
+        onPress={onPress}
+      >
+        <Text
+          style={[
+            styles.textSettings,
+            {
+              color: theme ? colors.primary : colors.darkPrimary,
+              fontFamily: bold ? "black" : "regular",
+            },
           ]}
         >
           {title}
@@ -136,11 +235,22 @@ function Button({
     );
   else if (type === "inactive")
     return (
-      <View style={[styles.inactive, { marginTop: topOffset }]}>
+      <View
+        style={[
+          styles.inactive,
+          {
+            borderColor: theme ? colors.inactive : colors.darkInactive,
+            marginTop: topOffset,
+          },
+        ]}
+      >
         <Text
           style={[
             styles.text,
-            { color: colors.inactive, fontFamily: bold ? "black" : "regular" },
+            {
+              color: theme ? colors.inactive : colors.darkInactive,
+              fontFamily: bold ? "black" : "regular",
+            },
           ]}
         >
           {title}
@@ -150,13 +260,22 @@ function Button({
   else if (type === "white")
     return (
       <TouchableOpacity
-        style={[styles.white, { marginTop: topOffset }]}
+        style={[
+          styles.white,
+          {
+            marginTop: topOffset,
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+          },
+        ]}
         onPress={onPress}
       >
         <Text
           style={[
             styles.text,
-            { color: colors.secondary, fontFamily: "regular" },
+            {
+              color: theme ? colors.secondary : colors.darkSecondary,
+              fontFamily: "regular",
+            },
           ]}
         >
           {title}
@@ -171,13 +290,25 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "black",
   },
+  textSettings: {
+    fontSize: 18,
+    fontFamily: "black",
+  },
   round: {
     alignItems: "center",
     justifyContent: "center",
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: colors.foreground,
+    elevation: 10,
+  },
+
+  barLanguage: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: 60,
+    borderRadius: 10,
     elevation: 10,
   },
 
@@ -187,7 +318,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.primary,
     elevation: 10,
   },
 
@@ -197,9 +327,19 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
+    borderWidth: 1,
+  },
+
+  barSettings: {
+    alignItems: "flex-start",
+    justifyContent: "center",
+    width: "100%",
+    height: 60,
+    borderRadius: 10,
     backgroundColor: colors.background,
     borderWidth: 1,
     borderColor: colors.primary,
+    paddingHorizontal: 20,
   },
 
   barRed: {
@@ -208,7 +348,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.foreground,
     borderWidth: 1,
     borderColor: colors.red,
   },
@@ -229,9 +368,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.foreground,
     borderWidth: 1,
-    borderColor: colors.inactive,
   },
 
   white: {
@@ -242,7 +379,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     borderRadius: 20,
-    backgroundColor: colors.foreground,
     elevation: 10,
   },
 });

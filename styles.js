@@ -8,10 +8,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   text400: {
     fontFamily: "regular",
     fontSize: 24,
-    color: colors.secondary,
   },
 
   textInput: {
@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
   textBold: {
     fontSize: 24,
     fontFamily: "black",
-    color: colors.secondary,
     textAlign: "center",
   },
 
@@ -55,7 +54,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get("screen").width - 40,
     borderRadius: 20,
     elevation: 10,
-    backgroundColor: colors.foreground,
   },
 
   burgerMenuContainer: {
@@ -117,7 +115,6 @@ const styles = StyleSheet.create({
     left: "59%",
     top: -14,
     height: "100%",
-    borderColor: colors.secondary,
   },
 
   arrow: {
@@ -128,7 +125,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     bottom: 4,
     right: -16,
-    borderColor: colors.secondary,
     transform: [{ rotate: "45deg" }],
   },
 });

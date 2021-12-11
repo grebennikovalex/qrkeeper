@@ -26,7 +26,7 @@ import { texts } from "../texts";
 import BurgerMenu from "../components/BurgerMenu";
 
 function Main({ navigation, route }) {
-  const { codes, ready, lang } = useContext(CodesContext);
+  const { codes, ready, lang, theme } = useContext(CodesContext);
   const { moveCodes } = route.params;
 
   const [pageNum, setPageNum] = useState(1);
@@ -71,23 +71,54 @@ function Main({ navigation, route }) {
   };
 
   return (
-    <View style={styles.screenContainer}>
-      {ready && <StatusBar style="auto" />}
+    <View
+      style={[
+        styles.screenContainer,
+        { backgroundColor: theme ? colors.background : colors.darkBackground },
+      ]}
+    >
+      {ready && <StatusBar style={theme ? "dark" : "light"} />}
       <View style={{ flex: 1, justifyContent: "center", width: "100%" }}>
         {ready && !codes.length ? (
           <View style={{ flex: 1, marginHorizontal: 40 }}>
             <View style={{ flex: 1 }}></View>
             <View>
-              <Text style={styles.text400}>
+              <Text
+                style={[
+                  styles.text400,
+                  { color: theme ? colors.secondary : colors.darkSecondary },
+                ]}
+              >
                 {texts[lang].emptyScreenFirstLine}
               </Text>
               <Text> </Text>
-              <Text style={styles.text400}>
+              <Text
+                style={[
+                  styles.text400,
+                  { color: theme ? colors.secondary : colors.darkSecondary },
+                ]}
+              >
                 {texts[lang].emptyScreenSecondLine}
               </Text>
             </View>
-            <View style={styles.arrowBody}>
-              <View style={styles.arrow}></View>
+            <View
+              style={[
+                styles.arrowBody,
+                {
+                  borderColor: theme ? colors.secondary : colors.darkSecondary,
+                },
+              ]}
+            >
+              <View
+                style={[
+                  styles.arrow,
+                  {
+                    borderColor: theme
+                      ? colors.secondary
+                      : colors.darkSecondary,
+                  },
+                ]}
+              ></View>
             </View>
           </View>
         ) : null}
@@ -102,7 +133,16 @@ function Main({ navigation, route }) {
               keyExtractor={(item) => item.id}
               onScroll={(e) => onScrollEnd(e)}
               renderItem={({ item, index }) => (
-                <View style={styles.QRCard}>
+                <View
+                  style={[
+                    styles.QRCard,
+                    {
+                      backgroundColor: theme
+                        ? colors.foreground
+                        : colors.darkForeground,
+                    },
+                  ]}
+                >
                   <View
                     style={{
                       flex: 3,
@@ -118,7 +158,8 @@ function Main({ navigation, route }) {
                       <QRCode
                         value={item.link}
                         size={Dimensions.get("screen").width - 120}
-                        color={colors.qrmain}
+                        color={theme ? colors.qrmain : colors.darkQrmain}
+                        backgroundColor={"rgba(0,0,0,0)"}
                       />
                     </TouchableOpacity>
                   </View>
@@ -129,7 +170,18 @@ function Main({ navigation, route }) {
                       justifyContent: "center",
                     }}
                   >
-                    <Text style={styles.textBold}>{item.name}</Text>
+                    <Text
+                      style={[
+                        styles.textBold,
+                        {
+                          color: theme
+                            ? colors.secondary
+                            : colors.darkSecondary,
+                        },
+                      ]}
+                    >
+                      {item.name}
+                    </Text>
                   </View>
                 </View>
               )}
@@ -139,21 +191,28 @@ function Main({ navigation, route }) {
       </View>
       <View style={styles.bottomMenu}>
         <Button
+          theme={theme}
           type={burgerOpen ? "burger" : "chevron"}
           onPress={() => setBurgerOpen((bool) => !bool)}
         />
         {burgerOpen ? (
           <View>
             {codes.length ? (
-              <Text>
+              <Text
+                style={{ color: theme ? colors.qrmain : colors.darkQrmain }}
+              >
                 {pageNum} {texts[lang].of} {codes.length}
               </Text>
             ) : null}
           </View>
         ) : (
-          <BurgerMenu navigation={navigation} />
+          <BurgerMenu navigation={navigation} theme={theme} />
         )}
-        <Button type="plus" onPress={() => navigation.navigate("AddCode")} />
+        <Button
+          theme={theme}
+          type="plus"
+          onPress={() => navigation.navigate("AddCode")}
+        />
       </View>
       <Modal
         isVisible={start}

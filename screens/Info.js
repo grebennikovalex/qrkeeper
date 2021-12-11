@@ -17,7 +17,7 @@ import { texts } from "../texts";
 import Button from "../components/Button";
 
 function Info({ navigation }) {
-  const { lang } = useContext(CodesContext);
+  const { lang, theme } = useContext(CodesContext);
   const infoRef = useRef();
   const [pageNum, setPageNum] = useState(1);
 
@@ -67,7 +67,12 @@ function Info({ navigation }) {
   };
 
   return (
-    <View style={styles.screenContainer}>
+    <View
+      style={[
+        styles.screenContainer,
+        { backgroundColor: theme ? colors.background : colors.darkBackground },
+      ]}
+    >
       <LinearGradient
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 1 }}
@@ -170,9 +175,13 @@ function Info({ navigation }) {
       </LinearGradient>
 
       <View style={styles.bottomMenu}>
-        <Button type="chevron" onPress={() => navigation.goBack()} />
+        <Button
+          theme={theme}
+          type="chevron"
+          onPress={() => navigation.goBack()}
+        />
       </View>
-      <StatusBar style="auto" />
+      <StatusBar style="inverted" />
     </View>
   );
 }

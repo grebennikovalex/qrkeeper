@@ -34,6 +34,7 @@ function AddCode({ navigation }) {
     message,
     setMessage,
     lang,
+    theme,
   } = useContext(CodesContext);
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
@@ -123,13 +124,17 @@ function AddCode({ navigation }) {
 
   return (
     <View
-      style={[styles.screenContainer, { backgroundColor: colors.foreground }]}
+      style={[
+        styles.screenContainer,
+        { backgroundColor: theme ? colors.background : colors.darkBackground },
+      ]}
     >
       <View style={stylesLocal.qrHolder}>
         <QRCode
           value={code ? code : RickRoll}
           size={Dimensions.get("screen").width - 120}
-          color={code ? colors.qrmain : colors.inactive}
+          color={theme ? (code ? colors.qrmain : colors.inactive) : (code ? colors.darkQrmain : colors.darkInactive)}
+          backgroundColor={"rgba(0,0,0,0)"}
         />
       </View>
       <View
@@ -142,9 +147,13 @@ function AddCode({ navigation }) {
         {link ? (
           <View>
             <TextInput
-              style={styles.textInput}
+              style={[styles.textInput, {
+                backgroundColor: theme ? colors.foreground : colors.darkForeground,
+                color: theme ? colors.secondary : colors.darkSecondary
+              }
+              ]}
               placeholder={texts[lang].namePlaceHolder}
-              placeholderTextColor={colors.inactive}
+              placeholderTextColor={theme ? colors.inactive : colors.darkInactive}
               onChangeText={(text) => setName(text)}
               onFocus={() => setHideBtns(true)}
             />
@@ -165,6 +174,7 @@ function AddCode({ navigation }) {
             {!hideBtns && (
               <>
                 <Button
+                  theme={theme}
                   type="white"
                   title={texts[lang].scan}
                   topOffset={20}
@@ -172,29 +182,31 @@ function AddCode({ navigation }) {
                     navigation.navigate("Scan");
                   }}
                   icon={
-                    <PhotoIcon fill={colors.primary} width={24} height={24} />
+                    <PhotoIcon fill={theme ? colors.primary : colors.darkPrimary} width={24} height={24} />
                   }
                 />
                 <Button
+                  theme={theme}
                   type="white"
                   title={texts[lang].screenShot}
                   topOffset={20}
                   onPress={() => pick()}
                   icon={
-                    <DocIcon fill={colors.primary} width={24} height={24} />
+                    <DocIcon fill={theme ? colors.primary : colors.darkPrimary} width={24} height={24} />
                   }
                 />
               </>
             )}
 
             <Button
+              theme={theme}
               type="white"
               title={texts[lang].manualEnter}
               topOffset={20}
               onPress={() => {
                 setManualInput(true);
               }}
-              icon={<LinkIcon fill={colors.primary} width={24} height={24} />}
+              icon={<LinkIcon fill={theme ? colors.primary : colors.darkPrimary} width={24} height={24} />}
             />
           </View>
         )}
@@ -202,6 +214,7 @@ function AddCode({ navigation }) {
           <>
             {link ? (
               <Button
+                theme={theme}
                 bold={true}
                 type={name ? "green" : "inactive"}
                 title={texts[lang].save}
@@ -212,6 +225,7 @@ function AddCode({ navigation }) {
               />
             ) : null}
             <Button
+              theme={theme}
               bold={true}
               topOffset={20}
               type="secondary"
@@ -226,11 +240,11 @@ function AddCode({ navigation }) {
       </View>
       <Modal
         isVisible={modalOpen}
-        backdropColor={"#ccc"}
-        backdropOpacity={0.7}
+        backdropColor={"#4F4F4F"}
+        backdropOpacity={0.75}
         useNativeDriver={true}
       >
-        <View style={styles.modalMessage}>
+        <View style={[styles.modalMessage]}>
           <Text
             style={[
               styles.textBold,
@@ -253,8 +267,8 @@ function AddCode({ navigation }) {
       </Modal>
       <Modal
         isVisible={noticeOpen}
-        backdropColor={"#ccc"}
-        backdropOpacity={0.7}
+        backdropColor={"#4F4F4F"}
+        backdropOpacity={0.75}
         useNativeDriver={true}
       >
         <View style={styles.modalMessage}>
@@ -276,8 +290,8 @@ function AddCode({ navigation }) {
       </Modal>
       <Modal
         isVisible={manualInput}
-        backdropColor={"#ccc"}
-        backdropOpacity={0.7}
+        backdropColor={"#4F4F4F"}
+        backdropOpacity={0.75}
         useNativeDriver={true}
       >
         <View style={styles.modalMessage}>

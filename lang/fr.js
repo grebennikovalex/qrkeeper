@@ -55,10 +55,12 @@ Le lien a été ajouté: `,
   faliureScreenShot: `Impossible de reconnaître le code QR sur la photo 😥
 Réessayer`,
   severalCodes: "Plusieurs codes ont été trouvé 👍",
-  emptyLinkMessage: "Les informations contenues dans le code QR doivent être complètes.. 🙄",
+  emptyLinkMessage:
+    "Les informations contenues dans le code QR doivent être complètes.. 🙄",
   cameraPermission:
     "Autorisez l'application à accéder à votre appareil photo pour pouvoir scanner le code. 🙄",
   permissionProcess: "Demande d'access à la caméra",
   language: "Langue",
   selectLanguage: "Choisissez une langue",
+  darkMode: "Mode sombre",
 };

@@ -29,6 +29,7 @@ function Edit({ navigation, route }) {
     message,
     setMessage,
     lang,
+    theme,
   } = useContext(CodesContext);
 
   const [name, setName] = useState(code.name);
@@ -89,13 +90,14 @@ function Edit({ navigation, route }) {
 
   return (
     <View
-      style={[styles.screenContainer, { backgroundColor: colors.foreground }]}
+      style={[styles.screenContainer, { backgroundColor: theme ? colors.background : colors.darkBackground }]}
     >
       <View style={stylesLocal.qrHolder}>
         <QRCode
           value={code.link}
           size={Dimensions.get("screen").width - 120}
-          color={colors.qrmain}
+          color={theme ? colors.qrmain : colors.darkQrmain}
+          backgroundColor={"rgba(0,0,0,0)"}
         />
       </View>
       <View
@@ -106,9 +108,12 @@ function Edit({ navigation, route }) {
         }}
       >
         <TextInput
-          style={styles.textInput}
+          style={[styles.textInput, { 
+            backgroundColor: theme ? colors.foreground : colors.darkForeground,
+            color: theme ? colors.secondary : colors.darkSecondary
+           }]}
           placeholder={texts[lang].namePlaceHolder}
-          placeholderTextColor={colors.inactive}
+          placeholderTextColor={theme ? colors.inactive : colors.darkInactive}
           onChangeText={(text) => {
             setName(text);
             setBtn(true);
@@ -142,7 +147,7 @@ function Edit({ navigation, route }) {
               autoFocus={true}
               multiline
               style={{
-                backgroundColor: "transparent",
+
                 elevation: 0,
                 fontSize: 14,
                 color: colors.secondary,
@@ -162,6 +167,7 @@ function Edit({ navigation, route }) {
             <Button
               bold={true}
               type={btn ? "green" : "inactive"}
+              theme={theme}
               title={texts[lang].save}
               topOffset={20}
               onPress={save}
@@ -236,7 +242,6 @@ const stylesLocal = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 10,
-    backgroundColor: colors.foreground,
     elevation: 10,
     borderRadius: 20,
   },

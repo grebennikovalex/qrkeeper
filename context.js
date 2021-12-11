@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import * as SecureStore from "expo-secure-store";
+import { Appearance } from "react-native";
 
 export const CodesContext = createContext();
 
@@ -11,6 +12,7 @@ const CodesContextProvider = (props) => {
   const [ready, setReady] = useState(false);
   const [hasPermission, setHasPermission] = useState(false);
   const [lang, setLang] = useState(1);
+  const [theme, setTheme] = useState(true);
 
   useEffect(() => {
     startUp();
@@ -18,19 +20,37 @@ const CodesContextProvider = (props) => {
 
   const startUp = async () => {
     try {
-      const readCodes = await SecureStore.getItemAsync("qrkeeper");
-      const readLang = await SecureStore.getItemAsync("qrkeeperLang");
-      let parsedCodes = JSON.parse(readCodes);
-      if (Array.isArray(parsedCodes)) {
-        setCodes(parsedCodes);
-        setReady(true);
+      // const readTheme = await SecureStore.getItemAsync("qrkeeperTheme");
+      // if (!readTheme) {
+      //   setTheme(false);
+      // } else if (readTheme === "light") {
+      //   setTheme(true);
+      // } else if (readTheme === "dark") {
+      //   setTheme(false);
+      // }
+
+      const colorScheme = Appearance.getColorScheme();
+      console.log(colorScheme);
+      if (colorScheme === "dark") {
+        setTheme(false);
+      } else {
+        setTheme(true);
       }
+
+      const readLang = await SecureStore.getItemAsync("qrkeeperLang");
       if (!readLang) {
         setLang(1);
         SecureStore.setItemAsync("qrkeeperLang", "1");
       } else if (readLang) {
         setLang(Number(readLang));
         SecureStore.setItemAsync("qrkeeperLang", readLang);
+      }
+
+      const readCodes = await SecureStore.getItemAsync("qrkeeper");
+      let parsedCodes = JSON.parse(readCodes);
+      if (Array.isArray(parsedCodes)) {
+        setCodes(parsedCodes);
+        setReady(true);
       }
     } catch (e) {
       console.warn(e);
@@ -57,6 +77,8 @@ const CodesContextProvider = (props) => {
         setHasPermission,
         lang,
         setLang,
+        theme,
+        setTheme,
       }}
     >
       {props.children}
