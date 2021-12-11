@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import * as SecureStore from "expo-secure-store";
+import { Appearance } from "react-native";
 
 export const CodesContext = createContext();
 
@@ -19,13 +20,21 @@ const CodesContextProvider = (props) => {
 
   const startUp = async () => {
     try {
-      const readTheme = await SecureStore.getItemAsync("qrkeeperTheme");
-      if (!readTheme) {
+      // const readTheme = await SecureStore.getItemAsync("qrkeeperTheme");
+      // if (!readTheme) {
+      //   setTheme(false);
+      // } else if (readTheme === "light") {
+      //   setTheme(true);
+      // } else if (readTheme === "dark") {
+      //   setTheme(false);
+      // }
+
+      const colorScheme = Appearance.getColorScheme();
+      console.log(colorScheme);
+      if (colorScheme === "dark") {
         setTheme(false);
-      } else if (readTheme === "light") {
+      } else {
         setTheme(true);
-      } else if (readTheme === "dark") {
-        setTheme(false);
       }
 
       const readLang = await SecureStore.getItemAsync("qrkeeperLang");

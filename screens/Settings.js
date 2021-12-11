@@ -70,7 +70,7 @@ function Settings({ navigation }) {
               },
             ]}
           >
-            <View
+            {/* <View
               style={[
                 localStyles.switchContainer,
                 {
@@ -93,7 +93,7 @@ function Settings({ navigation }) {
                   selectionTheme(p);
                 }}
               />
-            </View>
+            </View> */}
             <Button
               theme={theme}
               type="settings"
