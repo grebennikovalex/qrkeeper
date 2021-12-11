@@ -30,7 +30,7 @@ const CodesContextProvider = (props) => {
       // }
 
       const colorScheme = Appearance.getColorScheme();
-      console.log(colorScheme);
+
       if (colorScheme === "dark") {
         setTheme(false);
       } else {

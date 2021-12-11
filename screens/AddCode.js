@@ -133,7 +133,15 @@ function AddCode({ navigation }) {
         <QRCode
           value={code ? code : RickRoll}
           size={Dimensions.get("screen").width - 120}
-          color={theme ? (code ? colors.qrmain : colors.inactive) : (code ? colors.darkQrmain : colors.darkInactive)}
+          color={
+            theme
+              ? code
+                ? colors.qrmain
+                : colors.inactive
+              : code
+              ? colors.darkQrmain
+              : colors.darkInactive
+          }
           backgroundColor={"rgba(0,0,0,0)"}
         />
       </View>
@@ -147,13 +155,19 @@ function AddCode({ navigation }) {
         {link ? (
           <View>
             <TextInput
-              style={[styles.textInput, {
-                backgroundColor: theme ? colors.foreground : colors.darkForeground,
-                color: theme ? colors.secondary : colors.darkSecondary
-              }
+              style={[
+                styles.textInput,
+                {
+                  backgroundColor: theme
+                    ? colors.foreground
+                    : colors.darkForeground,
+                  color: theme ? colors.secondary : colors.darkSecondary,
+                },
               ]}
               placeholder={texts[lang].namePlaceHolder}
-              placeholderTextColor={theme ? colors.inactive : colors.darkInactive}
+              placeholderTextColor={
+                theme ? colors.inactive : colors.darkInactive
+              }
               onChangeText={(text) => setName(text)}
               onFocus={() => setHideBtns(true)}
             />
@@ -182,7 +196,11 @@ function AddCode({ navigation }) {
                     navigation.navigate("Scan");
                   }}
                   icon={
-                    <PhotoIcon fill={theme ? colors.primary : colors.darkPrimary} width={24} height={24} />
+                    <PhotoIcon
+                      fill={theme ? colors.primary : colors.darkPrimary}
+                      width={24}
+                      height={24}
+                    />
                   }
                 />
                 <Button
@@ -192,7 +210,11 @@ function AddCode({ navigation }) {
                   topOffset={20}
                   onPress={() => pick()}
                   icon={
-                    <DocIcon fill={theme ? colors.primary : colors.darkPrimary} width={24} height={24} />
+                    <DocIcon
+                      fill={theme ? colors.primary : colors.darkPrimary}
+                      width={24}
+                      height={24}
+                    />
                   }
                 />
               </>
@@ -206,7 +228,13 @@ function AddCode({ navigation }) {
               onPress={() => {
                 setManualInput(true);
               }}
-              icon={<LinkIcon fill={theme ? colors.primary : colors.darkPrimary} width={24} height={24} />}
+              icon={
+                <LinkIcon
+                  fill={theme ? colors.primary : colors.darkPrimary}
+                  width={24}
+                  height={24}
+                />
+              }
             />
           </View>
         )}
