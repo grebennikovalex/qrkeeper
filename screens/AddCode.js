@@ -42,6 +42,7 @@ function AddCode({ navigation }) {
   const [noticeOpen, setNoticeOpen] = useState(false);
   const [manualInput, setManualInput] = useState(false);
   const [manualValue, setManualValue] = useState("");
+  const [pdf, setPdf] = useState(null);
 
   const RickRoll = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
@@ -94,6 +95,7 @@ function AddCode({ navigation }) {
     const result = await DocumentPicker.getDocumentAsync();
 
     if (result.type !== "cancel") {
+      setPdf(result.uri);
       try {
         const read = await BarCodeScanner.scanFromURLAsync(result.uri);
         if (read.length === 1) {
@@ -130,21 +132,26 @@ function AddCode({ navigation }) {
       ]}
     >
       <View style={stylesLocal.qrHolder}>
-        <QRCode
-          value={code ? code : RickRoll}
-          size={Dimensions.get("screen").width - 120}
-          color={
-            theme
-              ? code
-                ? colors.qrmain
-                : colors.inactive
-              : code
-              ? colors.darkQrmain
-              : colors.darkInactive
-          }
-          backgroundColor={"rgba(0,0,0,0)"}
-        />
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            width: Dimensions.get("screen").width - 80,
+            height: Dimensions.get("screen").width - 80,
+            top: -20,
+            backgroundColor: "white",
+            borderRadius: 20,
+          }}
+        >
+          <QRCode
+            value={code ? code : RickRoll}
+            size={Dimensions.get("screen").width - 120}
+            color={code ? colors.qrmain : colors.inactive}
+            backgroundColor={"rgba(0,0,0,0)"}
+          />
+        </View>
       </View>
+
       <View
         style={{
           justifyContent: "flex-end",

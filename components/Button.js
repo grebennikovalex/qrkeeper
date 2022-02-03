@@ -74,12 +74,7 @@ function Button({
         ]}
         onPress={onPress}
       >
-        <CogIcon
-          color={colors.primary}
-          width={24}
-          height={25}
-          style={{ top: 1 }}
-        />
+        <CogIcon color={colors.primary} width={24} height={25} />
       </TouchableOpacity>
     );
   else if (type === "chevron")

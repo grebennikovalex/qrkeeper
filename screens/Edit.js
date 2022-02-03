@@ -90,15 +90,30 @@ function Edit({ navigation, route }) {
 
   return (
     <View
-      style={[styles.screenContainer, { backgroundColor: theme ? colors.background : colors.darkBackground }]}
+      style={[
+        styles.screenContainer,
+        { backgroundColor: theme ? colors.background : colors.darkBackground },
+      ]}
     >
       <View style={stylesLocal.qrHolder}>
-        <QRCode
-          value={code.link}
-          size={Dimensions.get("screen").width - 120}
-          color={theme ? colors.qrmain : colors.darkQrmain}
-          backgroundColor={"rgba(0,0,0,0)"}
-        />
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            width: Dimensions.get("screen").width - 80,
+            height: Dimensions.get("screen").width - 80,
+            top: -20,
+            backgroundColor: "white",
+            borderRadius: 20,
+          }}
+        >
+          <QRCode
+            value={code.link}
+            size={Dimensions.get("screen").width - 120}
+            color={colors.qrmain}
+            backgroundColor={"rgba(0,0,0,0)"}
+          />
+        </View>
       </View>
       <View
         style={{
@@ -108,10 +123,15 @@ function Edit({ navigation, route }) {
         }}
       >
         <TextInput
-          style={[styles.textInput, { 
-            backgroundColor: theme ? colors.foreground : colors.darkForeground,
-            color: theme ? colors.secondary : colors.darkSecondary
-           }]}
+          style={[
+            styles.textInput,
+            {
+              backgroundColor: theme
+                ? colors.foreground
+                : colors.darkForeground,
+              color: theme ? colors.secondary : colors.darkSecondary,
+            },
+          ]}
           placeholder={texts[lang].namePlaceHolder}
           placeholderTextColor={theme ? colors.inactive : colors.darkInactive}
           onChangeText={(text) => {
@@ -147,7 +167,6 @@ function Edit({ navigation, route }) {
               autoFocus={true}
               multiline
               style={{
-
                 elevation: 0,
                 fontSize: 14,
                 color: colors.secondary,

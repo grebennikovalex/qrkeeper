@@ -63,4 +63,5 @@ Réessayer`,
   language: "Langue",
   selectLanguage: "Choisissez une langue",
   darkMode: "Mode sombre",
+  invert: "inverser",
 };

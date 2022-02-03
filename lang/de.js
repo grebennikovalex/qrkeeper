@@ -63,4 +63,5 @@ Versuchen Sie es nochmal `,
   language: "Sprache",
   selectLanguage: "Wählen Sie die Sprache aus",
   darkMode: "Dunkelmodus",
+  invert: "umkehren",
 };

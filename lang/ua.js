@@ -61,4 +61,5 @@ export const ua = {
   language: "Мова",
   selectLanguage: "Виберіть мову",
   darkMode: "Темний режим",
+  invert: "інвертувати",
 };

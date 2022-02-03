@@ -155,13 +155,51 @@ function Main({ navigation, route }) {
                         navigation.navigate("Edit", { code: item })
                       }
                     >
-                      <QRCode
-                        value={item.link}
-                        size={Dimensions.get("screen").width - 120}
-                        color={theme ? colors.qrmain : colors.darkQrmain}
-                        backgroundColor={"rgba(0,0,0,0)"}
-                      />
+                      <View
+                        style={{
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: Dimensions.get("screen").width - 80,
+                          height: Dimensions.get("screen").width - 80,
+                          top: -20,
+                          backgroundColor: "white",
+                          borderRadius: 20,
+                        }}
+                      >
+                        <QRCode
+                          value={item.link}
+                          size={Dimensions.get("screen").width - 120}
+                          color={colors.qrmain}
+                          backgroundColor={"rgba(0,0,0,0)"}
+                        />
+                      </View>
                     </TouchableOpacity>
+                    {/* {!theme && (
+                      <View
+                        style={{
+                          alignSelf: "center",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          top: inverted ? 0 : 40,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            marginRight: 10,
+                            fontFamily: "black",
+                            color: colors.darkSecondary,
+                          }}
+                        >
+                          {texts[lang].invert}
+                        </Text>
+                        <Switch
+                          value={inverted}
+                          onChangeValue={(p) => {
+                            setInverted(p);
+                          }}
+                        />
+                      </View>
+                    )} */}
                   </View>
                   <View
                     style={{
