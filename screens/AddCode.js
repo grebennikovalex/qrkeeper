@@ -139,7 +139,7 @@ function AddCode({ navigation }) {
             width: Dimensions.get("screen").width - 80,
             height: Dimensions.get("screen").width - 80,
             top: -20,
-            backgroundColor: "white",
+            backgroundColor: colors.foreground,
             borderRadius: 20,
           }}
         >
@@ -147,7 +147,7 @@ function AddCode({ navigation }) {
             value={code ? code : RickRoll}
             size={Dimensions.get("screen").width - 120}
             color={code ? colors.qrmain : colors.inactive}
-            backgroundColor={"rgba(0,0,0,0)"}
+            backgroundColor={colors.foreground}
           />
         </View>
       </View>

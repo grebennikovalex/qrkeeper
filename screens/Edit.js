@@ -103,7 +103,7 @@ function Edit({ navigation, route }) {
             width: Dimensions.get("screen").width - 80,
             height: Dimensions.get("screen").width - 80,
             top: -20,
-            backgroundColor: "white",
+            backgroundColor: colors.foreground,
             borderRadius: 20,
           }}
         >
@@ -111,7 +111,7 @@ function Edit({ navigation, route }) {
             value={code.link}
             size={Dimensions.get("screen").width - 120}
             color={colors.qrmain}
-            backgroundColor={"rgba(0,0,0,0)"}
+            backgroundColor={colors.foreground}
           />
         </View>
       </View>
