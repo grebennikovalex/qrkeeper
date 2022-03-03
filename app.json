@@ -10,6 +10,7 @@
       "resizeMode": "cover",
       "backgroundColor": "#5D5FEF"
     },
+    "userInterfaceStyle": "automatic",
     "updates": {
       "fallbackToCacheTimeout": 0
     },

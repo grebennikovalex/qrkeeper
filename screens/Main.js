@@ -162,15 +162,19 @@ function Main({ navigation, route }) {
                           width: Dimensions.get("screen").width - 80,
                           height: Dimensions.get("screen").width - 80,
                           top: -20,
-                          backgroundColor: colors.foreground,
+                          backgroundColor: theme
+                            ? colors.foreground
+                            : colors.foreground,
                           borderRadius: 20,
                         }}
                       >
                         <QRCode
                           value={item.link}
                           size={Dimensions.get("screen").width - 120}
-                          color={colors.qrmain}
-                          backgroundColor={colors.foreground}
+                          color={theme ? colors.qrmain : colors.qrmain}
+                          backgroundColor={
+                            theme ? colors.foreground : colors.foreground
+                          }
                         />
                       </View>
                     </TouchableOpacity>
