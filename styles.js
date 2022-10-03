@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     left: "59%",
     top: -14,
     height: "100%",
+    borderColor: colors.green,
   },
 
   arrow: {

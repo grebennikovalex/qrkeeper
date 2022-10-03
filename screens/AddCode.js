@@ -18,6 +18,7 @@ import { texts } from "../texts";
 import QRCode from "react-native-qrcode-svg";
 import * as DocumentPicker from "expo-document-picker";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import PdfThumbnail from "react-native-pdf-thumbnail";
 import Modal from "react-native-modal";
 import PhotoIcon from "../assets/PhotoIcon";
 import DocIcon from "../assets/DocIcon";
@@ -95,6 +96,12 @@ function AddCode({ navigation }) {
 
     if (result.type !== "cancel") {
       try {
+        if (result.mimeType.includes("pdf")) {
+          console.log("This is PDF");
+          console.log(result.uri);
+          const results = await PdfThumbnail.generateAllPages(result.uri);
+          console.log("Results: ", results);
+        }
         const read = await BarCodeScanner.scanFromURLAsync(result.uri);
         if (read.length === 1) {
           setLink(read[0].data);
